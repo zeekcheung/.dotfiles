@@ -1,0 +1,65 @@
+# shellcheck disable=SC1091,SC2034,SC2155
+
+# xdg
+export XDG_CACHE_HOME=$HOME/.cache
+export XDG_CONFIG_HOME=$HOME/.config
+export XDG_DATA_HOME=$HOME/.local/share
+export XDG_STATE_HOME=$HOME/.local/state
+
+# path
+export PATH=/usr/local/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
+export PATH=$N_PREFIX/bin:$PATH
+export PATH=$HOME/.cargo/bin:$PATH
+export PATH=/usr/local/go/bin:$HOME/go/bin:$PATH
+export PATH=$XDG_DATA_HOME/nvim/mason/bin:$PATH
+export PATH=$XDG_DATA_HOME/bob/nvim-bin:$PATH
+
+# zsh
+HISTFILE=$XDG_DATA_HOME/zsh/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+
+# language environment
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
+# default editor
+export EDITOR="nvim"
+export VISUAL="nvim"
+
+# man pager
+export MANPAGER="sh -c 'col -bx | bat --theme=ansi -l man -p'"
+export MANROFFOPT="-c"
+
+# n
+export N_PREFIX=$HOME/.n
+
+# Rust
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+
+# fzf
+export FZF_DEFAULT_OPTS="
+--layout=reverse
+--inline-info
+--ansi
+--cycle
+--bind=tab:down,shift-tab:up,ctrl-a:select-all,ctrl-d:deselect-all,ctrl-t:toggle,ctrl-y:accept
+--preview='echo {}\n && fzf-preview {}'
+--preview-window=right,60%
+--color=bg+:-1
+--color=border:#589ed7 
+--color=fg:#c8d3f5 
+--color=gutter:#1e2030 
+--color=header:#ff966c 
+--color=hl+:#65bcff 
+--color=hl:#65bcff 
+--color=info:#545c7e 
+--color=marker:#ff007c 
+--color=pointer:#ff007c 
+--color=prompt:#65bcff 
+--color=query:#c8d3f5:regular 
+--color=scrollbar:#589ed7 
+--color=separator:#ff966c 
+--color=spinner:#ff008c 
+"

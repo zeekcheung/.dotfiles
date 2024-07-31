@@ -1,0 +1,138 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 32,
+  "spacing": 4,
+  "exclusive": true,
+  "gtk-layer-shell": true,
+  "passthrough": false,
+  "fixed-center": true,
+  "modules-left": [
+    "custom/logo",
+    "custom/separator",
+    "hyprland/workspaces",
+    "custom/separator",
+    "hyprland/window"
+  ],
+  "modules-center": [
+    "clock"
+  ],
+  "modules-right": [
+    "cpu",
+    "memory",
+    "custom/gpu",
+    "custom/separator",
+    "tray",
+    "custom/separator",
+    "pulseaudio",
+    "network",
+    "battery",
+    "custom/separator",
+    "custom/power"
+  ],
+  "custom/logo": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/separator": {
+    "format": "|",
+    "tooltip": false
+  },
+  "hyprland/workspaces": {
+    "all-outputs": true,
+    "on-click": "activate",
+    "disable-scroll": false,
+    "on-scroll-up": "hyprctl dispatch workspace e+1",
+    "on-scroll-down": "hyprctl dispatch workspace e-1"
+  },
+  "hyprland/window": {
+    "format": "{}",
+    "rewrite": {
+      "(.{72}).*": "$1.."
+    },
+    "icon": true,
+    "icon-size": 22
+  },
+  "clock": {
+    "format": "{:L%a, %d %b, %H:%M}",
+    "tooltip-format": "<tt><big>{calendar}</big></tt>"
+  },
+  "cpu": {
+    "format": "  {usage}%",
+    "tooltip": true,
+    "interval": 1,
+    "on-click": "$TERMINAL -e btop"
+  },
+  "memory": {
+    "format": "󰍛 {used:0.2f}G",
+    "on-click": "$TERMINAL -e btop"
+  },
+  // "custom/gpu": {
+  //   "exec": "cat /sys/class/hwmon/hwmon2/device/gpu_busy_percent",
+  //   "format": "󰢮  {}%",
+  //   "format-tooltip": "{}% used",
+  //   "return-type": "",
+  //   "interval": 1
+  // },
+  "tray": {
+    "show-passive-items": true,
+    "spacing": 10
+  },
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-muted": "  muted",
+    "format-icons": {
+      "headphone": " ",
+      "hands-free": "󰂑",
+      "headset": "󰂑",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": [
+        " ",
+        " ",
+        " "
+      ]
+    },
+    "on-click-middle": "pamixer -t",
+    "on-click": "pavucontrol"
+  },
+  "network": {
+    // "interval": 5,
+    "format-wifi": " ",
+    "format-ethernet": " ",
+    "format-linked": "{ifname} (No IP) no_entry",
+    "format-disconnected": "  ",
+    "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
+    "on-click": "nm-connection-editor"
+  },
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon}",
+    "format-charging": "󰂄",
+    "format-plugged": "󰂏",
+    "format-alt": "{icon}",
+    "format-icons": [
+      "󰁺",
+      "󰁻",
+      "󰁼",
+      "󰁽",
+      "󰁾",
+      "󰁿",
+      "󰂀",
+      "󰂁",
+      "󰂂",
+      "󰁹"
+    ]
+  },
+  "custom/power": {
+    "format": "⏻ ",
+    // "tooltip-format": "shutdown now",
+    // "on-click": "shutdown now"
+    "tooltip-format": "logout",
+    "on-click": "wlogout"
+  }
+}

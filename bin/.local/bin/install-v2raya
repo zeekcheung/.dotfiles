@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+# Script to install xray, v2ray and v2raya
+# TODO: support other distos
+
+set -e
+
+ghproxy="https://mirror.ghproxy.com"
+
+# xray
+xray_version="1.8.13"
+xray_pkgname="Xray-linux-64.zip"
+xray_pkglink="https://github.com/XTLS/Xray-core/releases/download/v${xray_version}/${xray_pkgname}"
+
+# v2ray
+v2ray_version="5.16.1"
+v2ray_pkgname="v2ray_${v2ray_version}_amd64.deb"
+v2ray_pkglink="https://github.com/v2rayA/v2raya-apt/raw/master/pool/main/v/v2ray/${v2ray_pkgname}"
+
+# v2raya
+v2raya_version="2.2.5.6"
+v2raya_pkgname="installer_debian_x64_${v2raya_version}.deb"
+v2raya_pkglink="https://github.com/v2rayA/v2rayA/releases/download/v${v2raya_version}/${v2raya_pkgname}"
+
+wget "${ghproxy}/${xray_pkglink}" -P /tmp
+wget "${ghproxy}/${v2ray_pkglink}" -P /tmp
+wget "${ghproxy}/${v2raya_pkglink}" -P /tmp
+
+unzip /tmp/${xray_pkgname} -d /tmp/Xray
+
+sudo mkdir /usr/local/share/xray
+sudo mkdir /usr/local/share/v2ray
+
+sudo cp -f /tmp/Xray/xray /usr/local/bin/xray
+sudo cp -f /tmp/Xray/xray /usr/local/bin/v2ray
+sudo cp -f /tmp/Xray/geoip.dat /usr/local/share/xray/
+sudo cp -f /tmp/Xray/geoip.dat /usr/local/share/v2ray
+sudo cp -f /tmp/Xray/geosite.dat /usr/local/share/xray/
+sudo cp -f /tmp/Xray/geosite.dat /usr/local/share/v2ray/
+
+sudo chmod +x /usr/local/bin/xray /usr/local/bin/v2ray
+
+sudo dpkg -i /tmp/${v2ray_pkgname}
+sudo dpkg -i /tmp/${v2raya_pkgname}
+
+sudo systemctl enable --now v2raya

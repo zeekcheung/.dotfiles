@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# Script to restore dconf settings
+
+# shellcheck disable=SC1091,SC2154
+
+set -e
+
+source "$(dirname "$0")/dconf-outfile"
+
+dconf load / <"$tr_output_file"
+
+echo "dconf settings restored from $tr_output_file"

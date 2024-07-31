@@ -1,0 +1,5 @@
+eamodio.gitlens
+esbenp.prettier-vscode
+sumneko.lua
+tamasfe.even-better-toml
+vscodevim.vim

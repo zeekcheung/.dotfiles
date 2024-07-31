@@ -1,0 +1,66 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run the `open default settings` command
+// from the command palette or from `Zed` application menu.
+{
+  "vim_mode": true,
+  "relative_line_numbers": true,
+  "buffer_font_family": "Maple Mono NF",
+  "buffer_font_features": {
+    "calt": true
+  },
+  "buffer_font_size": 20,
+  "ui_font_size": 20,
+  "tab_size": 2,
+  "confirm_quit": false,
+  "theme": {
+    "mode": "system",
+    "light": "One Light",
+    "dark": "Tokyo Night Storm"
+  },
+  "indent_guides": {
+    "enabled": true
+  },
+  "scrollbar": {
+    "show": "never"
+  },
+  "gutter": {
+    "code_actions": false,
+    "folds": true,
+    "runnables": false
+  },
+  "tab_bar": {
+    "show": true,
+    "show_nav_history_buttons": false
+  },
+  "tabs": {
+    "file_icons": true
+  },
+  "toolbar": {
+    "breadcrumbs": false,
+    "quick_actions": false
+  },
+  "terminal": {
+    "dock": "bottom",
+    "copy_on_select": true,
+    "font_family": "Maple Mono NF",
+    "font_features": {
+      "calt": true
+    },
+    "toolbar": {
+      "title": true
+    }
+  },
+  "collaboration_panel": {
+    "dock": "right"
+  },
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false
+  },
+  "proxy": "http://127.0.0.1:20171"
+}

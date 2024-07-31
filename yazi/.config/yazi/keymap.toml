@@ -1,0 +1,56 @@
+# A TOML linter such as https://taplo.tamasfe.dev/ can use this schema to validate your config.
+# If you encounter any issues, please make an issue at https://github.com/yazi-rs/schemas.
+"$schema" = "https://yazi-rs.github.io/schemas/keymap.json"
+
+[manager]
+prepend_keymap = [
+  { on = ["<C-c>"], run = "quit", desc = "Exit the process" },
+
+  # Navigation
+  { on = ["<C-n>"], run = "arrow 1", desc = "Move cursor down" },
+  { on = ["<C-p>"], run = "arrow -1", desc = "Move cursor up" },
+  { on = ["<C-j>"], run = "arrow 1", desc = "Move cursor down" },
+  { on = ["<C-k>"], run = "arrow -1", desc = "Move cursor up" },
+
+  # Operation
+  { on = ["H"], run = "hidden toggle", desc = "Toggle the visibility of hidden files" },
+  { on = ["?"], run = "help", desc = "Open help" },
+]
+
+[tasks]
+prepend_keymap = [
+  # Navigation
+  { on = ["<C-n>"], run = "arrow 1", desc = "Move cursor down" },
+  { on = ["<C-p>"], run = "arrow -1", desc = "Move cursor up" },
+  { on = ["<C-j>"], run = "arrow 1", desc = "Move cursor down" },
+  { on = ["<C-k>"], run = "arrow -1", desc = "Move cursor up" },
+]
+
+[input]
+prepend_keymap = [
+  # Esc
+  # { on = ["<Esc>"], run = "close", desc = "cancel input" },
+  { on = ["j", "j"], run = "escape", desc = "Go back the normal mode" },
+]
+
+[select]
+prepend_keymap = [
+  # Navigation
+  { on = ["<C-n>"], run = "arrow 1", desc = "Move cursor down" },
+  { on = ["<C-p>"], run = "arrow -1", desc = "Move cursor up" },
+  { on = ["<C-j>"], run = "arrow 1", desc = "Move cursor down" },
+  { on = ["<C-k>"], run = "arrow -1", desc = "Move cursor up" },
+
+  { on = ["?"], run = "help", desc = "Open help" },
+]
+
+[help]
+prepend_keymap = [
+  { on = ["<C-c>"], run = "quit", desc = "Exit the process" },
+
+  # Navigation
+  { on = ["<C-n>"], run = "arrow 1", desc = "Move cursor down" },
+  { on = ["<C-p>"], run = "arrow -1", desc = "Move cursor up" },
+  { on = ["<C-j>"], run = "arrow 1", desc = "Move cursor down" },
+  { on = ["<C-k>"], run = "arrow -1", desc = "Move cursor up" },
+]

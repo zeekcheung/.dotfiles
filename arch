@@ -1,0 +1,207 @@
+#!/usr/bin/env bash
+
+# shellcheck disable=SC1091,SC2154
+
+set -e
+
+ENABLE_INTEL_GRAPHICS=true          # true | false
+ENABLE_NVIDIA_GRAPHICS=true         # true | false
+ENABLE_WAYLAND=true                 # true | false
+DESKTOP_ENVIRONMENT="gnome_minimal" # "gnome" | "gnome_minimal" | "kde" | "hyprland"
+INPUT_METHOD="fcitx5"
+TERMINAL="kitty" # "alacritty" | "kitty" | "wezterm"
+
+BASE_PACKAGES=(
+  # Audio firmware
+  "sof-firmware" "alsa-firmware" "alsa-ucm-conf"
+  # Bluetooth
+  "bluez" "bluez-utils" "bluez-obex"
+  # Fonts
+  "adobe-source-han-serif-cn-fonts" "wqy-zenhei"
+  "noto-fonts" "noto-fonts-cjk" "noto-fonts-emoji" "noto-fonts-extra"
+  "inter-font" "ttf-sarasa-gothic" "ttf-fira-code" "ttf-ubuntu-font-family"
+  # Libraries
+  "openslide" "sassc"
+  # Terminals
+  "alacritty" "kitty" "wezterm"
+  # Shell
+  "zsh" "fish" "man-db" "bash-completion" "starship"
+  "git" "wget" "curl" "stow" "bat" "eza" "fd" "ripgrep""zoxide"
+  "fzf" "lazygit" "yazi" "btop" "fastfetch"
+  # Editor
+  "neovim" "bob" "tmux" "xsel" "wl-clipboard"
+  # Languages
+  "clang" "cmake" "make" "go" "lua" "luarocks" "nodejs" "npm" "yarn" "ruby" "rust"
+  # GTK
+  "lxappearance" "gtk-engine-murrine"
+  # QT
+  "qt5-wayland" "qt6-wayland" "qt6ct"
+  # Themes
+  "papirus-icon-theme" "adwaita-icon-theme" "gnome-themes-standard" "gnome-themes-extra"
+  # Apps
+  "firefox" "rofi-wayland" "solaar" "mpv" "spotify-launcher" "libreoffice-still"
+)
+
+echo "=== Starting Arch Linux setup ==="
+
+# Make local directories
+bash "$HOME/.dotfiles/bin/.local/bin/mkdir-local"
+
+# Set dns for github
+bash "$HOME/.dotfiles/bin/.local/bin/github520"
+
+pacman_conf="/etc/pacman.conf"
+
+# Add archlinuxcn package repository
+archlinuxcn_name="archlinuxcn"
+archlinuxcn_server="https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/\$arch"
+
+if ! grep -q "\[${archlinuxcn_name}\]" "$pacman_conf"; then
+  echo "Adding package repository ${archlinuxcn_name} to pacman.conf..."
+
+  echo "[${archlinuxcn_name}]" | sudo tee -a "$pacman_conf" >/dev/null
+  echo "Server = ${archlinuxcn_server}" | sudo tee -a "$pacman_conf" >/dev/null
+
+  sudo pacman-key --lsign-key "farseerfc@archlinux.org"
+  sudo pacman -Sy archlinuxcn-keyring --noconfirm
+fi
+
+# Update and upgrade package sources
+echo "Updating system..."
+sudo pacman -Syyu --noconfirm
+
+# Config mirrors for cargo
+mkdir -vp "${CARGO_HOME:-$HOME/.cargo}"
+
+cat <<EOF | tee -a "${CARGO_HOME:-$HOME/.cargo}"/config.toml
+[source.crates-io]
+replace-with = 'ustc'
+
+[source.ustc]
+registry = "sparse+https://mirrors.ustc.edu.cn/crates.io-index/"
+EOF
+
+# Install packages with pacman
+echo "Installing packages..."
+sudo pacman -S --needed --noconfirm "${BASE_PACKAGES[@]}"
+
+# Install graphics driver
+if $ENABLE_INTEL_GRAPHICS; then
+  echo "Installing intel graphics driver..."
+  sudo pacman -S --noconfirm --needed mesa lib32-mesa vulkan-intel lib32-vulkan-intel intel-gpu-tools libva-utils
+fi
+
+if $ENABLE_NVIDIA_GRAPHICS; then
+  echo "Installing nvidia graphics driver..."
+  sudo pacman -S --noconfirm --needed nvidia nvidia-settings lib32-nvidia-utils
+fi
+
+# Change grub parameters
+GRUB_TIMEOUT=0
+GRUB_CMDLINE_LINUX_DEFAULT="quiet loglevel=5 nowatchdog"
+
+sed -i "s/GRUB_TIMEOUT=5/GRUB_TIMEOUT=${GRUB_TIMEOUT}/g" /etc/default/grub
+sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet\"/GRUB_CMDLINE_LINUX_DEFAULT=\"${GRUB_CMDLINE_LINUX_DEFAULT}\"/g" /etc/default/grub
+
+# Enable wayland with nvidia
+if $ENABLE_WAYLAND && $ENABLE_NVIDIA_GRAPHICS; then
+  sudo pacman -S --needed --noconfirm nvidia nvidia-utils egl-wayland libva-nvidia-driver
+
+  # Enable DRM (Direct Rendering Manager) kernel mode setting
+  sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"${GRUB_CMDLINE_LINUX_DEFAULT}\"/GRUB_CMDLINE_LINUX_DEFAULT=\"${GRUB_CMDLINE_LINUX_DEFAULT} nvidia_drm.modeset=1 nvidia_drm.fbdev=1 nvidia.NVreg_EnableGpuFirmware=0\"/g" \
+    /etc/default/grub
+
+  # Edit /etc/mkinitcpio.conf to add Nvidia modules
+  mkinitcpio_conf="/etc/mkinitcpio.conf"
+  if ! grep -q "^MODULES=.*nvidia" "$mkinitcpio_conf"; then
+    sed -i '/^MODULES=/ s/(\(.*\))/(\1 nvidia nvidia_modeset nvidia_uvm nvidia_drm)/' "$mkinitcpio_conf"
+  fi
+
+  # Create /etc/modprobe.d/nvidia.conf with necessary options
+  echo "options nvidia_drm modeset=1 fbdev=1" >/etc/modprobe.d/nvidia.conf
+  echo "options nvidia NVreg_PreserveVideoMemoryAllocations=1" >/etc/modprobe.d/nvidia-power-management.conf
+
+  # Rebuild initramfs
+  mkinitcpio -P
+
+  # Preserve video memory after suspend
+  systemctl enable nvidia-suspend.service
+  systemctl enable nvidia-hibernate.service
+  systemctl enable nvidia-resume.service
+
+  # Force-enable Wayland
+  ln -s /dev/null /etc/udev/rules.d/61-gdm.rules
+fi
+
+# Generate grub config
+grub-mkconfig -o /boot/grub/grub.cfg
+
+# Install Gnome
+if grep -qi "gnome" "$DESKTOP_ENVIRONMENT"; then
+  if [ "$DESKTOP_ENVIRONMENT" = "gnome_minimal" ]; then
+    # Install minimal gnome
+    sudo pacman -S --needed --noconfirm \
+      gnome-shell gnome-control-center gnome-keyring nautilus
+  elif [ "$DESKTOP_ENVIRONMENT" = "gnome" ]; then
+    # Install full gnome
+    sudo pacman -S --needed --noconfirm gnome
+  fi
+
+  # Install other gnome packages
+  sudo pacman -S --needed --noconfirm \
+    gdm gnome-tweaks gnome-shell-extensions power-profiles-daemon \
+    gnome-shell-extension-dash-to-dock gnome-shell-extension-appindicator
+
+  # Enable systemd service
+  sudo systemctl enable gdm
+  sudo systemctl enable power-profiles-daemon
+
+  # Replace gnome-console with $TERMINAL
+  sudo ln -sf /usr/bin/"$TERMINAL" /usr/local/bin/kgx
+
+  # Restore dconf settings in gnome
+  bash "$HOME/.dotfiles/bin/.local/bin/dconf-restore"
+
+# Install KDE
+elif [ "$DESKTOP_ENVIRONMENT" = "kde" ]; then
+  # Install kde
+  sudo pacman -S --needed --noconfirm \
+    plasma-meta sddm dolphin ark \
+    p7zip unrar unarchiver lzop lrzip \
+    packagekit-qt5 packagekit appstream-qt appstream \
+    gwenview kate bind
+
+  # Enable systemd service
+  sudo systemctl enable sddm
+
+# Install Hyprland
+elif grep -qi "hyprland" "$DESKTOP_ENVIRONMENT"; then
+  # Install hyprland
+  sudo pacman -S --needed --noconfirm \
+    hyprland hyprlock hypridle hyprpaper xdg-desktop-portal-hyprland \
+    waybar swww dunst pipewire pavucontrol nm-connection-editor polkit-kde-agent \
+    grim slurp
+fi
+
+# Install input method
+if [ "$INPUT_METHOD" = "fcitx5" ]; then
+  # Install fcitx5
+  sudo pacman -S --needed --noconfirm \
+    fcitx5-im fcitx5-rime fcitx5-chinese-addons fcitx5-material-color fcitx5-pinyin-zhwiki
+
+  bash "$HOME/.dotfiles/bin/.local/bin/install-fcitx5"
+fi
+
+# Stow packages
+bash "$HOME/.dotfiles/bin/.local/bin/stow-packages"
+
+# Enable system services
+echo "Enabling some system service..."
+sudo systemctl enable bluetooth
+
+# Setup default monitor
+sudo ln -sf "$HOME/.config/monitors.xml" /var/lib/gdm/.config/
+
+# Finish
+echo "=== Arch Linux setup finished ==="
+echo "Please reboot your computer."

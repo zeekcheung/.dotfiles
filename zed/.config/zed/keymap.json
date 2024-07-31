@@ -1,0 +1,133 @@
+[
+  // Normal mode
+  {
+    "context": "vim_mode == normal || EmptyPane || SharedScreen",
+    "bindings": {
+      // Quit
+      "space q q": "zed::Quit",
+      // Move Line
+      "alt-j": "editor::MoveLineDown",
+      "alt-k": "editor::MoveLineUp",
+      // Buffer
+      "tab": "pane::ActivateNextItem",
+      "shift-tab": "pane::ActivatePrevItem",
+      "shift-h": "pane::ActivatePrevItem",
+      "shift-l": "pane::ActivateNextItem",
+      "space b d": "pane::CloseActiveItem",
+      "space b o": "pane::CloseInactiveItems",
+      "space q w": "pane::CloseActiveItem",
+      // File explorer
+      "space e": "workspace::ToggleLeftDock",
+      "ctrl-e": "workspace::ToggleLeftDock",
+      // Find/Search
+      "space space": "file_finder::Toggle",
+      "space ,": "tab_switcher::Toggle",
+      "space /": "buffer_search::Deploy",
+      "space f b": "tab_switcher::Toggle",
+      "space f f": "file_finder::Toggle",
+      "space f p": "projects::OpenRecent",
+      "space s g": "pane::DeploySearch",
+      // Code
+      "space c a": "editor::ToggleCodeActions",
+      "space c r": "editor::Rename",
+      // Terminal
+      "space t h": "terminal_panel::ToggleFocus",
+      // Toggle
+      "space u w": "editor::ToggleSoftWrap",
+      "space u h": "editor::ToggleInlayHints",
+      // goto
+      "g f": "editor::OpenExcerpts",
+      "g d": "editor::GoToDefinition",
+      "g i": "editor::GoToImplementation",
+      "g t": "editor::GoToTypeDefinition",
+      "g r": "editor::FindAllReferences",
+      "] d": "editor::GoToDiagnostic",
+      "[ d": "editor::GoToPrevDiagnostic",
+      "] h": "editor::GoToHunk",
+      "[ h": "editor::GoToPrevHunk",
+      // Fold
+      "z a": "editor::Fold"
+    }
+  },
+  // Insert mode
+  {
+    "context": "vim_mode == insert",
+    "bindings": {
+      "j j": "vim::NormalBefore" // remap jj in insert mode to escape.
+    }
+  },
+  // Visual mode
+  {
+    "context": "vim_mode == visual",
+    "bindings": {
+      // Move Line
+      "alt-j": "editor::MoveLineDown",
+      "alt-k": "editor::MoveLineUp"
+    }
+  },
+  // Normal & Visual mode
+  {
+    "context": "VimControl && !menu",
+    "bindings": {
+      // put key-bindings here if you want them to work in normal & visual mode
+    }
+  },
+  // Editor
+  {
+    "context": "Editor && !menu",
+    "bindings": {
+      "ctrl-s": "workspace::Save",
+      "ctrl-shift-c": "editor::Copy",
+      "ctrl-shift-v": "editor::Paste"
+    }
+  },
+  {
+    "context": "Editor && showing_completions",
+    "bindings": {
+      "ctrl-y": "editor::ConfirmCompletion"
+    }
+  },
+  // Panel navigation
+  {
+    "bindings": {
+      "ctrl-h": ["workspace::ActivatePaneInDirection", "Left"],
+      "ctrl-j": ["workspace::ActivatePaneInDirection", "Down"],
+      "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"],
+      "ctrl-l": ["workspace::ActivatePaneInDirection", "Right"]
+    }
+  },
+  {
+    "context": "Dock",
+    "bindings": {
+      "ctrl-w h": ["workspace::ActivatePaneInDirection", "Left"],
+      "ctrl-w l": ["workspace::ActivatePaneInDirection", "Right"],
+      "ctrl-w k": ["workspace::ActivatePaneInDirection", "Up"],
+      "ctrl-w j": ["workspace::ActivatePaneInDirection", "Down"]
+    }
+  },
+  // File panel
+  {
+    "context": "ProjectPanel && not_editing",
+    "bindings": {
+      "a": "project_panel::NewFile",
+      "A": "project_panel::NewDirectory",
+      "x": "project_panel::Cut",
+      "y": "project_panel::Copy",
+      "p": "project_panel::Paste",
+      "d": "project_panel::Delete",
+      "r": "project_panel::Rename",
+      "q": "workspace::ToggleLeftDock",
+      "space e": "workspace::ToggleLeftDock",
+      "ctrl-e": "workspace::ToggleLeftDock"
+    }
+  },
+  // Picker
+  {
+    "context": "Picker > Editor",
+    "bindings": {
+      "tab": "menu::SelectNext",
+      "shift-tab": "menu::SelectPrev",
+      "ctrl-c": "menu::Cancel"
+    }
+  }
+]

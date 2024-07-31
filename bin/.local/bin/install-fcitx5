@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+# Script to install fcitx5
+
+set -e
+
+# Disable some environment variables on Pop!_OS
+if grep -qi pop /proc/version; then
+	sudo tee /etc/profile.d/z-pop-os-fcitx.sh <<'EOF'
+export GTK_IM_MODULE=""
+export QT_IM_MODULE=""
+export XMODIFIERS=""
+EOF
+fi
+
+# Install rime-rice
+git clone --depth=1 https://mirror.ghproxy.com/https://github.com/Mark24Code/rime-auto-deploy.git --branch latest /tmp/rime-auto-deploy
+
+cd /tmp/rime-auto-deploy || exit
+
+chmod +x ./installer.rb
+
+./installer.rb
+
+# Make symbolic links for custom config
+ln -sf "$HOME"/.config/fcitx5/rime/default.custom.yaml "$HOME"/.local/share/fcitx5/rime/default.custom.yaml
+ln -sf "$HOME"/.config/fcitx5/rime/rime_ice.custom.yaml "$HOME"/.local/share/fcitx5/rime/rime_ice.custom.yaml

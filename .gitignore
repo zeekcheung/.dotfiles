@@ -1,0 +1,13 @@
+tt.*
+.tests
+doc/tags
+debug
+.repro
+foo.*
+*.log
+data
+*tmp*
+*History*
+*globalStorage*
+*sync*
+*workspaceStorage*

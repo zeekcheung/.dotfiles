@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+# Script to create local directories
+
+set -e
+
+dirs=(
+	"$HOME/.local/bin"
+	"$HOME/.local/share/applications"
+	"$HOME/.local/share/pixmaps"
+	"$HOME/.local/share/icons"
+	"$HOME/.local/share/themes"
+	"$HOME/.local/share/fonts"
+)
+
+printf "Creating local directories...\n\n"
+
+for dir in "${dirs[@]}"; do
+	mkdir -p "$dir"
+	echo "Created $dir"
+done

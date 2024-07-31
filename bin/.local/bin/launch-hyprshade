@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+# Script to enable scheduler for hyprshade,
+# and automatically install the systemd timer/service user units and enable the timer unit
+
+set -e
+
+UNIT="hyprshade.timer"
+
+function install_unit() {
+	hyprshade install
+	systemctl --user enable --now hyprshade.timer
+}
+
+if ! systemctl --user list-unit-files | grep -q "^${UNIT}"; then
+	install_unit
+fi
+
+hyprshade auto
+
+while true; do
+	inotifywait -e modify "$HOME/.config/hypr/hyprshade.toml"
+	install_unit
+done

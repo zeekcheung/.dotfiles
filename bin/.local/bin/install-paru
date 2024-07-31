@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# Script to install paru
+
+set -e
+
+sudo pacman -S --needed base-devel
+git clone --depth=1 https://aur.archlinux.org/paru.git /tmp/paru
+cd /tmp/paru || return
+makepkg -si

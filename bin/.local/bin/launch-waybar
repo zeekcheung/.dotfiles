@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# Script to auto reload waybar
+
+set -e
+
+trap "killall waybar" EXIT
+
+while true; do
+	waybar &
+	inotifywait -e create,modify -r "$HOME/.config/waybar"
+	killall waybar
+done

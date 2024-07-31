@@ -1,0 +1,15 @@
+[http]
+	; proxy = http://127.0.0.1:20171
+	sslVerify = false
+[https]
+	; proxy = https://127.0.0.1:20171
+[user]
+	name = zeekcheung
+	email = zeekcheung@gmail.com
+[credential "helperselector"]
+	selected = manager
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

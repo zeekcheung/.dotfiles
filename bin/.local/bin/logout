@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+# Script to log out
+
+set -e
+
+logout() {
+	case "$XDG_SESSION_DESKTOP" in
+	KDE)
+		qdbus org.kde.ksmserver /KSMServer logout 0 0 0
+		;;
+	gnome)
+		gnome-session-quit --logout --no-prompt
+		;;
+	gnome-xorg)
+		gnome-session-quit --logout --no-prompt
+		;;
+	Hyprland)
+		hyprctl dispatch exit
+		;;
+	esac
+}
+
+logout
