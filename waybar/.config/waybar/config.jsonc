@@ -61,11 +61,11 @@
     "format": "  {usage}%",
     "tooltip": true,
     "interval": 1,
-    "on-click": "$TERMINAL -e btop"
+    "on-click": "$TERMINAL -e btm"
   },
   "memory": {
     "format": "󰍛 {used:0.2f}G",
-    "on-click": "$TERMINAL -e btop"
+    "on-click": "$TERMINAL -e btm"
   },
   // "custom/gpu": {
   //   "exec": "cat /sys/class/hwmon/hwmon2/device/gpu_busy_percent",
