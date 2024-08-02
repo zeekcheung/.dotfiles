@@ -51,3 +51,6 @@ map("n", "<leader>bo", "<cmd>silent! %bd|e#|bd#<cr>", { desc = "Delete other buf
 
 -- Quit
 map({ "n", "v", "x" }, "<leader>qw", "<cmd>exit<cr>", { desc = "Quit current window" })
+
+-- LSP
+map("n", "<leader>d", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
