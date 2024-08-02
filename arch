@@ -193,15 +193,15 @@ if [ "$INPUT_METHOD" = "fcitx5" ]; then
 	bash "$HOME/.dotfiles/bin/.local/bin/install-fcitx5"
 fi
 
+# Install themes
+bash "$HOME/.dotfiles/bin/.local/bin/install-themes"
+
 # Stow packages
 bash "$HOME/.dotfiles/bin/.local/bin/stow-packages"
 
 # Enable system services
 echo "Enabling some system service..."
 sudo systemctl enable bluetooth
-
-# Setup default monitor
-sudo ln -sf "$HOME/.config/monitors.xml" /var/lib/gdm/.config/
 
 # Finish
 echo "=== Arch Linux setup finished ==="
