@@ -24,3 +24,21 @@ autocmd("FileType", {
     vim.opt_local.tabstop = 4
   end,
 })
+
+autocmd({ "UIEnter", "ColorScheme" }, {
+  desc = "Keep terminal background's color in sync with Neovim's background color",
+  callback = function()
+    local normal = vim.api.nvim_get_hl(0, { name = "Normal" })
+    if not normal.bg then
+      return
+    end
+    io.write(string.format("\027]11;#%06x\027\\", normal.bg))
+  end,
+})
+
+autocmd("UILeave", {
+  desc = "Keep terminal background's color in sync with Neovim's background color",
+  callback = function()
+    io.write("\027]111\027\\")
+  end,
+})
