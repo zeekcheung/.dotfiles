@@ -12,6 +12,7 @@ alias df "df -h"
 alias du "du -h"
 alias grep "grep --color=auto"
 alias cl clear
+alias se sudoedit
 
 # git
 alias ga "git add"
@@ -37,6 +38,13 @@ alias td "tmux detach"
 alias tl "tmux ls"
 alias tn "tmux new -s"
 alias tm "tmux new -A -s main"
+
+# paru
+alias p paru
+alias ps "paru -S"
+alias pr "paru -Rns"
+alias pc "paru -c"
+alias pq "paru -Q"
 
 function tk --description "Kill tmux session"
     if count $argv >/dev/null
