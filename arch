@@ -180,7 +180,7 @@ elif grep -qi "hyprland" "$DESKTOP_ENVIRONMENT"; then
 	# Install hyprland
 	sudo pacman -S --needed --noconfirm \
 		hyprland hyprlock hypridle hyprpaper xdg-desktop-portal-hyprland \
-		waybar swww dunst pipewire pavucontrol nm-connection-editor polkit-kde-agent \
+		waybar swww dunst pipewire pavucontrol nm-connection-editor polkit-gnome gnome-keyring \
 		grim slurp
 fi
 
