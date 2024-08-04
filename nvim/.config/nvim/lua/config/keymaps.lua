@@ -49,6 +49,10 @@ map("n", "<S-Tab>", "<cmd>bp<cr>", { desc = "Previous buffer" })
 map("n", "<leader>bd", "<cmd>bd<cr>", { desc = "Delete current buffer" })
 map("n", "<leader>bo", "<cmd>silent! %bd|e#|bd#<cr>", { desc = "Delete other buffers" })
 
+-- Tabs
+map("n", "<leader><tab>n", "<cmd>tabnext<cr>", { desc = "Next Tab" })
+map("n", "<leader><tab>p", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
+
 -- Quit
 map({ "n", "v", "x" }, "<leader>qw", "<cmd>exit<cr>", { desc = "Quit current window" })
 

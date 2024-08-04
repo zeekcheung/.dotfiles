@@ -14,11 +14,7 @@ return {
         has = "rename",
       }
 
-      opts.diagnostics = {
-        float = {
-          border = "rounded",
-        },
-      }
+      opts.diagnostics.float = { border = "rounded" }
 
       -- opts.setup = {
       --   ["*"] = function(server, opts)

@@ -107,7 +107,7 @@ return {
       winopts = {
         backdrop = 100,
         preview = {
-          layout = "horizontal",
+          -- layout = "horizontal",
           scrollbar = false,
         },
       },
