@@ -12,24 +12,24 @@ function M.open_window(direction, enter, config)
   if direction == "horizontal" then
     return open_window(0, enter, {
       split = "below",
-      height = config.height or 10,
+      height = config.height or math.floor(vim.o.lines * 0.40),
       focusable = config.focusable or true,
       style = config.style or "minimal",
     })
   elseif direction == "vertical" then
     return open_window(0, enter, {
       split = "right",
-      width = config.width or 50,
+      width = config.width or math.floor(vim.o.columns * 0.40),
       focusable = config.focusable or true,
       style = config.style or "minimal",
     })
   elseif direction == "float" then
     return open_window(0, enter, {
       relative = config.relative or "editor",
-      width = config.width or 85,
-      height = config.height or 19,
-      row = config.row or 1,
-      col = config.col or 8,
+      width = config.width or math.floor(vim.o.columns * 0.80),
+      height = config.height or math.floor(vim.o.lines * 0.80),
+      col = config.col or math.floor(vim.o.columns * 0.10),
+      row = config.row or math.floor(vim.o.lines * 0.10),
       focusable = config.focusable or true,
       zindex = config.zindex or 50,
       style = config.style or "minimal",
