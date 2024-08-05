@@ -112,4 +112,16 @@ return {
       opts.sections.lualine_c[4] = { LazyVim.lualine.pretty_path(), padding = { left = 0, right = 0 } }
     end,
   },
+
+  {
+    "akinsho/bufferline.nvim",
+    enabled = true,
+    opts = {
+      options = {
+        mode = "tabs",
+        diagnostics = false,
+        show_duplicate_prefix = false,
+      },
+    },
+  },
 }
