@@ -76,6 +76,10 @@ return {
         { filter = { event = "notify", find = "man%.lua" }, opts = { skip = true } },
       },
     },
+    keys = {
+      { "<c-f>", mode = { "i", "n", "s" }, false },
+      { "<c-b>", mode = { "i", "n", "s" }, false },
+    },
   },
 
   {

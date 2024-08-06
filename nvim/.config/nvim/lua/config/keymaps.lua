@@ -11,8 +11,8 @@ local map = vim.keymap.set
 map("i", "jj", "<esc>", { desc = "Better Escape" })
 
 -- Completion
-map("i", [[<Tab>]], [[pumvisible() ? "\<C-n>" : "\<Tab>"]], { expr = true })
-map("i", [[<S-Tab>]], [[pumvisible() ? "\<C-p>" : "\<S-Tab>"]], { expr = true })
+-- map("i", [[<Tab>]], [[pumvisible() ? "\<C-n>" : "\<Tab>"]], { expr = true })
+-- map("i", [[<S-Tab>]], [[pumvisible() ? "\<C-p>" : "\<S-Tab>"]], { expr = true })
 
 -- Misc
 map("v", "<C-c>", '"+y', { desc = "Copy selection" })

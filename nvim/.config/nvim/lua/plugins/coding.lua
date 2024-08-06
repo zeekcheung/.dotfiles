@@ -44,6 +44,9 @@ return {
         end, { "i", "s" }),
       })
 
+      opts.mapping["<C-F>"] = nil
+      opts.mapping["<C-B>"] = nil
+
       opts.window = {
         completion = {
           side_padding = 1,
@@ -97,5 +100,34 @@ return {
         }),
       })
     end,
+  },
+
+  {
+    "supermaven-inc/supermaven-nvim",
+    event = "LazyFile",
+    opts = {
+      keymaps = {
+        accept_suggestion = "<C-f>",
+        clear_suggestion = "<C-x>",
+        accept_word = "<A-f>",
+      },
+      ignore_filetypes = {},
+      color = {
+        -- suggestion_color = "#ffffff",
+        -- cterm = 244,
+      },
+      log_level = "off", -- set to "off" to disable logging completely
+      disable_inline_completion = false, -- disables inline completion for use with cmp
+      disable_keymaps = false, -- disables built in keymaps for more manual control
+    },
+    -- dependencies = {
+    --   {
+    --     "hrsh7th/nvim-cmp",
+    --     opts = function(_, opts)
+    --       opts.mapping["<Tab>"]["i"] = nil
+    --       opts.mapping["<S-Tab>"]["i"] = nil
+    --     end,
+    --   },
+    -- },
   },
 }
