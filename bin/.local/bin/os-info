@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 # Script to output information about the current operating system
+
 set -e
 
 # Define the os_info associative array

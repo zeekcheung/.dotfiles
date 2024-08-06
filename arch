@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-# shellcheck disable=SC1091,SC2154
-
 set -e
 
 ENABLE_INTEL_GRAPHICS=true          # true | false

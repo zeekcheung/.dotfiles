@@ -2,8 +2,6 @@
 
 # Script to backup dconf settings
 
-# shellcheck disable=SC1091,SC2154
-
 set -e
 
 source "$(dirname "$0")/dconf-outfile"
