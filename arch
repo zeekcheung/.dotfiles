@@ -32,7 +32,7 @@ BASE_PACKAGES=(
 	# Languages
 	"clang" "cmake" "make" "go" "lua" "luarocks" "nodejs" "npm" "yarn" "ruby" "rust"
 	# GTK
-	"lxappearance" "gtk-engine-murrine"
+	"nwg-look" "gtk-engine-murrine"
 	# QT
 	"qt5-wayland" "qt6-wayland" "qt6ct"
 	# Themes
