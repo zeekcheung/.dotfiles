@@ -90,22 +90,6 @@ return {
   },
 
   {
-    "HiPhish/rainbow-delimiters.nvim",
-    config = function()
-      vim.g.rainbow_delimiters = {
-        highlight = {
-          "RainbowDelimiterRed",
-          "RainbowDelimiterYellow",
-          "RainbowDelimiterGreen",
-          "RainbowDelimiterBlue",
-          "RainbowDelimiterOrange",
-          "RainbowDelimiterViolet",
-        },
-      }
-    end,
-  },
-
-  {
     "nvim-lualine/lualine.nvim",
     optional = true,
     opts = function(_, opts)
@@ -127,5 +111,22 @@ return {
         show_duplicate_prefix = false,
       },
     },
+  },
+
+  {
+    "HiPhish/rainbow-delimiters.nvim",
+    event = "LazyFile",
+    config = function()
+      vim.g.rainbow_delimiters = {
+        highlight = {
+          "RainbowDelimiterRed",
+          "RainbowDelimiterYellow",
+          "RainbowDelimiterGreen",
+          "RainbowDelimiterBlue",
+          "RainbowDelimiterOrange",
+          "RainbowDelimiterViolet",
+        },
+      }
+    end,
   },
 }
