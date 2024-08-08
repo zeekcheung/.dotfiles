@@ -11,13 +11,14 @@
     "custom/logo",
     "custom/separator",
     "hyprland/workspaces",
-    "custom/separator",
-    "hyprland/window"
+    "custom/separator"
+    // "hyprland/window"
   ],
   "modules-center": [
     "clock"
   ],
   "modules-right": [
+    "custom/separator",
     "cpu",
     "memory",
     "custom/gpu",
@@ -32,7 +33,11 @@
   ],
   "custom/logo": {
     "format": "",
-    "tooltip": false
+    "tooltip": true,
+    "tooltip-format": "Apps; Run; Settings",
+    "on-click": "rofi -show drun",
+    "on-click-middle": "rofi -show run",
+    "on-click-right": "wezterm start -- fish --command dot"
   },
   "custom/separator": {
     "format": "|",
