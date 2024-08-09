@@ -39,6 +39,8 @@ BASE_PACKAGES=(
 	"papirus-icon-theme" "adwaita-icon-theme" "gnome-themes-standard" "gnome-themes-extra"
 	# Apps
 	"firefox" "rofi-wayland" "solaar" "mpv" "spotify-launcher" "libreoffice-still"
+	# Other
+	"cloudflared" "bind"
 )
 
 echo "=== Starting Arch Linux setup ==="
@@ -196,6 +198,9 @@ bash "$HOME/.dotfiles/bin/.local/bin/install-themes"
 
 # Stow packages
 bash "$HOME/.dotfiles/bin/.local/bin/stow-packages"
+
+# Configure doh
+bash "$HOME/.dotfiles/bin/.local/bin/doh"
 
 # Enable system services
 echo "Enabling some system service..."

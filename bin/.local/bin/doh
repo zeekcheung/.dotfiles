@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+# Script to configure and run the doh server
+
+set -e
+
+SERVICE_NAME="cloudflared-doh.service"
+PORT="53"
+RESOLV_CONF="/etc/resolv.conf"
+
+# Create the systemd service file for cloudflared-doh
+sudo tee /etc/systemd/system/${SERVICE_NAME} > /dev/null <<EOF
+[Unit]
+Description=DNS over HTTPS proxy client (Cloudflared)
+Wants=network-online.target nss-lookup.target
+Before=nss-lookup.target
+
+[Service]
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+CapabilityBoundingSet=CAP_NET_BIND_SERVICE
+DynamicUser=yes
+ExecStart=/usr/bin/cloudflared proxy-dns --port=${PORT}
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+# Enable and start the service
+sudo systemctl enable --now ${SERVICE_NAME}
+
+# Create the resolv.conf file for cloudflared-doh
+sudo tee ${RESOLV_CONF} > /dev/null <<EOF
+nameserver 127.0.0.1
+nameserver 1.1.1.1
+nameserver 1.0.0.1
+EOF
+
+# Make resolv.conf immutable
+sudo chattr +i ${RESOLV_CONF}
+
+# Display the information
+echo "The DNS over HTTPS proxy is now running on port ${PORT}."
+echo "Current /etc/resolv.conf:"
+cat ${RESOLV_CONF}
+echo "To test the proxy, run the following command:"
+echo "dig @127.0.0.1 -p ${PORT} example.com"
