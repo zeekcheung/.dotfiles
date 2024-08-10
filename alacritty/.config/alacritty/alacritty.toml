@@ -39,8 +39,7 @@ bindings = [{ mouse = "Right", action = "PasteSelection" }]
 [keyboard]
 bindings = [
   { key = "F11", mods = "None", action = "ToggleFullscreen" },
-  { key = "N", mods = "Control|Shift", action = "CreateNewWindow" },
-  { key = "W", mods = "Control|Shift", action = "Quit" },
+  { key = "C", mods = "Control|Shift", action = "CreateNewWindow" },
   { key = "X", mods = "Control|Shift", action = "Quit" },
   { key = "PageUp", mods = "None", action = "ScrollPageUp" },
   { key = "PageDown", mods = "None", action = "ScrollPageDown" },
