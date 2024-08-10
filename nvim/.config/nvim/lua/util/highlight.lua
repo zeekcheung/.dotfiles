@@ -20,7 +20,7 @@ M.highlights = {
   -- StatusLine = { fg = '#ea9a97', bg = '#eb6f92', blend = vim.g.transparent_background and 0 or 10 },
   -- StatusLineNC = { fg = '#908caa', bg = '#2a273f' },
   -- telescope
-  TelescopeBorder = { fg = "#56526e", bg = "none" },
+  TelescopeBorder = { link = "FloatBorder" },
   TelescopeNormal = { bg = "none" },
   TelescopePromptNormal = { bg = "#232136" },
   TelescopeResultsNormal = { fg = "#e0def4" },
@@ -34,7 +34,9 @@ M.highlights = {
   RainbowDelimiterGreen = { fg = "#a7c080" },
   RainbowDelimiterViolet = { fg = "#d699b6" },
   -- fzf-lua
-  FzfLuaPreviewBorder = { fg = "#56526e", bg = "none" },
+  FzfLuaBorder = { link = "FloatBorder" },
+  FzfLuaFzfBorder = { link = "FzfLuaBorder" },
+  FzfLuaPreviewBorder = { link = "FzfLuaBorder" },
   -- nvim-notify
   NotifyINFOBorder = { bg = "none" },
   NotifyINFOBorder69 = { bg = "none" },
