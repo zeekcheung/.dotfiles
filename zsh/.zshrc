@@ -1,5 +1,3 @@
-# shellcheck disable=SC1091,SC1094,SC2086
-
 #####################
 #### ZSH OPTIONS ####
 #####################
@@ -53,13 +51,13 @@ autoload -Uz select-bracketed select-quoted
 zle -N select-quoted
 zle -N select-bracketed
 for km in viopp visual; do
-  bindkey -M $km -- '-' vi-up-line-or-history
-  for c in {a,i}${(s..)^:-\'\"\`\|,./:;=+@}; do
-    bindkey -M $km $c select-quoted
-  done
-  for c in {a,i}${(s..)^:-'()[]{}<>bB'}; do
-    bindkey -M $km $c select-bracketed
-  done
+	bindkey -M $km -- '-' vi-up-line-or-history
+	for c in {a,i}${(s..)^:-\'\"\`\|,./:;=+@}; do
+	  bindkey -M $km $c select-quoted
+	done
+	for c in {a,i}${(s..)^:-'()[]{}<>bB'}; do
+	  bindkey -M $km $c select-bracketed
+	done
 done
 
 # Add surround in vi mode
@@ -79,21 +77,21 @@ bindkey -M visual S add-surround
 PLUGINS_DIR=$XDG_DATA_HOME/zsh
 
 if [[ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh ]]; then
-  source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+	source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 elif [[ -f $PLUGINS_DIR/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
-  source $PLUGINS_DIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+	source $PLUGINS_DIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
 if [[ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
-  source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+	source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 elif [[ -f $PLUGINS_DIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
-  source $PLUGINS_DIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+	source $PLUGINS_DIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
 if [[ -d /usr/share/zsh/site-functions ]]; then
-  fpath+=/usr/share/zsh/site-functions
+	fpath+=/usr/share/zsh/site-functions
 elif [[ -d $PLUGINS_DIR/zsh-completions/src ]]; then
-  fpath+=$PLUGINS_DIR/zsh-completions/src
+	fpath+=$PLUGINS_DIR/zsh-completions/src
 fi
 
 # Accept suggestion with <C-f>
@@ -108,8 +106,7 @@ bindkey '^[f' vi-forward-word
 # misc
 alias ~="cd ~"
 alias ..="cd .."
-alias cd="z"
-alias mkdir="mkdir -p"
+# alias cd="z"
 alias ls="eza --color=auto"
 # alias ls="ls --color=auto"
 alias l="ls -al"
@@ -121,10 +118,10 @@ alias tree="eza --tree"
 # alias tree="tree -C"
 alias df="df -h"
 alias du="du -h"
-alias f="fzf"
 alias grep="grep --color=auto"
 alias open="xdg-open"
 alias cl="clear"
+alias se="sudoedit"
 
 # git
 alias ga="git add"
@@ -151,63 +148,88 @@ alias tl="tmux ls"
 alias tn="tmux new -s"
 alias tm="tmux new -A -s main"
 
+# paru
+alias p="paru"
+alias ps="paru -S"
+alias pr="paru -Rns"
+alias pc="paru -c"
+alias pq="paru -Q"
+
 ###################
 #### FUNCTIONS ####
 ###################
 
 # Add a newline before each prompt except the first line
-function precmd() {
-	precmd() {
-		echo
-	}
+# typeset -g last_is_clear=false
+
+preexec() {
+	local cmd="$1"
+
+	# Set terminal title
+	[[ -z "$TMUX" ]] && print -Pn "\e]0;$cmd\a"
+
+	[[ "$cmd" == "clear" || "$cmd" == "cl" ]] && last_is_clear=true || last_is_clear=false
 }
 
-# Set terminal title
-function preexec() {
-	if [[ -n "$TMUX" ]]; then
-		return
-	fi
-	print -Pn "\e]0;$1\a"
+precmd() {
+	[[ "$last_is_clear" == false ]] && echo
 }
 
 # Enable proxy
-function proxy-on() {
-  export http_proxy="http://127.0.0.1:20171"
-  export https_proxy="http://127.0.0.1:20171"
-  export all_proxy="socks5://127.0.0.1:20170"
-  export no_proxy="127.0.0.1"
+proxy-on() {
+	export http_proxy="http://127.0.0.1:20171"
+	export https_proxy="http://127.0.0.1:20171"
+	export all_proxy="socks5://127.0.0.1:20170"
+	export no_proxy="127.0.0.1"
 }
 
 # Disable proxy
-function proxy-off() {
-  unset http_proxy
-  unset https_proxy
-  unset all_proxy
+proxy-off() {
+	unset http_proxy
+	unset https_proxy
+	unset all_proxy
 }
 
-# kill tmux session
-function tk() {
-  if [[ $# -eq 0 ]]; then
-    tmux kill-server
-  else
-    tmux kill-session -t $1
-  fi
+# Function to fuzzy find with filename_first format and preview
+fzf_filename_first() {
+	fzf --delimiter / --with-nth -2,-1 --preview 'echo {} && fzf-preview {}'
 }
 
-# fuzzy find a file and open in vim
-function vf() {
-  file=$(fzf)
-  [ -n "$file" ] && vi "$file"
+# Function to fuzzy find files and process the result
+f() {
+	fd . "$@" | sed 's/\/$//' | fzf_filename_first
 }
 
-# fuzzy find a dotfile and open in vim
-function dot() {
-  file=$(find ~/.dotfiles | fzf)
-  [ -n "$file" ] && vi "$file"
+# Function to fuzzy find a file and open with the editor specified in $EDITOR
+vf() {
+	local file
+	file=$(f "$@")
+	if [[ -n "$file" ]]; then
+		$EDITOR "$file"
+	fi
+}
+
+# Function to fuzzy find a dotfile and open with the editor specified in $EDITOR
+dot() {
+	if [[ $# -eq 0 ]]; then
+		vf -H ~/.dotfiles/
+	else
+		local target=~/.dotfiles/$1
+	  [[ -d "$target" ]] && vf -H "$target" || $EDITOR "$target"
+	fi
+}
+
+# Kill tmux session
+tk() {
+	if [[ $# -eq 0 ]]; then
+		tmux kill-server
+	else
+		tmux kill-session -t $1
+	fi
 }
 
 # yazi
-function y() {
+y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
 	yazi "$@" --cwd-file="$tmp"
 	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then

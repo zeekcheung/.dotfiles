@@ -1,5 +1,3 @@
-#!/bin/bash
-
-if [ "$(tty)" = "/dev/tty1" ];then
-  dbus-run-session Hyprland
-fi
+# if [ "$(tty)" = "/dev/tty1" ]; then
+# 	dbus-run-session Hyprland
+# fi

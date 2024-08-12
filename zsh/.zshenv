@@ -1,5 +1,3 @@
-# shellcheck disable=SC1091,SC2034,SC2155
-
 # xdg
 export XDG_CACHE_HOME=$HOME/.cache
 export XDG_CONFIG_HOME=$HOME/.config
@@ -7,13 +5,15 @@ export XDG_DATA_HOME=$HOME/.local/share
 export XDG_STATE_HOME=$HOME/.local/state
 
 # path
-export PATH=/usr/local/bin:$PATH
-export PATH=$HOME/.local/bin:$PATH
-export PATH=$N_PREFIX/bin:$PATH
-export PATH=$HOME/.cargo/bin:$PATH
-export PATH=/usr/local/go/bin:$HOME/go/bin:$PATH
-export PATH=$XDG_DATA_HOME/nvim/mason/bin:$PATH
-export PATH=$XDG_DATA_HOME/bob/nvim-bin:$PATH
+zsh_add_path() { export PATH="$PATH:$1"; }
+
+zsh_add_path /usr/local/bin
+zsh_add_path $HOME/.local/bin
+zsh_add_path $N_PREFIX/bin
+zsh_add_path $HOME/.cargo/bin
+zsh_add_path /usr/local/go/bin
+zsh_add_path $XDG_DATA_HOME/nvim/mason/bin
+zsh_add_path $XDG_DATA_HOME/bob/nvim-bin
 
 # zsh
 HISTFILE=$XDG_DATA_HOME/zsh/.zsh_history
@@ -32,7 +32,7 @@ export VISUAL="nvim"
 export MANPAGER="sh -c 'col -bx | bat --theme=ansi -l man -p'"
 export MANROFFOPT="-c"
 
-# n
+# n/node.js
 export N_PREFIX=$HOME/.n
 
 # Rust
