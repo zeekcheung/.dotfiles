@@ -1,0 +1,29 @@
+MenuBar=Disabled
+
+[DetailsMode]
+UseSystemFont=true
+ViewFont=Inter,11,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+
+[General]
+Version=202
+ViewPropsTimestamp=2024,7,28,11,48,15.486
+
+[IconsMode]
+IconSize=22
+
+[KFileDialog Settings]
+Places Icons Auto-resize=false
+Places Icons Static Size=32
+
+[MainWindow]
+MenuBar=Disabled
+ToolBarsMovable=Disabled
+
+[PlacesPanel]
+IconSize=32
+
+[PreviewSettings]
+Plugins=appimagethumbnail,audiothumbnail,comicbookthumbnail,cursorthumbnail,djvuthumbnail,ebookthumbnail,exrthumbnail,directorythumbnail,imagethumbnail,jpegthumbnail,kraorathumbnail,windowsexethumbnail,windowsimagethumbnail,opendocumentthumbnail,svgthumbnail
+
+[Search]
+Location=Everywhere

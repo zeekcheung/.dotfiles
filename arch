@@ -14,6 +14,8 @@ BASE_PACKAGES=(
 	"sof-firmware" "alsa-firmware" "alsa-ucm-conf"
 	# Bluetooth
 	"bluez" "bluez-utils" "bluez-obex"
+	# Archive/Compression
+	"ark" "p7zip" "unrar" "unarchiver" "lzop" "lrzip"
 	# Fonts
 	"adobe-source-han-serif-cn-fonts" "wqy-zenhei"
 	"noto-fonts" "noto-fonts-cjk" "noto-fonts-emoji" "noto-fonts-extra"
@@ -167,10 +169,8 @@ if grep -qi "gnome" "$DESKTOP_ENVIRONMENT"; then
 elif [ "$DESKTOP_ENVIRONMENT" = "kde" ]; then
 	# Install kde
 	sudo pacman -S --needed --noconfirm \
-		plasma-meta sddm dolphin ark \
-		p7zip unrar unarchiver lzop lrzip \
-		packagekit-qt5 packagekit appstream-qt appstream \
-		gwenview kate bind
+		plasma-meta dolphin gwenview bind sddm \
+		packagekit-qt5 packagekit appstream-qt appstream
 
 	# Enable systemd service
 	sudo systemctl enable sddm
@@ -181,7 +181,7 @@ elif grep -qi "hyprland" "$DESKTOP_ENVIRONMENT"; then
 	sudo pacman -S --needed --noconfirm \
 		hyprland hyprlock hypridle hyprpaper xdg-desktop-portal-hyprland archlinux-xdg-menu \
 		ly waybar swww dunst pipewire pavucontrol nm-connection-editor polkit-gnome gnome-keyring \
-		grim slurp dolphin
+		grim slurp dolphin nautilus eog
 
 	# Enable systemd service
 	sudo systemctl enable ly
