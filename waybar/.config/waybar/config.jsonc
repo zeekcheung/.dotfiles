@@ -11,8 +11,8 @@
     "custom/logo",
     "custom/separator",
     "hyprland/workspaces",
-    "custom/separator"
-    // "hyprland/window"
+    "custom/separator",
+    "hyprland/window"
   ],
   "modules-center": [
     "clock"
@@ -26,6 +26,7 @@
     "tray",
     "custom/separator",
     "pulseaudio",
+    // "bluetooth",
     "network",
     "battery",
     "custom/separator",
@@ -37,7 +38,9 @@
     "tooltip-format": "Apps; Run; Settings",
     "on-click": "rofi -show drun",
     "on-click-middle": "rofi -show run",
-    "on-click-right": "wezterm start -- fish --command dot"
+    "on-click-right": "alacritty -e fish --command dot"
+    // "on-click-right": "kitty --session ~/.config/kitty/sessions/dot.conf"
+    // "on-click-right": "wezterm start -- fish --command dot"
   },
   "custom/separator": {
     "format": "|",
@@ -51,7 +54,7 @@
     "on-scroll-down": "hyprctl dispatch workspace e-1"
   },
   "hyprland/window": {
-    "format": "{}",
+    "format": "{initialTitle}",
     "rewrite": {
       "(.{72}).*": "$1.."
     },
@@ -66,11 +69,11 @@
     "format": "  {usage}%",
     "tooltip": true,
     "interval": 1,
-    "on-click": "$TERMINAL -e btm"
+    "on-click": "gnome-system-monitor"
   },
   "memory": {
     "format": "󰍛 {used:0.2f}G",
-    "on-click": "$TERMINAL -e btm"
+    "on-click": "gnome-system-monitor"
   },
   // "custom/gpu": {
   //   "exec": "cat /sys/class/hwmon/hwmon2/device/gpu_busy_percent",
@@ -101,6 +104,18 @@
     },
     "on-click-middle": "pamixer -t",
     "on-click": "pavucontrol"
+  },
+  "bluetooth": {
+    "format": "",
+    "format-disabled": "",
+    "format-connected": "",
+    "format-connected-battery": " {device_battery_percentage}%",
+    // "format-device-preference": [ "device1", "device2" ], // preference list deciding the displayed device
+    "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+    "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
+    "on-click": "solaar"
   },
   "network": {
     // "interval": 5,

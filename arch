@@ -38,7 +38,7 @@ BASE_PACKAGES=(
 	# Themes
 	"papirus-icon-theme" "adwaita-icon-theme" "gnome-themes-standard" "gnome-themes-extra"
 	# Apps
-	"firefox-developer-edition" "rofi-wayland" "solaar" "mpv" "spotify-launcher" "libreoffice-still"
+	"firefox-developer-edition" "rofi-wayland" "gnome-system-monitor" "solaar" "mpv" "spotify-launcher" "libreoffice-still"
 	# Other
 	"cloudflared" "bind"
 )

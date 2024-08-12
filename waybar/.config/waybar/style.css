@@ -63,6 +63,7 @@ window#waybar.hidden {
 #network,
 #tray,
 #pulseaudio,
+#bluetooth,
 #battery,
 #custom-power {
   min-height: 0;
@@ -119,6 +120,10 @@ window#waybar.empty #window {
 
 #pulseaudio.muted {
   color: @subtext0;
+}
+
+#bluetooth {
+  color: @peach;
 }
 
 #battery {
