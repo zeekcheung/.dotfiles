@@ -19,7 +19,7 @@ BASE_PACKAGES=(
 	"noto-fonts" "noto-fonts-cjk" "noto-fonts-emoji" "noto-fonts-extra"
 	"inter-font" "ttf-sarasa-gothic" "ttf-fira-code" "ttf-ubuntu-font-family"
 	# Libraries
-	"openslide" "sassc"
+	"openslide" "sassc" "speech-dispatcher"
 	# Terminals
 	"alacritty" "kitty" "wezterm"
 	# Shell
@@ -38,7 +38,7 @@ BASE_PACKAGES=(
 	# Themes
 	"papirus-icon-theme" "adwaita-icon-theme" "gnome-themes-standard" "gnome-themes-extra"
 	# Apps
-	"firefox" "rofi-wayland" "solaar" "mpv" "spotify-launcher" "libreoffice-still"
+	"firefox-developer-edition" "rofi-wayland" "solaar" "mpv" "spotify-launcher" "libreoffice-still"
 	# Other
 	"cloudflared" "bind"
 )
