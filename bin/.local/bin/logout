@@ -18,6 +18,9 @@ logout() {
 	Hyprland)
 		hyprctl dispatch exit
 		;;
+	*)
+		loginctl terminate-user "$USER"
+		;;
 	esac
 }
 

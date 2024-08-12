@@ -1,6 +1,6 @@
 {
     "label" : "logout",
-    "action" : "loginctl terminate-user $USER",
+    "action" : "~/.local/bin/logout",
     "text" : "Logout",
     "keybind" : "e"
 }
