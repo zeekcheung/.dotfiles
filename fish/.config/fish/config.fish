@@ -18,9 +18,9 @@ if status is-interactive
     alias cd z
 end
 
-if status --is-login
-    # Auto start hyprland
-    if test (tty) = /dev/tty1
-        dbus-run-session Hyprland
-    end
-end
+# if status --is-login
+#     # Auto start hyprland
+#     if test (tty) = /dev/tty1
+#         dbus-run-session Hyprland
+#     end
+# end
