@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+# Script to sync the extensions of Code-OSS
+
+set -e
+
+# File to store the list of extensions
+EXTENSIONS_FILE="$HOME/.dotfiles/Code/.config/Code - OSS/User/extensions.txt"
+
+# Function to export currently installed extensions
+export_extensions() {
+	echo "Exporting installed extensions to $EXTENSIONS_FILE..."
+	code-oss --list-extensions >"$EXTENSIONS_FILE"
+	echo "Extensions exported successfully."
+}
+
+# Function to install extensions from the file
+install_extensions() {
+	if [ ! -f "$EXTENSIONS_FILE" ]; then
+		echo "Extensions file not found at $EXTENSIONS_FILE. Exiting."
+		exit 1
+	fi
+
+	echo "Installing extensions from $EXTENSIONS_FILE..."
+	while read -r extension; do
+		code-oss --install-extension "$extension"
+	done <"$EXTENSIONS_FILE"
+	echo "Extensions installed successfully."
+}
+
+case "$1" in
+--export)
+	export_extensions
+	;;
+--install | "" | *)
+	install_extensions
+	;;
+esac
