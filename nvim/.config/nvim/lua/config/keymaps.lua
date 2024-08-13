@@ -10,6 +10,9 @@ local map = vim.keymap.set
 -- Better escape
 map("i", "jj", "<esc>", { desc = "Better Escape" })
 
+-- Better paste
+map("v", "p", "pgvy", { desc = "Paste without overriding registers" })
+
 -- Completion
 -- map("i", [[<Tab>]], [[pumvisible() ? "\<C-n>" : "\<Tab>"]], { expr = true })
 -- map("i", [[<S-Tab>]], [[pumvisible() ? "\<C-p>" : "\<S-Tab>"]], { expr = true })
