@@ -1,91 +1,207 @@
 // Place your key bindings in this file to override the defaults
 [
-  // toggle explorer
+  // explorer
+  {
+    "key": "space e",
+    "command": "workbench.action.toggleSidebarVisibility",
+    "when": "listFocus && !inputFocus && !treestickyScrollFocused"
+  },
   {
     "key": "ctrl+e",
-    "command": "workbench.action.toggleSidebarVisibility"
+    "command": "workbench.action.toggleSidebarVisibility",
+    "when": "listFocus && !inputFocus && !treestickyScrollFocused"
   },
-  // move line up
   {
-    "key": "alt+k",
-    "command": "editor.action.movelinesupaction",
-    "when": "editortextfocus && !editorreadonly"
+    "key": "ctrl+e",
+    "command": "workbench.explorer.fileView.focus",
+    "when": "!explorerViewletVisible"
   },
-  // move line down
+  {
+    "key": "ctrl+e",
+    "command": "workbench.action.toggleSidebarVisibility",
+    "when": "explorerViewletVisible"
+  },
+  {
+    "key": "q",
+    "command": "workbench.action.toggleSidebarVisibility",
+    "when": "listFocus && !inputFocus && !treestickyScrollFocused"
+  },
+  {
+    "key": "a",
+    "command": "explorer.newFile",
+    "when": "filesExplorerFocus && !inputFocus"
+  },
+  {
+    "key": "shift+a",
+    "command": "explorer.newFolder",
+    "when": "filesExplorerFocus && !inputFocus"
+  },
+  {
+    "key": "d",
+    "command": "deleteFile",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceReadonly && !inputFocus"
+  },
+  {
+    "key": "r",
+    "command": "renameFile",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  },
+  {
+    "key": "y",
+    "command": "filesExplorer.copy",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !inputFocus"
+  },
+  {
+    "key": "x",
+    "command": "filesExplorer.cut",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !inputFocus"
+  },
+  {
+    "key": "p",
+    "command": "filesExplorer.paste",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceReadonly && !inputFocus"
+  },
+  {
+    "key": "v",
+    "command": "explorer.openToSide",
+    "when": "explorerViewletFocus && explorerViewletVisible && !inputFocus"
+  },
+  {
+    "key": "/",
+    "command": "list.find",
+    "when": "listFocus && listSupportsFind && !inputFocus"
+  },
+  {
+    "key": "z o",
+    "command": "list.expand",
+    "when": "!editorTextFocus && !inputFocus"
+  },
+  {
+    "key": "z c",
+    "command": "list.collapse",
+    "when": "!editorTextFocus && !inputFocus"
+  },
+  {
+    "key": "z shift+c",
+    "command": "list.collapseAllToFocus",
+    "when": "!editorTextFocus && !inputFocus"
+  },
+  {
+    "key": "z a",
+    "command": "list.toggleExpand",
+    "when": "!editorTextFocus && !inputFocus"
+  },
+  {
+    "key": "z m",
+    "command": "list.collapseAll",
+    "when": "!editorTextFocus && !inputFocus"
+  },
+  // move line
   {
     "key": "alt+j",
     "command": "editor.action.moveLinesDownAction",
     "when": "editorTextFocus && !editorReadonly"
   },
-  // go back to editor when explorer is focused
+  {
+    "key": "alt+k",
+    "command": "editor.action.moveLinesUpAction",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  // go back to editor
   {
     "key": "ctrl+l",
     "command": "workbench.action.focusActiveEditorGroup",
     "when": "explorerViewletVisible && filesExplorerFocus"
   },
-  // go back to editor when search is focused
   {
     "key": "ctrl+l",
     "command": "workbench.action.focusActiveEditorGroup",
     "when": "searchViewletVisible && searchViewletFocus"
   },
-  // go back to editor when extensions is focused
   // {
   //   "key": "ctrl+l",
   //   "command": "workbench.action.focusActiveEditorGroup",
   //   "when": "viewContainer.workbench.view.extensions.enabled"
   // },
-  // next suggestion
+
+  // quick input
+  {
+    "key": "ctrl+n",
+    "command": "quickInput.next",
+    "when": "inQuickInput && quickInputType == 'quickPick'"
+  },
+  {
+    "key": "ctrl+p",
+    "command": "quickInput.previous",
+    "when": "inQuickInput && quickInputType == 'quickPick'"
+  },
+  // suggestion
+  {
+    "key": "ctrl+f",
+    "command": "editor.action.inlineSuggest.commit",
+    "when": "editorTextFocus && !suggestionWidgetVisible && (vim.mode == 'Insert' || neovim.mode == insert)"
+  },
+  {
+    "key": "ctrl+c",
+    "command": "hideSuggestWidget",
+    "when": "suggestWidgetVisible && textInputFocus"
+  },
   {
     "key": "tab",
-    "command": "selectnextsuggestion",
-    "when": "suggestwidgetmultiplesuggestions && suggestwidgetvisible && textinputfocus"
+    "command": "selectNextSuggestion",
+    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
   },
-  // previous suggestion
   {
     "key": "shift+tab",
-    "command": "selectprevsuggestion",
-    "when": "suggestwidgetmultiplesuggestions && suggestwidgetvisible && textinputfocus"
+    "command": "selectPrevSuggestion",
+    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus || suggestWidgetVisible && textInputFocus && !suggestWidgetHasFocusedSuggestion"
   },
-  // next diagnostic
+  {
+    "key": "ctrl+n",
+    "command": "selectNextSuggestion",
+    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus || suggestWidgetVisible && textInputFocus && !suggestWidgetHasFocusedSuggestion"
+  },
+  {
+    "key": "ctrl+p",
+    "command": "selectPrevSuggestion",
+    "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus || suggestWidgetVisible && textInputFocus && !suggestWidgetHasFocusedSuggestion"
+  },
+  // hover
+  {
+    "key": "q",
+    "command": "editor.action.showHover",
+    "when": "editorHoverVisible && (vim.mode == 'Normal' || neovim.mode == normal)"
+  },
+  // diagnostic
   {
     "key": "oem_6 d",
     "command": "editor.action.marker.nextInFiles",
     "when": "editorFocus && (vim.mode == 'Normal' || neovim.mode == normal)"
   },
-  // previous diagnostic
   {
     "key": "oem_6 d",
     "command": "editor.action.marker.prevInFiles",
     "when": "editorFocus && (vim.mode == 'Normal' || neovim.mode == normal)"
   },
-  // vertical split
+  // split
   {
     "key": "oem_5",
     "command": "workbench.action.splitEditor",
     "when": "editorFocus && (vim.mode == 'Normal' || neovim.mode == normal)"
   },
-  // horizontal split
   {
     "key": "shift+oem_5",
     "command": "workbench.action.splitEditorDown",
     "when": "editorFocus && (vim.mode == 'Normal' || neovim.mode == normal)"
   },
-  // dont use tab to accept suggestion from codeium
   {
-    "key": "tab",
-    "command": "-editor.action.inlineSuggest.commit",
-    "when": "inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible"
-  },
-  // codeium accpet suggestion
-  {
-    "key": "ctrl+g",
-    "command": "editor.action.inlineSuggest.commit",
-    "when": "editorTextFocus && !suggestionWidgetVisible && (vim.mode == 'Insert' || neovim.mode == insert)"
+    "key": "ctrl+shift+f",
+    "command": "workbench.action.terminal.focusFind",
+    "when": "terminalFindFocused && terminalHasBeenCreated || terminalFindFocused && terminalProcessSupported || terminalFocusInAny && terminalHasBeenCreated || terminalFocusInAny && terminalProcessSupported"
   },
   {
-    "key": "q",
-    "command": "editor.action.showHover",
-    "when": "editorHoverVisible && (vim.mode == 'Normal' || neovim.mode == normal)"
+    "key": "ctrl+f",
+    "command": "-workbench.action.terminal.focusFind",
+    "when": "terminalFindFocused && terminalHasBeenCreated || terminalFindFocused && terminalProcessSupported || terminalFocusInAny && terminalHasBeenCreated || terminalFocusInAny && terminalProcessSupported"
   }
 ]
