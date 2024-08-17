@@ -6,8 +6,8 @@ ENABLE_INTEL_GRAPHICS=true          # true | false
 ENABLE_NVIDIA_GRAPHICS=true         # true | false
 ENABLE_WAYLAND=true                 # true | false
 DESKTOP_ENVIRONMENT="gnome_minimal" # "gnome" | "gnome_minimal" | "kde" | "hyprland"
+TERMINAL="kitty"                    # "alacritty" | "kitty" | "wezterm"
 INPUT_METHOD="fcitx5"
-TERMINAL="kitty" # "alacritty" | "kitty" | "wezterm"
 
 BASE_PACKAGES=(
 	# Audio firmware
@@ -15,7 +15,7 @@ BASE_PACKAGES=(
 	# Bluetooth
 	"bluez" "bluez-utils" "bluez-obex"
 	# Archive/Compression
-	"ark" "p7zip" "unrar" "unarchiver" "lzop" "lrzip"
+	"p7zip" "unrar" "unarchiver" "lzop" "lrzip"
 	# Fonts
 	"adobe-source-han-serif-cn-fonts" "wqy-zenhei"
 	"noto-fonts" "noto-fonts-cjk" "noto-fonts-emoji" "noto-fonts-extra"
@@ -27,7 +27,7 @@ BASE_PACKAGES=(
 	# Shell
 	"fish" "bash-completion" "man-db" "starship"
 	"zsh" "zsh-completions" "zsh-autosuggestions" "zsh-syntax-highlighting"
-	"git" "wget" "curl" "stow" "bat" "eza" "fd" "ripgrep""zoxide"
+	"git" "wget" "curl" "stow" "bat" "eza" "fd" "ripgrep" "zoxide"
 	"fzf" "lazygit" "yazi" "bottom" "fastfetch"
 	# Editor
 	"neovim" "bob" "tmux" "xsel" "wl-clipboard"
@@ -45,170 +45,229 @@ BASE_PACKAGES=(
 	"cloudflared" "bind"
 )
 
-echo "=== Starting Arch Linux setup ==="
+declare -A SEVERITY=(
+	["success"]='\033[0;32m'
+	["warning"]='\033[0;33m'
+	["error"]='\033[0;31m'
+	["info"]='\033[0;34m'
+	["default"]='\033[0m'
+)
 
-# Make local directories
-bash "$HOME/.dotfiles/bin/.local/bin/mkdir-local"
+print() {
+	local message=$1
+	local severity=${2:-"default"}
+	local bold='\033[1m'
+	[ "$severity" != "default" ] && echo -en "$bold"
+	echo -e "\n${SEVERITY[$severity]}::${message}${SEVERITY["default"]}"
+}
 
-# Set dns for github
-bash "$HOME/.dotfiles/bin/.local/bin/github520"
+make_local_dirs() {
+	print "Creating local directories..." "info"
+	bash "$HOME/.dotfiles/bin/.local/bin/mkdir-local"
+}
 
-pacman_conf="/etc/pacman.conf"
+config_github_host() {
+	print "Configuring GitHub host..." "info"
+	bash "$HOME/.dotfiles/bin/.local/bin/github520"
+}
 
-# Add archlinuxcn package repository
-archlinuxcn_name="archlinuxcn"
-archlinuxcn_server="https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/\$arch"
+add_archlinuxcn_repo() {
+	print "Adding ArchLinuxCN repository..." "info"
 
-if ! grep -q "\[${archlinuxcn_name}\]" "$pacman_conf"; then
-	echo "Adding package repository ${archlinuxcn_name} to pacman.conf..."
+	pacman_conf="/etc/pacman.conf"
+	archlinuxcn_name="archlinuxcn"
+	archlinuxcn_server="https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/\$arch"
 
-	echo "[${archlinuxcn_name}]" | sudo tee -a "$pacman_conf" >/dev/null
-	echo "Server = ${archlinuxcn_server}" | sudo tee -a "$pacman_conf" >/dev/null
+	if ! grep -q "\[${archlinuxcn_name}\]" "$pacman_conf"; then
+		echo "Adding package repository ${archlinuxcn_name} to pacman.conf..."
+		echo "[${archlinuxcn_name}]" | sudo tee -a "$pacman_conf" >/dev/null
+		echo "Server = ${archlinuxcn_server}" | sudo tee -a "$pacman_conf" >/dev/null
+		sudo pacman-key --lsign-key "farseerfc@archlinux.org"
+		sudo pacman -Sy archlinuxcn-keyring --noconfirm
+	fi
+}
 
-	sudo pacman-key --lsign-key "farseerfc@archlinux.org"
-	sudo pacman -Sy archlinuxcn-keyring --noconfirm
-fi
+add_ustc_cargo_crates() {
+	print "Adding USTC Cargo Crates..." "info"
 
-# Update and upgrade package sources
-echo "Updating system..."
-sudo pacman -Syyu --noconfirm
-
-# Config mirrors for cargo
-mkdir -vp "${CARGO_HOME:-$HOME/.cargo}"
-
-cat <<EOF | tee -a "${CARGO_HOME:-$HOME/.cargo}"/config.toml
+	mkdir -vp "${CARGO_HOME:-$HOME/.cargo}"
+	cat <<EOF | tee -a "${CARGO_HOME:-$HOME/.cargo}"/config.toml
 [source.crates-io]
 replace-with = 'ustc'
 
 [source.ustc]
 registry = "sparse+https://mirrors.ustc.edu.cn/crates.io-index/"
 EOF
+}
 
-# Install packages with pacman
-echo "Installing packages..."
-sudo pacman -S --needed --noconfirm "${BASE_PACKAGES[@]}"
+install_packages() {
+	print "Updating system..." "info"
+	sudo pacman -Syyu --noconfirm
 
-# Install graphics driver
-if $ENABLE_INTEL_GRAPHICS; then
-	echo "Installing intel graphics driver..."
-	sudo pacman -S --noconfirm --needed mesa lib32-mesa vulkan-intel lib32-vulkan-intel intel-gpu-tools libva-utils
-fi
+	print "Installing packages..." "info"
+	sudo pacman -S --needed --noconfirm "${BASE_PACKAGES[@]}"
+}
 
-if $ENABLE_NVIDIA_GRAPHICS; then
-	echo "Installing nvidia graphics driver..."
-	sudo pacman -S --noconfirm --needed nvidia nvidia-settings lib32-nvidia-utils
-fi
-
-# Change grub parameters
-GRUB_TIMEOUT=0
-GRUB_CMDLINE_LINUX_DEFAULT="quiet loglevel=5 nowatchdog"
-
-sed -i "s/GRUB_TIMEOUT=5/GRUB_TIMEOUT=${GRUB_TIMEOUT}/g" /etc/default/grub
-sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet\"/GRUB_CMDLINE_LINUX_DEFAULT=\"${GRUB_CMDLINE_LINUX_DEFAULT}\"/g" /etc/default/grub
-
-# Enable wayland with nvidia
-if $ENABLE_WAYLAND && $ENABLE_NVIDIA_GRAPHICS; then
-	sudo pacman -S --needed --noconfirm nvidia nvidia-utils egl-wayland libva-nvidia-driver
-
-	# Enable DRM (Direct Rendering Manager) kernel mode setting
-	sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"${GRUB_CMDLINE_LINUX_DEFAULT}\"/GRUB_CMDLINE_LINUX_DEFAULT=\"${GRUB_CMDLINE_LINUX_DEFAULT} nvidia_drm.modeset=1 nvidia_drm.fbdev=1 nvidia.NVreg_EnableGpuFirmware=0\"/g" \
-		/etc/default/grub
-
-	# Edit /etc/mkinitcpio.conf to add Nvidia modules
-	mkinitcpio_conf="/etc/mkinitcpio.conf"
-	if ! grep -q "^MODULES=.*nvidia" "$mkinitcpio_conf"; then
-		sed -i '/^MODULES=/ s/(\(.*\))/(\1 nvidia nvidia_modeset nvidia_uvm nvidia_drm)/' "$mkinitcpio_conf"
+install_graphics_drivers() {
+	if $ENABLE_INTEL_GRAPHICS; then
+		print "Installing intel graphics driver..." "info"
+		sudo pacman -S --noconfirm --needed mesa lib32-mesa vulkan-intel lib32-vulkan-intel intel-gpu-tools libva-utils
 	fi
 
-	# Create /etc/modprobe.d/nvidia.conf with necessary options
-	echo "options nvidia_drm modeset=1 fbdev=1" >/etc/modprobe.d/nvidia.conf
-	echo "options nvidia NVreg_PreserveVideoMemoryAllocations=1" >/etc/modprobe.d/nvidia-power-management.conf
+	if $ENABLE_NVIDIA_GRAPHICS; then
+		print "Installing nvidia graphics driver..." "info"
+		sudo pacman -S --noconfirm --needed nvidia nvidia-settings lib32-nvidia-utils
+	fi
+}
 
-	# Rebuild initramfs
-	mkinitcpio -P
+config_grub() {
+	print "Configuring GRUB..." "info"
 
-	# Preserve video memory after suspend
-	systemctl enable nvidia-suspend.service
-	systemctl enable nvidia-hibernate.service
-	systemctl enable nvidia-resume.service
+	GRUB_TIMEOUT=0
+	GRUB_CMDLINE_LINUX_DEFAULT="quiet loglevel=5 nowatchdog"
 
-	# Force-enable Wayland
-	ln -s /dev/null /etc/udev/rules.d/61-gdm.rules
-fi
+	sed -i "s/GRUB_TIMEOUT=5/GRUB_TIMEOUT=${GRUB_TIMEOUT}/g" /etc/default/grub
+	sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet\"/GRUB_CMDLINE_LINUX_DEFAULT=\"${GRUB_CMDLINE_LINUX_DEFAULT}\"/g" /etc/default/grub
+}
 
-# Generate grub config
-grub-mkconfig -o /boot/grub/grub.cfg
+enable_wayland_with_nvidia() {
+	if $ENABLE_WAYLAND && $ENABLE_NVIDIA_GRAPHICS; then
+		print "Enabling Wayland with Nvidia..." "info"
 
-# Install Gnome
-if grep -qi "gnome" "$DESKTOP_ENVIRONMENT"; then
-	if [ "$DESKTOP_ENVIRONMENT" = "gnome_minimal" ]; then
-		# Install minimal gnome
+		sudo pacman -S --needed --noconfirm nvidia nvidia-utils egl-wayland libva-nvidia-driver
+
+		# Enable DRM (Direct Rendering Manager) kernel mode setting
+		sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"${GRUB_CMDLINE_LINUX_DEFAULT}\"/GRUB_CMDLINE_LINUX_DEFAULT=\"${GRUB_CMDLINE_LINUX_DEFAULT} nvidia_drm.modeset=1 nvidia_drm.fbdev=1 nvidia.NVreg_EnableGpuFirmware=0\"/g" \
+			/etc/default/grub
+
+		# Edit /etc/mkinitcpio.conf to add Nvidia modules
+		mkinitcpio_conf="/etc/mkinitcpio.conf"
+		if ! grep -q "^MODULES=.*nvidia" "$mkinitcpio_conf"; then
+			sed -i '/^MODULES=/ s/(\(.*\))/(\1 nvidia nvidia_modeset nvidia_uvm nvidia_drm)/' "$mkinitcpio_conf"
+		fi
+
+		# Create /etc/modprobe.d/nvidia.conf with necessary options
+		echo "options nvidia_drm modeset=1 fbdev=1" >/etc/modprobe.d/nvidia.conf
+		echo "options nvidia NVreg_PreserveVideoMemoryAllocations=1" >/etc/modprobe.d/nvidia-power-management.conf
+
+		# Rebuild initramfs
+		mkinitcpio -P
+
+		# Preserve video memory after suspend
+		systemctl enable nvidia-suspend.service
+		systemctl enable nvidia-hibernate.service
+		systemctl enable nvidia-resume.service
+
+		# Force-enable Wayland
+		ln -s /dev/null /etc/udev/rules.d/61-gdm.rules
+	fi
+}
+
+generate_grub_config() {
+	print "Generating GRUB config..." "info"
+	grub-mkconfig -o /boot/grub/grub.cfg
+}
+
+install_desktop_environment() {
+	if grep -qi "gnome" "$DESKTOP_ENVIRONMENT"; then
+		print "Installing Gnome..." "info"
+
+		if [ "$DESKTOP_ENVIRONMENT" = "gnome_minimal" ]; then
+			# Install minimal gnome
+			sudo pacman -S --needed --noconfirm gnome-shell gnome-control-center gnome-keyring nautilus
+		elif [ "$DESKTOP_ENVIRONMENT" = "gnome" ]; then
+			# Install full gnome
+			sudo pacman -S --needed --noconfirm gnome
+		fi
+
+		# Install other gnome packages
 		sudo pacman -S --needed --noconfirm \
-			gnome-shell gnome-control-center gnome-keyring nautilus
-	elif [ "$DESKTOP_ENVIRONMENT" = "gnome" ]; then
-		# Install full gnome
-		sudo pacman -S --needed --noconfirm gnome
+			gdm gnome-tweaks gnome-shell-extensions power-profiles-daemon \
+			gnome-shell-extension-dash-to-dock gnome-shell-extension-appindicator
+
+		# Enable systemd service
+		sudo systemctl enable gdm
+		sudo systemctl enable power-profiles-daemon
+
+		# Replace gnome-console with $TERMINAL
+		sudo ln -sf /usr/bin/"$TERMINAL" /usr/local/bin/kgx
+
+		# Restore dconf settings in gnome
+		bash "$HOME/.dotfiles/bin/.local/bin/dconf-restore"
+
+	elif [ "$DESKTOP_ENVIRONMENT" = "kde" ]; then
+		print "Installing KDE..." "info"
+
+		# Install kde
+		sudo pacman -S --needed --noconfirm \
+			plasma-meta dolphin gwenview bind sddm \
+			packagekit-qt5 packagekit appstream-qt appstream
+
+		# Enable systemd service
+		sudo systemctl enable sddm
+
+	elif grep -qi "hyprland" "$DESKTOP_ENVIRONMENT"; then
+		print "Installing Hyprland..." "info"
+
+		# Install hyprland
+		sudo pacman -S --needed --noconfirm \
+			hyprland hyprlock hypridle hyprpaper xdg-desktop-portal-hyprland xdg-desktop-portal-gtk archlinux-xdg-menu \
+			ly waybar swww dunst pipewire pavucontrol network-manager-applet polkit-gnome gnome-keyring grim slurp dolphin nautilus eog
+
+		# Enable systemd service
+		sudo systemctl enable ly
 	fi
+}
 
-	# Install other gnome packages
-	sudo pacman -S --needed --noconfirm \
-		gdm gnome-tweaks gnome-shell-extensions power-profiles-daemon \
-		gnome-shell-extension-dash-to-dock gnome-shell-extension-appindicator
+install_input_method() {
+	if [ "$INPUT_METHOD" = "fcitx5" ]; then
+		print "Installing Fcitx5..." "info"
 
-	# Enable systemd service
-	sudo systemctl enable gdm
-	sudo systemctl enable power-profiles-daemon
+		sudo pacman -S --needed --noconfirm fcitx5-im fcitx5-rime fcitx5-chinese-addons fcitx5-material-color fcitx5-pinyin-zhwiki
+		bash "$HOME/.dotfiles/bin/.local/bin/install-fcitx5"
+	fi
+}
 
-	# Replace gnome-console with $TERMINAL
-	sudo ln -sf /usr/bin/"$TERMINAL" /usr/local/bin/kgx
+install_themes() {
+	print "Installing themes..." "info"
+	bash "$HOME/.dotfiles/bin/.local/bin/install-themes"
+}
 
-	# Restore dconf settings in gnome
-	bash "$HOME/.dotfiles/bin/.local/bin/dconf-restore"
+stow_packages() {
+	print "Stowing packages..." "info"
+	bash "$HOME/.dotfiles/bin/.local/bin/stow-packages"
+}
 
-# Install KDE
-elif [ "$DESKTOP_ENVIRONMENT" = "kde" ]; then
-	# Install kde
-	sudo pacman -S --needed --noconfirm \
-		plasma-meta dolphin gwenview bind sddm \
-		packagekit-qt5 packagekit appstream-qt appstream
+config_doh() {
+	print "Configuring DNS over HTTPS..." "info"
+	bash "$HOME/.dotfiles/bin/.local/bin/doh"
+}
 
-	# Enable systemd service
-	sudo systemctl enable sddm
+enable_system_services() {
+	print "Enabling some system services..." "info"
+	sudo systemctl enable bluetooth
+}
 
-# Install Hyprland
-elif grep -qi "hyprland" "$DESKTOP_ENVIRONMENT"; then
-	# Install hyprland
-	sudo pacman -S --needed --noconfirm \
-		hyprland hyprlock hypridle hyprpaper xdg-desktop-portal-hyprland xdg-desktop-portal-gtk archlinux-xdg-menu \
-		ly waybar swww dunst pipewire pavucontrol nm-applet polkit-gnome gnome-keyring \
-		grim slurp dolphin nautilus eog
+main() {
+	print "Starting installation..." "info"
 
-	# Enable systemd service
-	sudo systemctl enable ly
-fi
+	make_local_dirs
+	config_github_host
+	add_archlinuxcn_repo
+	add_ustc_cargo_crates
+	install_packages
+	install_graphics_drivers
+	config_grub
+	enable_wayland_with_nvidia
+	generate_grub_config
+	install_desktop_environment
+	install_input_method
+	install_themes
+	stow_packages
+	config_doh
+	enable_system_services
 
-# Install input method
-if [ "$INPUT_METHOD" = "fcitx5" ]; then
-	# Install fcitx5
-	sudo pacman -S --needed --noconfirm \
-		fcitx5-im fcitx5-rime fcitx5-chinese-addons fcitx5-material-color fcitx5-pinyin-zhwiki
+	print "Done." "success"
+}
 
-	bash "$HOME/.dotfiles/bin/.local/bin/install-fcitx5"
-fi
-
-# Install themes
-bash "$HOME/.dotfiles/bin/.local/bin/install-themes"
-
-# Stow packages
-bash "$HOME/.dotfiles/bin/.local/bin/stow-packages"
-
-# Configure doh
-bash "$HOME/.dotfiles/bin/.local/bin/doh"
-
-# Enable system services
-echo "Enabling some system service..."
-sudo systemctl enable bluetooth
-
-# Finish
-echo "=== Arch Linux setup finished ==="
-echo "Please reboot your computer."
+main

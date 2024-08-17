@@ -13,8 +13,6 @@ dirs=(
 	"$HOME/.local/share/fonts"
 )
 
-printf "Creating local directories...\n\n"
-
 for dir in "${dirs[@]}"; do
 	mkdir -p "$dir"
 	echo "Created $dir"
