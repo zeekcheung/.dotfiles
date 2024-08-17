@@ -20,7 +20,7 @@ return {
       logo = string.rep("\n", 3) .. logo .. "\n"
 
       opts.hide = {
-        statusline = false,
+        statusline = true,
         tabline = true,
         winbar = true,
       }
@@ -84,6 +84,7 @@ return {
 
   {
     "rcarriga/nvim-notify",
+    enabled = false,
     opts = {
       top_down = false,
     },
@@ -91,6 +92,7 @@ return {
 
   {
     "nvim-lualine/lualine.nvim",
+    enabled = false,
     optional = true,
     opts = function(_, opts)
       opts.sections.lualine_b[1] = { "branch", icon = "" }
