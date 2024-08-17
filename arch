@@ -21,7 +21,7 @@ BASE_PACKAGES=(
 	"noto-fonts" "noto-fonts-cjk" "noto-fonts-emoji" "noto-fonts-extra"
 	"inter-font" "ttf-sarasa-gothic" "ttf-fira-code" "ttf-ubuntu-font-family"
 	# Libraries
-	"openslide" "sassc" "speech-dispatcher"
+	"openslide" "sassc" "speech-dispatcher" "chafa" "libheif" "imagemagick" "poppler-glib" "ffmpegthumbnailer"
 	# Terminals
 	"alacritty" "kitty" "wezterm"
 	# Shell
