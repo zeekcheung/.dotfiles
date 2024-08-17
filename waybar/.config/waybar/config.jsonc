@@ -27,7 +27,7 @@
     "custom/separator",
     "pulseaudio",
     // "bluetooth",
-    "network",
+    // "network",
     "battery",
     "custom/separator",
     "custom/power"

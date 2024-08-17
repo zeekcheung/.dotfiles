@@ -179,8 +179,8 @@ elif [ "$DESKTOP_ENVIRONMENT" = "kde" ]; then
 elif grep -qi "hyprland" "$DESKTOP_ENVIRONMENT"; then
 	# Install hyprland
 	sudo pacman -S --needed --noconfirm \
-		hyprland hyprlock hypridle hyprpaper xdg-desktop-portal-hyprland archlinux-xdg-menu \
-		ly waybar swww dunst pipewire pavucontrol nm-connection-editor polkit-gnome gnome-keyring \
+		hyprland hyprlock hypridle hyprpaper xdg-desktop-portal-hyprland  archlinux-xdg-menu \
+		ly waybar swww dunst pipewire pavucontrol nm-applet polkit-gnome gnome-keyring \
 		grim slurp dolphin nautilus eog
 
 	# Enable systemd service

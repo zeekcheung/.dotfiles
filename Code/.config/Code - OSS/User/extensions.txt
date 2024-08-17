@@ -1,7 +1,11 @@
+asvetliakov.vscode-neovim
+codeium.codeium
 eamodio.gitlens
 esbenp.prettier-vscode
 llvm-vs-code-extensions.vscode-clangd
+miguelsolorio.fluent-icons
 rust-lang.rust-analyzer
+sumneko.lua
 tamasfe.even-better-toml
 vscodevim.vim
 xaver.clang-format
