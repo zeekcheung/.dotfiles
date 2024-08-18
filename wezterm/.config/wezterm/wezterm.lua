@@ -44,6 +44,22 @@ config.show_new_tab_button_in_tab_bar = false
 config.tab_max_width = 32
 config.unzoom_on_switch_pane = true
 
+wezterm.on("update-right-status", function(window, _)
+  local host = wezterm.hostname()
+  local date = wezterm.strftime("%Y-%m-%d  %H:%M")
+  local schemes = wezterm.get_builtin_color_schemes()
+  local scheme = schemes[config.color_scheme]
+
+  -- Make it italic and underlined
+  window:set_right_status(wezterm.format({
+    { Background = { Color = scheme.tab_bar.active_tab.bg_color } },
+    { Foreground = { Color = scheme.tab_bar.active_tab.fg_color } },
+    -- { Attribute = { Underline = "Single" } },
+    { Attribute = { Italic = false } },
+    { Text = string.format("%s  %s", host, date) },
+  }))
+end)
+
 -- Command palette
 -- config.command_palette_rows = 8
 -- config.command_palette_bg_color = '#1b1b2b'
