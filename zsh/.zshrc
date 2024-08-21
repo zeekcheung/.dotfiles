@@ -107,7 +107,7 @@ bindkey '^[f' vi-forward-word
 alias ~="cd ~"
 alias ..="cd .."
 # alias cd="z"
-alias ls="eza --color=auto"
+alias ls="eza --color=auto --group-directories-first"
 # alias ls="ls --color=auto"
 alias l="ls -al"
 alias la="ls -a"

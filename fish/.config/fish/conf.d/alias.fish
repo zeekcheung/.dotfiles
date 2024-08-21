@@ -1,5 +1,5 @@
 # misc
-alias ls "eza --color=auto"
+alias ls "eza --color=auto --group-directories-first"
 # alias ls "ls --color=auto"
 alias l "ls -al"
 alias la "ls -a"
