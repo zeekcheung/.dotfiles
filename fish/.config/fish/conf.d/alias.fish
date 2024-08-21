@@ -62,7 +62,10 @@ end
 # yazi
 function y --description Yazi
     set tmp (mktemp -t "yazi-cwd.XXXXXX")
-    yazi $argv --cwd-file="$tmp"
+    type -q ueberzugpp \
+        && yazi $argv --cwd-file="$tmp" \
+        || env -u XDG_SESSION_TYPE -u WAYLAND_DISPLAY -u DISPLAY yazi $argv --cwd-file="$tmp"
+    # yazi $argv --cwd-file="$tmp"
     if set cwd (cat -- "$tmp"); and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
         cd -- "$cwd"
     end
