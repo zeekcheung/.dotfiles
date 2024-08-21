@@ -122,6 +122,7 @@ alias grep="grep --color=auto"
 alias open="xdg-open"
 alias cl="clear"
 alias se="sudoedit"
+alias diff="vi -d"
 
 # git
 alias ga="git add"

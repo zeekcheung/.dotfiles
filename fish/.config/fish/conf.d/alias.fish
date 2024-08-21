@@ -13,6 +13,7 @@ alias du "du -h"
 alias grep "grep --color=auto"
 alias cl clear
 alias se sudoedit
+alias diff "vi -d"
 
 # git
 alias ga "git add"

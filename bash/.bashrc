@@ -7,7 +7,7 @@
 
 # Use bash-completion, if available
 [[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] &&
-  . /usr/share/bash-completion/bash_completion
+	. /usr/share/bash-completion/bash_completion
 
 # Tab completion
 bind 'set show-all-if-ambiguous on'
@@ -26,6 +26,7 @@ alias du='du -h'
 alias grep='grep --color=auto'
 alias open="xdg-open"
 alias cl="clear"
+alias diff="vi -d"
 alias f="fzf"
 
 alias ga="git add"
@@ -48,46 +49,46 @@ alias tm="tmux new -A -s main"
 
 # kill tmux session
 function tk() {
-  if [[ $# -eq 0 ]]; then
-    tmux kill-server
-  else
-    tmux kill-session -t "$1"
-  fi
+	if [[ $# -eq 0 ]]; then
+		tmux kill-server
+	else
+		tmux kill-session -t "$1"
+	fi
 }
 
 # fuzzy find a file and open in vim
 function vf() {
-  file=$(fzf)
-  [ -n "$file" ] && vi "$file"
+	file=$(fzf)
+	[ -n "$file" ] && vi "$file"
 }
 
 # fuzzy find a dotfile and open in vim
 function dot() {
-  file=$(find ~/.dotfiles | fzf)
-  [ -n "$file" ] && vi "$file"
+	file=$(find ~/.dotfiles | fzf)
+	[ -n "$file" ] && vi "$file"
 }
 
 # yazi
 function y() {
-  tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
-  yazi "$@" --cwd-file="$tmp"
-  if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-    cd -- "$cwd" || exit
-  fi
-  rm -f -- "$tmp"
+	tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		cd -- "$cwd" || exit
+	fi
+	rm -f -- "$tmp"
 }
 
 function proxy-on() {
-  export http_proxy="http://127.0.0.1:20171"
-  export https_proxy="http://127.0.0.1:20171"
-  export all_proxy="socks5://127.0.0.1:20170"
-  export no_proxy="127.0.0.1"
+	export http_proxy="http://127.0.0.1:20171"
+	export https_proxy="http://127.0.0.1:20171"
+	export all_proxy="socks5://127.0.0.1:20170"
+	export no_proxy="127.0.0.1"
 }
 
 function proxy-off() {
-  unset http_proxy
-  unset https_proxy
-  unset all_proxy
+	unset http_proxy
+	unset https_proxy
+	unset all_proxy
 }
 
 # default prompt
