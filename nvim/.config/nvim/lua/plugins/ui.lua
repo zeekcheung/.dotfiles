@@ -20,7 +20,7 @@ return {
       logo = string.rep("\n", 3) .. logo .. "\n"
 
       opts.hide = {
-        statusline = true,
+        statusline = false,
         tabline = true,
         winbar = true,
       }
@@ -92,14 +92,40 @@ return {
 
   {
     "nvim-lualine/lualine.nvim",
-    enabled = false,
+    enabled = true,
     optional = true,
     opts = function(_, opts)
-      opts.sections.lualine_b[1] = { "branch", icon = "" }
-      opts.sections.lualine_c[1] = LazyVim.lualine.root_dir({ icon = "󱉭" })
+      opts.options.component_separators = { left = "", right = "" }
+      opts.options.section_separators = { left = "", right = "" }
 
-      -- opts.sections.lualine_c[4] = { "filename", separator = "", padding = { left = 0, right = 0 } }
-      opts.sections.lualine_c[4] = { LazyVim.lualine.pretty_path(), padding = { left = 0, right = 0 } }
+      opts.sections.lualine_a = {}
+      opts.sections.lualine_b = {}
+      opts.sections.lualine_y = {}
+      opts.sections.lualine_z = {}
+
+      opts.sections.lualine_c = {
+        "mode",
+        "branch",
+        "%f %m",
+        -- stylua: ignore
+        { "diff", on_click = function() vim.cmd("FzfLua git_status") end },
+        -- stylua: ignore
+        { "diagnostics", on_click = function() vim.cmd("Trouble diagnostics") end, },
+        -- "filename",
+      }
+      opts.sections.lualine_x = {
+        "encoding",
+        "fileformat",
+        "%Y",
+        "progress",
+        "location",
+      }
+
+      -- opts.sections.lualine_b[1] = { "branch", icon = "" }
+      -- opts.sections.lualine_c[1] = LazyVim.lualine.root_dir({ icon = "󱉭" })
+      --
+      -- -- opts.sections.lualine_c[4] = { "filename", separator = "", padding = { left = 0, right = 0 } }
+      -- opts.sections.lualine_c[4] = { LazyVim.lualine.pretty_path(), padding = { left = 0, right = 0 } }
     end,
   },
 
