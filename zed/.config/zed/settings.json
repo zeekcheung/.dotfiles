@@ -7,6 +7,9 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "features": {
+    "inline_completion_provider": "supermaven"
+  },
   "vim_mode": true,
   "relative_line_numbers": true,
   "buffer_font_family": "Maple Mono NF",
@@ -14,7 +17,9 @@
     "calt": true
   },
   "buffer_font_size": 20,
+  "buffer_font_weight": 300,
   "ui_font_size": 20,
+  "ui_font_weight": 300,
   "tab_size": 2,
   "confirm_quit": false,
   "theme": {
@@ -51,6 +56,7 @@
     "font_features": {
       "calt": true
     },
+    "line_height": "standard",
     "toolbar": {
       "title": true
     }

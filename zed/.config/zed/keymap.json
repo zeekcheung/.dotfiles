@@ -1,4 +1,14 @@
 [
+  // Default bindings
+  {
+    "bindings": {
+      "ctrl-`": "workspace::ToggleBottomDock",
+      "ctrl-h": ["workspace::ActivatePaneInDirection", "Left"],
+      "ctrl-j": ["workspace::ActivatePaneInDirection", "Down"],
+      "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"],
+      "ctrl-l": ["workspace::ActivatePaneInDirection", "Right"]
+    }
+  },
   // Normal mode
   {
     "context": "vim_mode == normal || EmptyPane || SharedScreen",
@@ -15,6 +25,10 @@
       "shift-l": "pane::ActivateNextItem",
       "space b d": "pane::CloseActiveItem",
       "space b o": "pane::CloseInactiveItems",
+      "space tab tab": "workspace::NewFile",
+      "space tab d": "pane::CloseActiveItem",
+      "space tab n": "pane::ActivateNextItem",
+      "space tab p": "pane::ActivatePrevItem",
       "space q w": "pane::CloseActiveItem",
       // File explorer
       "space e": "workspace::ToggleLeftDock",
@@ -46,14 +60,17 @@
       "] h": "editor::GoToHunk",
       "[ h": "editor::GoToPrevHunk",
       // Fold
-      "z a": "editor::Fold"
+      "z c": "editor::Fold",
+      "z o": "editor::UnfoldLines"
     }
   },
   // Insert mode
   {
     "context": "vim_mode == insert",
     "bindings": {
-      "j j": "vim::NormalBefore" // remap jj in insert mode to escape.
+      "j j": "vim::NormalBefore",
+      "ctrl-f": "editor::AcceptInlineCompletion",
+      "alt-f": "editor::AcceptPartialInlineCompletion"
     }
   },
   // Visual mode
@@ -81,21 +98,14 @@
       "ctrl-shift-v": "editor::Paste"
     }
   },
+  // Completion
   {
     "context": "Editor && showing_completions",
     "bindings": {
       "ctrl-y": "editor::ConfirmCompletion"
     }
   },
-  // Panel navigation
-  {
-    "bindings": {
-      "ctrl-h": ["workspace::ActivatePaneInDirection", "Left"],
-      "ctrl-j": ["workspace::ActivatePaneInDirection", "Down"],
-      "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"],
-      "ctrl-l": ["workspace::ActivatePaneInDirection", "Right"]
-    }
-  },
+  // Dock
   {
     "context": "Dock",
     "bindings": {
