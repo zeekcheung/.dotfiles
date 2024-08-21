@@ -15,6 +15,7 @@ return {
       }
 
       opts.diagnostics.float = { border = "rounded" }
+      -- opts.codelens.enabled = true
 
       -- opts.setup = {
       --   ["*"] = function(server, opts)
