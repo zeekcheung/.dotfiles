@@ -86,8 +86,8 @@ let g:netrw_list_hide = ',\(^\|\s\s\)\zs\.\S\+'
 let g:netrw_localcopydircmd = 'cp -r'
 
 " colorscheme
-let g:colorscheme="sorbet"
-let g:transparent_background=1
+let g:colorscheme="habamax"
+let g:transparent_background=0
 " --------------------------------------------
 " ----------------- keymaps ------------------
 " --------------------------------------------
