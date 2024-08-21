@@ -62,9 +62,7 @@ let &t_EI.="\e[1 q"
 
 " statusline
 set laststatus=2
-set statusline=%<%F\ %m\ 
-set statusline+=%=\ 
-set statusline+=%Y\ \ %P\ \ %l:%c
+set statusline=%<\ %f\ %m\ %=\ \ %Y\ \ %{&fileencoding?&fileencoding:&encoding}\ \ %P\ \ %l:%c\ "
 
 " miscellaneous
 set cursorline
