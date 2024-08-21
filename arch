@@ -2,46 +2,34 @@
 
 set -e
 
-ENABLE_INTEL_GRAPHICS=true          # true | false
-ENABLE_NVIDIA_GRAPHICS=true         # true | false
-ENABLE_WAYLAND=true                 # true | false
-DESKTOP_ENVIRONMENT="gnome_minimal" # "gnome" | "gnome_minimal" | "kde" | "hyprland"
-TERMINAL="kitty"                    # "alacritty" | "kitty" | "wezterm"
-INPUT_METHOD="fcitx5"
+ENABLE_INTEL_GRAPHICS=true
+ENABLE_NVIDIA_GRAPHICS=true
+ENABLE_WAYLAND=true
 
 BASE_PACKAGES=(
-	# Audio firmware
-	"sof-firmware" "alsa-firmware" "alsa-ucm-conf"
-	# Bluetooth
-	"bluez" "bluez-utils" "bluez-obex"
-	# Archive/Compression
-	"p7zip" "unrar" "unarchiver" "lzop" "lrzip"
-	# Fonts
-	"adobe-source-han-serif-cn-fonts" "wqy-zenhei"
-	"noto-fonts" "noto-fonts-cjk" "noto-fonts-emoji" "noto-fonts-extra"
-	"inter-font" "ttf-sarasa-gothic" "ttf-fira-code" "ttf-ubuntu-font-family"
-	# Libraries
-	"openslide" "sassc" "speech-dispatcher" "chafa" "libheif" "imagemagick" "poppler-glib" "ffmpegthumbnailer"
 	# Terminals
-	"alacritty" "kitty" "wezterm"
+	"alacritty" "kitty"
 	# Shell
-	"fish" "bash-completion" "man-db" "starship"
-	"zsh" "zsh-completions" "zsh-autosuggestions" "zsh-syntax-highlighting"
-	"git" "wget" "curl" "stow" "bat" "eza" "fd" "ripgrep" "zoxide"
-	"fzf" "lazygit" "yazi" "bottom" "fastfetch"
+	"fish" "bash-completion" "man-db" "starship" "zsh" "zsh-completions" "zsh-autosuggestions" "zsh-syntax-highlighting"
+	"git" "wget" "curl" "stow" "bat" "eza" "fd" "ripgrep" "zoxide" "fzf" "lazygit" "yazi" "bottom" "fastfetch"
+	"p7zip" "unrar" "unarchiver" "lzop" "lrzip"
 	# Editor
 	"neovim" "bob" "tmux" "xsel" "wl-clipboard"
 	# Languages
-	"clang" "cmake" "make" "go" "lua" "luarocks" "nodejs" "npm" "yarn" "ruby" "rust"
-	# GTK
-	"nwg-look" "gtk-engine-murrine"
-	# QT
-	"qt5-wayland" "qt6-wayland" "qt6ct"
-	# Themes
-	"papirus-icon-theme" "adwaita-icon-theme" "gnome-themes-standard" "gnome-themes-extra"
+	"clang" "cmake" "make" "go" "lua" "luarocks" "nodejs" "npm" "yarn" "ruby" "rust" "rust-analyzer"
+	# Libraries
+	"openslide" "sassc" "speech-dispatcher" "chafa" "imagemagick" "poppler-glib" "libheif" "ffmpegthumbnailer"
 	# Apps
 	"firefox-developer-edition" "rofi-wayland" "gnome-system-monitor" "solaar" "mpv" "spotify-launcher" "libreoffice-still"
-	# Other
+	# Fonts
+	"adobe-source-han-serif-cn-fonts" "wqy-zenhei" "noto-fonts" "noto-fonts-cjk" "noto-fonts-emoji" "noto-fonts-extra" "inter-font"
+	# GTK/QT
+	"nwg-look" "gtk-engine-murrine" "qt5-wayland" "qt6-wayland" "qt6ct"
+	# Themes
+	"papirus-icon-theme" "adwaita-icon-theme" "gnome-themes-standard" "gnome-themes-extra"
+	# Audio/Bluetooth
+	"sof-firmware" "alsa-firmware" "alsa-ucm-conf" "bluez" "bluez-utils" "bluez-obex"
+	# Others
 	"cloudflared" "bind"
 )
 
@@ -169,63 +157,21 @@ generate_grub_config() {
 }
 
 install_desktop_environment() {
-	if grep -qi "gnome" "$DESKTOP_ENVIRONMENT"; then
-		print "Installing Gnome..." "info"
+	print "Installing Hyprland..." "info"
 
-		if [ "$DESKTOP_ENVIRONMENT" = "gnome_minimal" ]; then
-			# Install minimal gnome
-			sudo pacman -S --needed --noconfirm gnome-shell gnome-control-center gnome-keyring nautilus
-		elif [ "$DESKTOP_ENVIRONMENT" = "gnome" ]; then
-			# Install full gnome
-			sudo pacman -S --needed --noconfirm gnome
-		fi
+	# Install hyprland
+	sudo pacman -S --needed --noconfirm \
+		hyprland hyprlock hypridle hyprpaper xdg-desktop-portal-hyprland xdg-desktop-portal-gtk archlinux-xdg-menu \
+		ly waybar swww dunst pipewire pavucontrol network-manager-applet polkit-gnome gnome-keyring grim slurp nautilus eog
 
-		# Install other gnome packages
-		sudo pacman -S --needed --noconfirm \
-			gdm gnome-tweaks gnome-shell-extensions power-profiles-daemon \
-			gnome-shell-extension-dash-to-dock gnome-shell-extension-appindicator
-
-		# Enable systemd service
-		sudo systemctl enable gdm
-		sudo systemctl enable power-profiles-daemon
-
-		# Replace gnome-console with $TERMINAL
-		sudo ln -sf /usr/bin/"$TERMINAL" /usr/local/bin/kgx
-
-		# Restore dconf settings in gnome
-		bash "$HOME/.dotfiles/bin/.local/bin/dconf-restore"
-
-	elif [ "$DESKTOP_ENVIRONMENT" = "kde" ]; then
-		print "Installing KDE..." "info"
-
-		# Install kde
-		sudo pacman -S --needed --noconfirm \
-			plasma-meta dolphin gwenview bind sddm \
-			packagekit-qt5 packagekit appstream-qt appstream
-
-		# Enable systemd service
-		sudo systemctl enable sddm
-
-	elif grep -qi "hyprland" "$DESKTOP_ENVIRONMENT"; then
-		print "Installing Hyprland..." "info"
-
-		# Install hyprland
-		sudo pacman -S --needed --noconfirm \
-			hyprland hyprlock hypridle hyprpaper xdg-desktop-portal-hyprland xdg-desktop-portal-gtk archlinux-xdg-menu \
-			ly waybar swww dunst pipewire pavucontrol network-manager-applet polkit-gnome gnome-keyring grim slurp dolphin nautilus eog
-
-		# Enable systemd service
-		sudo systemctl enable ly
-	fi
+	# Enable systemd service
+	sudo systemctl enable ly
 }
 
 install_input_method() {
-	if [ "$INPUT_METHOD" = "fcitx5" ]; then
-		print "Installing Fcitx5..." "info"
-
-		sudo pacman -S --needed --noconfirm fcitx5-im fcitx5-rime fcitx5-chinese-addons fcitx5-material-color fcitx5-pinyin-zhwiki
-		bash "$HOME/.dotfiles/bin/.local/bin/install-fcitx5"
-	fi
+	print "Installing Fcitx5..." "info"
+	sudo pacman -S --needed --noconfirm fcitx5-im fcitx5-rime fcitx5-chinese-addons fcitx5-material-color fcitx5-pinyin-zhwiki
+	bash "$HOME/.dotfiles/bin/.local/bin/install-fcitx5"
 }
 
 install_themes() {
@@ -264,7 +210,7 @@ main() {
 	install_input_method
 	install_themes
 	stow_packages
-	config_doh
+	# config_doh
 	enable_system_services
 
 	print "Done." "success"
