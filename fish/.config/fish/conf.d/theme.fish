@@ -1,1 +1,1 @@
-fish_config theme choose tokyonight_moon
+# fish_config theme choose tokyonight_moon
