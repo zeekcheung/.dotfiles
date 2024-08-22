@@ -4,17 +4,17 @@ local act = wezterm.action
 
 -- Environment
 config.term = "wezterm"
-config.enable_wayland = true
 
 -- Performance
-config.front_end = config.enable_wayland and "WebGpu" or "OpenGL"
+config.enable_wayland = true
+config.front_end = "OpenGL"
+-- config.front_end = config.enable_wayland and "WebGpu" or "OpenGL"
 -- config.webgpu_power_preference = 'HighPerformance'
 
 -- Appearence
 config.color_scheme = "Tokyo Night Moon"
--- wezterm.add_to_config_reload_watch_list(config.color_scheme .. '.toml')
 -- config.window_background_opacity = 0.90
-config.animation_fps = 60
+config.animation_fps = 20
 config.default_cursor_style = "BlinkingBlock"
 config.force_reverse_video_cursor = true
 
@@ -24,12 +24,8 @@ config.font = wezterm.font_with_fallback({
   { family = "JetBrains Mono", weight = "Regular", italic = false },
 })
 config.font_size = 18
-
-if config.front_end ~= "WebGpu" then
-  config.freetype_load_target = "HorizontalLcd"
-  config.underline_thickness = 2
-  config.underline_position = -6
-end
+config.freetype_render_target = config.front_end == "WebGpu" and "Normal" or "HorizontalLcd"
+config.freetype_load_flags = config.front_end == "WebGpu" and "NO_HINTING" or "DEFAULT"
 
 -- Dimensions
 config.initial_cols = 80
@@ -41,10 +37,24 @@ config.use_fancy_tab_bar = false
 config.tab_bar_at_bottom = true
 config.hide_tab_bar_if_only_one_tab = true
 config.show_new_tab_button_in_tab_bar = false
-config.tab_max_width = 32
-config.unzoom_on_switch_pane = true
 
-wezterm.on("update-right-status", function(window, _)
+-- Customize tab title
+---@diagnostic disable-next-line: unused-local, redefined-local
+wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
+  -- local title = (tab.tab_title and #tab.tab_title > 0) and tab.tab_title or tab.active_pane.title
+  -- local process, other = title:match("^(%S+)%s*%-?%s*%s*(.*)$")
+  -- title = string.format(" %s: %s %s ", tab.tab_index + 1, process, other or "")
+  local process = string.gsub(tab.active_pane.foreground_process_name, "(.*[/\\])(.*)", "%2")
+  local title = string.format(" %s: %s ", tab.tab_index + 1, process)
+  return {
+    { Attribute = { Intensity = tab.is_active and "Bold" or "Normal" } },
+    { Text = title },
+  }
+end)
+
+-- Customize right status
+---@diagnostic disable-next-line: unused-local, redefined-local
+wezterm.on("update-right-status", function(window, pane)
   local host = wezterm.hostname()
   local date = wezterm.strftime("%Y-%m-%d  %H:%M")
   local schemes = wezterm.get_builtin_color_schemes()
@@ -52,82 +62,69 @@ wezterm.on("update-right-status", function(window, _)
 
   -- Make it italic and underlined
   window:set_right_status(wezterm.format({
-    { Background = { Color = scheme.tab_bar.active_tab.bg_color } },
     { Foreground = { Color = scheme.tab_bar.active_tab.fg_color } },
-    -- { Attribute = { Underline = "Single" } },
-    { Attribute = { Italic = false } },
     { Text = string.format("%s  %s", host, date) },
   }))
 end)
 
+-- Customize window title
+---@diagnostic disable-next-line: unused-local, redefined-local
+wezterm.on("format-window-title", function(tab, pane, tabs, panes, config)
+  return tab.active_pane.title
+end)
+
 -- Command palette
--- config.command_palette_rows = 8
--- config.command_palette_bg_color = '#1b1b2b'
--- config.command_palette_fg_color = '#a9b1d6'
--- config.command_palette_font_size = 16
+config.command_palette_rows = 8
+config.command_palette_bg_color = "#1b1b2b"
+config.command_palette_fg_color = "#a9b1d6"
+config.command_palette_font_size = 16
 
 -- Misc
 config.audible_bell = "Disabled"
 config.default_workspace = "main"
 config.window_close_confirmation = "NeverPrompt"
 
-local mod = "CTRL|SHIFT"
-
 -- Key bindings
+local mod = "CTRL|SHIFT"
 config.keys = {
-  -- Active command palette
-  { key = "F1", mods = "", action = act.ActivateCommandPalette },
-  -- Toggle fullscreen
-  { key = "F11", mods = "", action = act.ToggleFullScreen },
-  -- Copy mode(Vim mode)
-  { key = "Space", mods = "CTRL|SHIFT", action = act.ActivateCopyMode },
-
-  -- ScrollPageUp
-  { key = "PageUp", mods = "NONE", action = act.ScrollByPage(-1) },
-  -- ScrollPageDown
-  { key = "PageDown", mods = "NONE", action = act.ScrollByPage(1) },
-
-  -- Vertical split
-  { key = "\\", mods = "CTRL", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
-  -- Horizontal split
-  { key = "|", mods = mod, action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
-
-  -- Close split panel
+  { key = "c", mods = mod, action = act.SpawnTab("CurrentPaneDomain") },
   { key = "x", mods = mod, action = act.CloseCurrentPane({ confirm = false }) },
-
-  -- Move between split panels
+  { key = "n", mods = mod, action = act.ActivateTabRelative(1) },
+  { key = "p", mods = mod, action = act.ActivateTabRelative(-1) },
   { key = "h", mods = mod, action = act.ActivatePaneDirection("Left") },
   { key = "j", mods = mod, action = act.ActivatePaneDirection("Down") },
   { key = "k", mods = mod, action = act.ActivatePaneDirection("Up") },
   { key = "l", mods = mod, action = act.ActivatePaneDirection("Right") },
-
-  -- Resize panels
   { key = "UpArrow", mods = mod, action = act.AdjustPaneSize({ "Up", 5 }) },
   { key = "DownArrow", mods = mod, action = act.AdjustPaneSize({ "Down", 6 }) },
   { key = "LeftArrow", mods = mod, action = act.AdjustPaneSize({ "Left", 5 }) },
   { key = "RightArrow", mods = mod, action = act.AdjustPaneSize({ "Right", 5 }) },
-
-  -- Create new tab
-  { key = "c", mods = mod, action = act.SpawnTab("CurrentPaneDomain") },
-  -- Close current tab
-  { key = "q", mods = mod, action = wezterm.action.CloseCurrentTab({ confirm = false }) },
-
-  -- Move between tabs
-  { key = "n", mods = mod, action = act.ActivateTabRelative(1) },
-  { key = "p", mods = mod, action = act.ActivateTabRelative(-1) },
-  { key = "Tab", mods = mod, action = act.ActivateTabRelative(1) },
+  { key = "Space", mods = mod, action = act.ActivateCopyMode },
+  { key = "PageUp", mods = "", action = act.ScrollByPage(-1) },
+  { key = "PageDown", mods = "", action = act.ScrollByPage(1) },
+  { key = "F1", mods = "", action = act.ActivateCommandPalette },
+  { key = "F11", mods = "", action = act.ToggleFullScreen },
+  -- { key = "\\", mods = "CTRL", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
+  -- { key = "|", mods = mod, action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
+  {
+    key = "\\",
+    mods = "CTRL",
+    action = wezterm.action_callback(function(_, pane)
+      local pane_dimensions = pane:get_dimensions()
+      local direction = pane_dimensions.pixel_width >= pane_dimensions.pixel_height and "Right" or "Bottom"
+      local cwd = pane:get_current_working_dir().path
+      pane:split({ direction = direction, cwd = cwd })
+    end),
+  },
 }
 
 -- Mouse bindings
 config.mouse_bindings = {
-  -- Bind 'Up' event of CTRL-Click to open hyperlinks
-  { event = { Up = { streak = 1, button = "Left" } }, mods = "CTRL", action = act.OpenLinkAtMouseCursor },
-  -- Disable the 'Down' event of CTRL-Click to avoid weird program behaviors
   { event = { Down = { streak = 1, button = "Left" } }, mods = "CTRL", action = act.Nop },
-  -- Right click to paste from clipboard
+  { event = { Up = { streak = 1, button = "Left" } }, mods = "CTRL", action = act.OpenLinkAtMouseCursor },
   {
     event = { Down = { streak = 1, button = "Right" } },
-    mods = "NONE",
+    mods = "",
     action = wezterm.action_callback(function(window, pane)
       local has_selection = window:get_selection_text_for_pane(pane) ~= ""
       if has_selection then
@@ -140,46 +137,16 @@ config.mouse_bindings = {
   },
 }
 
--- Hyperlink
-config.hyperlink_rules = wezterm.default_hyperlink_rules()
-
--- Make username/project paths clickable. This implies paths like the following are for GitHub.
--- As long as a full URL hyperlink regex exists above this it should not match a full URL to
--- GitHub or GitLab / BitBucket (i.e. https://gitlab.com/user/project.git is still a whole clickable URL)
-table.insert(config.hyperlink_rules, {
-  regex = [[["]?([\w\d]{1}[-\w\d]+)(/){1}([-\w\d\.]+)["]?]],
-  format = "https://www.github.com/$1/$3",
-})
-
--- Linkify things that look like URLs with numeric addresses as hosts.
--- E.g. http://127.0.0.1:8000 for a local development server,
--- or http://192.168.1.1 for the web interface of many routers.
-table.insert(config.hyperlink_rules, {
-  regex = [[\b\w+://(?:[\d]{1,3}\.){3}[\d]{1,3}\S*\b]],
-  format = "$0",
-})
-
--- Format window title
----@diagnostic disable-next-line: unused-local, redefined-local
-wezterm.on("format-window-title", function(tab, pane, tabs, panes, config)
-  return tab.active_pane.title
-end)
-
+-- Windows specific settings
 if wezterm.target_triple:find("windows") then
-  -- Windows shell
+  config.dpi = 120
   -- config.default_prog = { "pwsh", "-nologo" }
-  config.default_prog = { "nu" }
-  -- WSL
   -- config.default_domain = "WSL:Ubuntu-22.04"
-
   config.launch_menu = {
     { label = "PowerShell", args = { "pwsh", "-nologo" } },
     { label = "Ubuntu-22.04", args = { "wsl", "~" } },
     { label = "cmd", args = { "cmd", "/k" } },
   }
-
-  -- Change scale to 125%: 96 * 1.25 = 120
-  config.dpi = 120
 end
 
 return config
