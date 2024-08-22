@@ -6,6 +6,7 @@ ENABLE_INTEL_GRAPHICS=true
 ENABLE_NVIDIA_GRAPHICS=true
 ENABLE_WAYLAND=true
 
+AUR_HELPER="paru"
 BASE_PACKAGES=(
 	# Terminals
 	"alacritty" "kitty"
@@ -27,11 +28,8 @@ BASE_PACKAGES=(
 	"nwg-look" "gtk-engine-murrine" "qt5-wayland" "qt6-wayland" "qt6ct"
 	# Themes
 	"papirus-icon-theme" "adwaita-icon-theme" "gnome-themes-standard" "gnome-themes-extra"
-	# Audio/Bluetooth
-	"sof-firmware" "alsa-firmware" "alsa-ucm-conf" "bluez" "bluez-utils" "bluez-obex"
-	# Others
-	"cloudflared" "bind"
 )
+AUR_PACKAGES=("xray" "v2raya" "wechat-universal-bwrap" "bibata-cursor-theme" "hyprshade")
 
 declare -A SEVERITY=(
 	["success"]='\033[0;32m'
@@ -88,24 +86,12 @@ registry = "sparse+https://mirrors.ustc.edu.cn/crates.io-index/"
 EOF
 }
 
-install_packages() {
+install_base_packages() {
 	print "Updating system..." "info"
 	sudo pacman -Syyu --noconfirm
 
-	print "Installing packages..." "info"
+	print "Installing base packages..." "info"
 	sudo pacman -S --needed --noconfirm "${BASE_PACKAGES[@]}"
-}
-
-install_graphics_drivers() {
-	if $ENABLE_INTEL_GRAPHICS; then
-		print "Installing intel graphics driver..." "info"
-		sudo pacman -S --noconfirm --needed mesa lib32-mesa vulkan-intel lib32-vulkan-intel intel-gpu-tools libva-utils
-	fi
-
-	if $ENABLE_NVIDIA_GRAPHICS; then
-		print "Installing nvidia graphics driver..." "info"
-		sudo pacman -S --noconfirm --needed nvidia nvidia-settings lib32-nvidia-utils
-	fi
 }
 
 config_grub() {
@@ -118,42 +104,61 @@ config_grub() {
 	sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet\"/GRUB_CMDLINE_LINUX_DEFAULT=\"${GRUB_CMDLINE_LINUX_DEFAULT}\"/g" /etc/default/grub
 }
 
-enable_wayland_with_nvidia() {
-	if $ENABLE_WAYLAND && $ENABLE_NVIDIA_GRAPHICS; then
-		print "Enabling Wayland with Nvidia..." "info"
+install_graphics_drivers() {
+	if $ENABLE_INTEL_GRAPHICS; then
+		print "Installing intel graphics driver..." "info"
+		sudo pacman -S --noconfirm --needed mesa lib32-mesa vulkan-intel lib32-vulkan-intel intel-gpu-tools libva-utils
+	fi
 
-		sudo pacman -S --needed --noconfirm nvidia nvidia-utils egl-wayland libva-nvidia-driver
+	if $ENABLE_NVIDIA_GRAPHICS; then
+		print "Installing nvidia graphics driver..." "info"
+		sudo pacman -S --noconfirm --needed nvidia nvidia-settings nvidia-utils lib32-nvidia-utils libva-nvidia-driver egl-wayland
 
-		# Enable DRM (Direct Rendering Manager) kernel mode setting
-		sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"${GRUB_CMDLINE_LINUX_DEFAULT}\"/GRUB_CMDLINE_LINUX_DEFAULT=\"${GRUB_CMDLINE_LINUX_DEFAULT} nvidia_drm.modeset=1 nvidia_drm.fbdev=1 nvidia.NVreg_EnableGpuFirmware=0\"/g" \
-			/etc/default/grub
+		if $ENABLE_WAYLAND; then
+			print "Enabling Wayland for Nvidia..." "info"
 
-		# Edit /etc/mkinitcpio.conf to add Nvidia modules
-		mkinitcpio_conf="/etc/mkinitcpio.conf"
-		if ! grep -q "^MODULES=.*nvidia" "$mkinitcpio_conf"; then
-			sed -i '/^MODULES=/ s/(\(.*\))/(\1 nvidia nvidia_modeset nvidia_uvm nvidia_drm)/' "$mkinitcpio_conf"
+			# Enable DRM (Direct Rendering Manager) kernel mode setting
+			sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"${GRUB_CMDLINE_LINUX_DEFAULT}\"/GRUB_CMDLINE_LINUX_DEFAULT=\"${GRUB_CMDLINE_LINUX_DEFAULT} nvidia_drm.modeset=1 nvidia_drm.fbdev=1 nvidia.NVreg_EnableGpuFirmware=0\"/g" \
+				/etc/default/grub
+
+			# Edit /etc/mkinitcpio.conf to add Nvidia modules
+			mkinitcpio_conf="/etc/mkinitcpio.conf"
+			if ! grep -q "^MODULES=.*nvidia" "$mkinitcpio_conf"; then
+				sed -i '/^MODULES=/ s/(\(.*\))/(\1 nvidia nvidia_modeset nvidia_uvm nvidia_drm)/' "$mkinitcpio_conf"
+			fi
+
+			# Create /etc/modprobe.d/nvidia.conf with necessary options
+			echo "options nvidia_drm modeset=1 fbdev=1" >/etc/modprobe.d/nvidia.conf
+			echo "options nvidia NVreg_PreserveVideoMemoryAllocations=1" >/etc/modprobe.d/nvidia-power-management.conf
+
+			# Rebuild initramfs
+			mkinitcpio -P
+
+			# Preserve video memory after suspend
+			systemctl enable nvidia-suspend.service
+			systemctl enable nvidia-hibernate.service
+			systemctl enable nvidia-resume.service
+
+			# Force-enable Wayland
+			ln -s /dev/null /etc/udev/rules.d/61-gdm.rules
 		fi
-
-		# Create /etc/modprobe.d/nvidia.conf with necessary options
-		echo "options nvidia_drm modeset=1 fbdev=1" >/etc/modprobe.d/nvidia.conf
-		echo "options nvidia NVreg_PreserveVideoMemoryAllocations=1" >/etc/modprobe.d/nvidia-power-management.conf
-
-		# Rebuild initramfs
-		mkinitcpio -P
-
-		# Preserve video memory after suspend
-		systemctl enable nvidia-suspend.service
-		systemctl enable nvidia-hibernate.service
-		systemctl enable nvidia-resume.service
-
-		# Force-enable Wayland
-		ln -s /dev/null /etc/udev/rules.d/61-gdm.rules
 	fi
 }
 
 generate_grub_config() {
 	print "Generating GRUB config..." "info"
 	grub-mkconfig -o /boot/grub/grub.cfg
+}
+
+install_bluetooth_drivers() {
+	print "Installing Bluetooth driver..." "info"
+	sudo pacman -S --noconfirm --needed bluez bluez-utils bluez-obex
+	sudo systemctl enable bluetooth
+}
+
+install_audio_drivers() {
+	print "Installing Audio drivers..." "info"
+	sudo pacman -S --noconfirm --needed "sof-firmware" "alsa-firmware" "alsa-ucm-conf"
 }
 
 install_desktop_environment() {
@@ -195,14 +200,33 @@ stow_packages() {
 	bash "$HOME/.dotfiles/bin/.local/bin/stow-packages"
 }
 
-config_doh() {
-	print "Configuring DNS over HTTPS..." "info"
-	bash "$HOME/.dotfiles/bin/.local/bin/doh"
+install_aur_packages() {
+	# Install AUR helper
+	if ! command -v $AUR_HELPER &>/dev/null; then
+		if pacman -Ss "^${AUR_HELPER}$" >/dev/null 2>&1; then
+			sudo pacman -S --needed --noconfirm "$AUR_HELPER"
+		else
+			git clone --depth=1 https://aur.archlinux.org/${AUR_HELPER}.git "/tmp/$AUR_HELPER"
+			cd "/tmp/$AUR_HELPER" || return
+			makepkg -si
+		fi
+	fi
+
+	# Enable color for pacman and helper
+	sudo sed -i "s/#Color/Color/g" /etc/pacman.conf
+
+	# Install aur packages
+	sh -c "$AUR_HELPER -S --needed --noconfirm ${AUR_PACKAGES[*]}"
+
+	# Enable system services
+	sudo systemctl enable --now xray.service
+	sudo systemctl enable --now v2raya.service
 }
 
-enable_system_services() {
-	print "Enabling some system services..." "info"
-	sudo systemctl enable bluetooth
+config_doh() {
+	print "Configuring DNS over HTTPS..." "info"
+	sudo pacman -S --noconfirm --needed cloudflared bind
+	bash "$HOME/.dotfiles/bin/.local/bin/doh"
 }
 
 main() {
@@ -212,17 +236,18 @@ main() {
 	config_github_host
 	add_archlinuxcn_repo
 	add_ustc_cargo_crates
-	install_packages
-	install_graphics_drivers
+	install_base_packages
 	config_grub
-	enable_wayland_with_nvidia
+	install_graphics_drivers
 	generate_grub_config
+	install_bluetooth_drivers
+	install_audio_drivers
 	install_desktop_environment
 	install_input_method
 	install_themes
 	stow_packages
+	install_aur_packages
 	# config_doh
-	enable_system_services
 
 	print "Done." "success"
 }
