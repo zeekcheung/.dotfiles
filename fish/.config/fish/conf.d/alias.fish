@@ -48,24 +48,24 @@ alias pc "paru -c"
 alias pq "paru -Q"
 
 function tk --description "Kill tmux session"
-    if count $argv >/dev/null
-        tmux kill-session -t $argv
-    else
-        tmux kill-server
-    end
+    count $argv >/dev/null && tmux kill-session -t $argv || tmux kill-server
 end
 
 function where --description Where
     whereis $argv | tr " " "\n" | tail -n +2
 end
 
-
-# yazi
 function y --description Yazi
     set tmp (mktemp -t "yazi-cwd.XXXXXX")
-    type -q ueberzugpp \
-        && yazi $argv --cwd-file="$tmp" \
-        || env -u XDG_SESSION_TYPE -u WAYLAND_DISPLAY -u DISPLAY yazi $argv --cwd-file="$tmp"
+    set hyprland_animate (
+        rg --multiline --quiet "animations\s*\{\s*enabled\s*=\s*true" "$HOME/.config/hypr/hyprland.conf"
+        ;and echo true; or echo false
+    )
+    if type -q ueberzugpp; and $hyprland_animate
+        yazi $argv --cwd-file="$tmp"
+    else
+        env -u XDG_SESSION_TYPE -u WAYLAND_DISPLAY -u DISPLAY yazi $argv --cwd-file="$tmp"
+    end
     # yazi $argv --cwd-file="$tmp"
     if set cwd (cat -- "$tmp"); and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
         cd -- "$cwd"

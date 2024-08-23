@@ -8,9 +8,7 @@ end
 
 function vf --description "Fuzzy find a file and open with the editor specified in \$EDITOR"
     set -l file (f $argv)
-    if test -n "$file"
-        $EDITOR "$file"
-    end
+    test -n "$file" && $EDITOR "$file"
 end
 
 function dot --description "Fuzzy find a dotfile and open with the editor specified in \$EDITOR"

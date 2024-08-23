@@ -6,16 +6,12 @@ if status is-interactive
 
     # Add newline after each command
     function add_newline --on-event fish_postexec
-        if test $argv = cl || test $argv = clear
-            return
-        end
-        echo
+        test $argv != cl && test $argv != clear && echo
     end
 
     fzf --fish | source
     starship init fish | source
     zoxide init fish | source
-    alias cd z
 end
 
 # if status --is-login
