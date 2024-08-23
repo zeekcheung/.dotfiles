@@ -230,14 +230,19 @@ vf() {
 }
 
 # Function to fuzzy find a dotfile and open with the editor specified in $EDITOR
+DOT_DIR="$HOME/.dotfiles"
 dot() {
   if [[ $# -eq 0 ]]; then
-    vf -H ~/.dotfiles/
+    vf -H "$DOT_DIR"
   else
-    local target=~/.dotfiles/$1
+    local target="$DOT_DIR/$1"
     [[ -d "$target" ]] && vf -H "$target" || $EDITOR "$target"
   fi
 }
+_dot() {
+  compadd $(fd . --max-depth=1 --min-depth=1 "$DOT_DIR" | sed 's:/*$::' | cut -d '/' -f 5)
+}
+compdef _dot dot
 
 # Kill tmux session
 tk() {
