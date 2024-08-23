@@ -43,6 +43,9 @@ bindkey '^[[Z' reverse-menu-complete
 autoload -Uz edit-command-line
 zle -N edit-command-line
 
+# Reduce key stroke timeout
+KEYTIMEOUT=10
+
 # Exit insert mode with jj
 bindkey -M viins 'jj' vi-cmd-mode
 
