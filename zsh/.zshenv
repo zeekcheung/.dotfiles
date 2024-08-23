@@ -1,42 +1,28 @@
 # xdg
-export XDG_CACHE_HOME=$HOME/.cache
-export XDG_CONFIG_HOME=$HOME/.config
-export XDG_DATA_HOME=$HOME/.local/share
-export XDG_STATE_HOME=$HOME/.local/state
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/state"
+
+# misc
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
+export EDITOR="nvim"
+export VISUAL="nvim"
+export MANPAGER="sh -c 'col -bx | bat --theme=ansi -l man -p'"
+export MANROFFOPT="-c"
+export N_PREFIX="$HOME/.n"
+source "$HOME/.cargo/env" 2>/dev/null
 
 # path
 zsh_add_path() { export PATH="$PATH:$1"; }
-
-zsh_add_path /usr/local/bin
-zsh_add_path $HOME/.local/bin
-zsh_add_path $N_PREFIX/bin
-zsh_add_path $HOME/.cargo/bin
-zsh_add_path /usr/local/go/bin
-zsh_add_path $XDG_DATA_HOME/nvim/mason/bin
-zsh_add_path $XDG_DATA_HOME/bob/nvim-bin
-
-# zsh
-HISTFILE=$XDG_DATA_HOME/zsh/.zsh_history
-HISTSIZE=10000
-SAVEHIST=10000
-
-# language environment
-export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
-
-# default editor
-export EDITOR="nvim"
-export VISUAL="nvim"
-
-# man pager
-export MANPAGER="sh -c 'col -bx | bat --theme=ansi -l man -p'"
-export MANROFFOPT="-c"
-
-# n/node.js
-export N_PREFIX=$HOME/.n
-
-# Rust
-[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+zsh_add_path "/usr/local/bin"
+zsh_add_path "$HOME/.local/bin"
+zsh_add_path "$HOME/.cargo/bin"
+zsh_add_path "$HOME/go/bin"
+zsh_add_path "$N_PREFIX/bin"
+zsh_add_path "$XDG_DATA_HOME/bob/nvim-bin"
+zsh_add_path "$XDG_DATA_HOME/nvim/mason/bin"
 
 # fzf
 export FZF_DEFAULT_OPTS="

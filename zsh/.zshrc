@@ -1,7 +1,4 @@
-#####################
-#### ZSH OPTIONS ####
-#####################
-
+# ZSH OPTIONS
 setopt AUTO_CD
 setopt INTERACTIVE_COMMENTS
 setopt HIST_FCNTL_LOCK
@@ -13,54 +10,44 @@ unsetopt AUTO_REMOVE_SLASH
 unsetopt HIST_EXPIRE_DUPS_FIRST
 unsetopt EXTENDED_HISTORY
 
-####################
-#### COMPLETION ####
-####################
+HISTFILE=$XDG_DATA_HOME/zsh/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+KEYTIMEOUT=20
 
-# Enable auto completion
-autoload -U compinit
+# COMPLETION
+autoload -Uz compinit
 compinit
-
-# Load advanced auto completion module
 zmodload zsh/complist
 
-# Auto completion options
-zstyle ":completion:*:*:*:*:*" menu select
+zstyle ":completion:*" menu select
 zstyle ":completion:*" use-cache yes
 zstyle ":completion:*" special-dirs true
 zstyle ":completion:*" squeeze-slashes true
 zstyle ":completion:*" file-sort change
 zstyle ":completion:*" matcher-list "m:{[:lower:][:upper:]}={[:upper:][:lower:]}" "r:|=*" "l:|=* r:|=*"
 
-# Use shift-tab to access previous completion
 bindkey '^[[Z' reverse-menu-complete
 
-#################
-#### VI MODE ####
-#################
+# PROMPT
+autoload -Uz promptinit
+promptinit
+prompt walters
 
-# Enable vi mode
+# VI MODE
 autoload -Uz edit-command-line
 zle -N edit-command-line
 
-# Reduce key stroke timeout
-KEYTIMEOUT=10
-
-# Exit insert mode with jj
 bindkey -M viins 'jj' vi-cmd-mode
+bindkey '^F' autosuggest-accept
+bindkey '^[f' vi-forward-word
 
-# Add text objects in vi mode
+# Text objects
 autoload -Uz select-bracketed select-quoted
 zle -N select-quoted
 zle -N select-bracketed
 for km in viopp visual; do
   bindkey -M $km -- '-' vi-up-line-or-history
-  # for c in {a,i}${(s..)^:-\'\"\`\|,./:;=+@}; do
-  #   bindkey -M $km $c select-quoted
-  # done
-  # for c in {a,i}${(s..)^:-'()[]{}<>bB'}; do
-  #   bindkey -M $km $c select-bracketed
-  # done
   for prefix in a i; do
     for postfix in "'" '"' '`' '|' ',' '.' '/' ':' ';' '=' '+' '@'; do
       bindkey -M $km $prefix$postfix select-quoted
@@ -73,7 +60,7 @@ for km in viopp visual; do
   done
 done
 
-# Add surround in vi mode
+# Surround
 autoload -Uz surround
 zle -N delete-surround surround
 zle -N add-surround surround
@@ -83,40 +70,18 @@ bindkey -M vicmd ds delete-surround
 bindkey -M vicmd ys add-surround
 bindkey -M visual S add-surround
 
-#################
-#### PLUGINS ####
-#################
+# PLUGINS
+PLUGINS_DIR_PKG="/usr/share/zsh/plugins"
+PLUGINS_DIR_GIT="$XDG_DATA_HOME/zsh"
 
-PLUGINS_DIR=$XDG_DATA_HOME/zsh
+source $PLUGINS_DIR_PKG/zsh-autosuggestions/zsh-autosuggestions.zsh ||
+  source $PLUGINS_DIR_GIT/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $PLUGINS_DIR_PKG/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ||
+  source $PLUGINS_DIR_GIT/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-if [[ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh ]]; then
-  source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-elif [[ -f $PLUGINS_DIR/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
-  source $PLUGINS_DIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-fi
+fpath+=(/usr/share/zsh/site-functions $PLUGINS_DIR_GIT/zsh-completions/src)
 
-if [[ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
-  source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-elif [[ -f $PLUGINS_DIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
-  source $PLUGINS_DIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-fi
-
-if [[ -d /usr/share/zsh/site-functions ]]; then
-  fpath+=/usr/share/zsh/site-functions
-elif [[ -d $PLUGINS_DIR/zsh-completions/src ]]; then
-  fpath+=$PLUGINS_DIR/zsh-completions/src
-fi
-
-# Accept suggestion with <C-f>
-bindkey '^F' autosuggest-accept
-# Accpet partial suggestion with <A-f>
-bindkey '^[f' vi-forward-word
-
-##################
-#### ALIASES #####
-##################
-
-# misc
+# ALIASES
 alias ~="cd ~"
 alias ..="cd .."
 # alias cd="z"
@@ -169,22 +134,15 @@ alias pr="paru -Rns"
 alias pc="paru -c"
 alias pq="paru -Q"
 
-###################
-#### FUNCTIONS ####
-###################
+# FUNCTIONS
 
 # Add a newline before each prompt except the first line
-# typeset -g last_is_clear=false
-
 preexec() {
   local cmd="$1"
-
   # Set terminal title
   [[ -z "$TMUX" ]] && print -Pn "\e]0;$cmd\a"
-
   [[ "$cmd" == "clear" || "$cmd" == "cl" ]] && last_is_clear=true || last_is_clear=false
 }
-
 precmd() {
   [[ "$last_is_clear" == false ]] && echo
 }
@@ -210,26 +168,23 @@ proxy-off() {
   git config --global --unset https.proxy
 }
 
-# Function to fuzzy find with filename_first format and preview
+# Fuzzy find with filename_first format and preview
 fzf_filename_first() {
   fzf --delimiter / --with-nth -2,-1 --preview 'echo {} && fzf-preview {}'
 }
 
-# Function to fuzzy find files and process the result
+# Fuzzy find with fd and fzf
 f() {
   fd . "$@" | sed 's/\/$//' | fzf_filename_first
 }
 
-# Function to fuzzy find a file and open with the editor specified in $EDITOR
+# Fuzzy find with fd and fzf then open with $EDITOR
 vf() {
-  local file
-  file=$(f "$@")
-  if [[ -n "$file" ]]; then
-    $EDITOR "$file"
-  fi
+  local file=$(f "$@")
+  [[ -n "$file" ]] && $EDITOR "$file"
 }
 
-# Function to fuzzy find a dotfile and open with the editor specified in $EDITOR
+# Fuzzy find a dotfile and open with $EDITOR
 DOT_DIR="$HOME/.dotfiles"
 dot() {
   if [[ $# -eq 0 ]]; then
@@ -246,19 +201,22 @@ compdef _dot dot
 
 # Kill tmux session
 tk() {
-  if [[ $# -eq 0 ]]; then
-    tmux kill-server
-  else
-    tmux kill-session -t $1
-  fi
+  [[ $# -eq 0 ]] && tmux kill-server || tmux kill-session -t $1
 }
 
 # yazi
 y() {
   local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
-  command -v ueberzugpp &>/dev/null &&
-    yazi "$@" --cwd-file="$tmp" ||
+  # Image preview with ueberzugpp or chafa
+  local ueberzugpp_available=$(command -v ueberzugpp &>/dev/null && echo true || echo false)
+  local hyprland_animate=$(
+    rg --multiline --quiet "animations\s*\{\s*enabled\s*=\s*true" "$HOME/.config/hypr/hyprland.conf" && echo true || echo false
+  )
+  if $ueberzugpp_available && $hyprland_animate; then
+    yazi "$@" --cwd-file="$tmp"
+  else
     env -u XDG_SESSION_TYPE -u WAYLAND_DISPLAY -u DISPLAY yazi "$@" --cwd-file="$tmp"
+  fi
   if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
     cd -- "$cwd"
   fi
