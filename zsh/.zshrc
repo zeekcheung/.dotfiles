@@ -51,13 +51,23 @@ autoload -Uz select-bracketed select-quoted
 zle -N select-quoted
 zle -N select-bracketed
 for km in viopp visual; do
-	bindkey -M $km -- '-' vi-up-line-or-history
-	for c in {a,i}${(s..)^:-\'\"\`\|,./:;=+@}; do
-	  bindkey -M $km $c select-quoted
-	done
-	for c in {a,i}${(s..)^:-'()[]{}<>bB'}; do
-	  bindkey -M $km $c select-bracketed
-	done
+  bindkey -M $km -- '-' vi-up-line-or-history
+  # for c in {a,i}${(s..)^:-\'\"\`\|,./:;=+@}; do
+  #   bindkey -M $km $c select-quoted
+  # done
+  # for c in {a,i}${(s..)^:-'()[]{}<>bB'}; do
+  #   bindkey -M $km $c select-bracketed
+  # done
+  for prefix in a i; do
+    for postfix in "'" '"' '`' '|' ',' '.' '/' ':' ';' '=' '+' '@'; do
+      bindkey -M $km $prefix$postfix select-quoted
+    done
+  done
+  for prefix in a i; do
+    for postfix in '(' ')' '[' ']' '{' '}' '<' '>' 'b' 'B'; do
+      bindkey -M $km $prefix$postfix select-bracketed
+    done
+  done
 done
 
 # Add surround in vi mode
@@ -77,21 +87,21 @@ bindkey -M visual S add-surround
 PLUGINS_DIR=$XDG_DATA_HOME/zsh
 
 if [[ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh ]]; then
-	source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+  source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 elif [[ -f $PLUGINS_DIR/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
-	source $PLUGINS_DIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  source $PLUGINS_DIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
 if [[ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
-	source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 elif [[ -f $PLUGINS_DIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
-	source $PLUGINS_DIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  source $PLUGINS_DIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
 if [[ -d /usr/share/zsh/site-functions ]]; then
-	fpath+=/usr/share/zsh/site-functions
+  fpath+=/usr/share/zsh/site-functions
 elif [[ -d $PLUGINS_DIR/zsh-completions/src ]]; then
-	fpath+=$PLUGINS_DIR/zsh-completions/src
+  fpath+=$PLUGINS_DIR/zsh-completions/src
 fi
 
 # Accept suggestion with <C-f>
@@ -164,24 +174,24 @@ alias pq="paru -Q"
 # typeset -g last_is_clear=false
 
 preexec() {
-	local cmd="$1"
+  local cmd="$1"
 
-	# Set terminal title
-	[[ -z "$TMUX" ]] && print -Pn "\e]0;$cmd\a"
+  # Set terminal title
+  [[ -z "$TMUX" ]] && print -Pn "\e]0;$cmd\a"
 
-	[[ "$cmd" == "clear" || "$cmd" == "cl" ]] && last_is_clear=true || last_is_clear=false
+  [[ "$cmd" == "clear" || "$cmd" == "cl" ]] && last_is_clear=true || last_is_clear=false
 }
 
 precmd() {
-	[[ "$last_is_clear" == false ]] && echo
+  [[ "$last_is_clear" == false ]] && echo
 }
 
 # Enable proxy
 proxy-on() {
-	export http_proxy="http://127.0.0.1:20171"
-	export https_proxy="http://127.0.0.1:20171"
-	export all_proxy="socks5://127.0.0.1:20170"
-	export no_proxy="127.0.0.1"
+  export http_proxy="http://127.0.0.1:20171"
+  export https_proxy="http://127.0.0.1:20171"
+  export all_proxy="socks5://127.0.0.1:20170"
+  export no_proxy="127.0.0.1"
 
   git config --global http.proxy "http://127.0.0.1:20171"
   git config --global https.proxy "http://127.0.0.1:20171"
@@ -189,9 +199,9 @@ proxy-on() {
 
 # Disable proxy
 proxy-off() {
-	unset http_proxy
-	unset https_proxy
-	unset all_proxy
+  unset http_proxy
+  unset https_proxy
+  unset all_proxy
 
   git config --global --unset http.proxy
   git config --global --unset https.proxy
@@ -199,52 +209,52 @@ proxy-off() {
 
 # Function to fuzzy find with filename_first format and preview
 fzf_filename_first() {
-	fzf --delimiter / --with-nth -2,-1 --preview 'echo {} && fzf-preview {}'
+  fzf --delimiter / --with-nth -2,-1 --preview 'echo {} && fzf-preview {}'
 }
 
 # Function to fuzzy find files and process the result
 f() {
-	fd . "$@" | sed 's/\/$//' | fzf_filename_first
+  fd . "$@" | sed 's/\/$//' | fzf_filename_first
 }
 
 # Function to fuzzy find a file and open with the editor specified in $EDITOR
 vf() {
-	local file
-	file=$(f "$@")
-	if [[ -n "$file" ]]; then
-		$EDITOR "$file"
-	fi
+  local file
+  file=$(f "$@")
+  if [[ -n "$file" ]]; then
+    $EDITOR "$file"
+  fi
 }
 
 # Function to fuzzy find a dotfile and open with the editor specified in $EDITOR
 dot() {
-	if [[ $# -eq 0 ]]; then
-		vf -H ~/.dotfiles/
-	else
-		local target=~/.dotfiles/$1
-	  [[ -d "$target" ]] && vf -H "$target" || $EDITOR "$target"
-	fi
+  if [[ $# -eq 0 ]]; then
+    vf -H ~/.dotfiles/
+  else
+    local target=~/.dotfiles/$1
+    [[ -d "$target" ]] && vf -H "$target" || $EDITOR "$target"
+  fi
 }
 
 # Kill tmux session
 tk() {
-	if [[ $# -eq 0 ]]; then
-		tmux kill-server
-	else
-		tmux kill-session -t $1
-	fi
+  if [[ $# -eq 0 ]]; then
+    tmux kill-server
+  else
+    tmux kill-session -t $1
+  fi
 }
 
 # yazi
 y() {
-	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
-	command -v ueberzugpp &> /dev/null \
-    && yazi "$@" --cwd-file="$tmp" \
-    || env -u XDG_SESSION_TYPE -u WAYLAND_DISPLAY -u DISPLAY yazi "$@" --cwd-file="$tmp" 
-	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-		cd -- "$cwd"
-	fi
-	rm -f -- "$tmp"
+  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+  command -v ueberzugpp &>/dev/null &&
+    yazi "$@" --cwd-file="$tmp" ||
+    env -u XDG_SESSION_TYPE -u WAYLAND_DISPLAY -u DISPLAY yazi "$@" --cwd-file="$tmp"
+  if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+    cd -- "$cwd"
+  fi
+  rm -f -- "$tmp"
 }
 
 eval "$(fzf --zsh)"
