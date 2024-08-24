@@ -13,3 +13,6 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+; NOTE: Disable proxy rule for gh.zeekcheung.asia via v2raya
+[url "https://gh.zeekcheung.asia/https://github.com/"]
+	insteadOf = https://github.com/

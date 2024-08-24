@@ -237,9 +237,9 @@ main() {
 	install_bluetooth_drivers
 	install_audio_drivers
 	install_desktop_environment
+	stow_packages
 	install_input_method
 	install_themes
-	stow_packages
 	config_dns
 	install_aur_packages
 

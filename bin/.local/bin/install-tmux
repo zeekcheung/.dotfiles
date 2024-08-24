@@ -2,7 +2,7 @@
 
 # Script to install tmux
 
-git clone --depth=1 https://mirror.ghproxy.com/https://github.com/tmux/tmux.git /tmp/tmux
+git clone --depth=1 https://github.com/tmux/tmux.git /tmp/tmux
 cd /tmp/tmux || return
 sh autogen.sh
 ./configure --enable-sixel

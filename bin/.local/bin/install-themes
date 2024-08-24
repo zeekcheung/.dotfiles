@@ -5,9 +5,9 @@
 set -e
 
 # WhiteSur-gtk-theme
-git clone --depth=1 https://mirror.ghproxy.com/https://github.com/vinceliuice/WhiteSur-gtk-theme.git /tmp/WhiteSur-gtk-theme
+git clone --depth=1 https://github.com/vinceliuice/WhiteSur-gtk-theme.git /tmp/WhiteSur-gtk-theme
 bash /tmp/WhiteSur-gtk-theme/install.sh
 
 # WhiteSur-icon-theme
-git clone --depth=1 https://mirror.ghproxy.com/https://github.com/vinceliuice/WhiteSur-icon-theme.git /tmp/WhiteSur-icon-theme
+git clone --depth=1 https://github.com/vinceliuice/WhiteSur-icon-theme.git /tmp/WhiteSur-icon-theme
 bash /tmp/WhiteSur-icon-theme/install.sh
