@@ -179,6 +179,14 @@ install_desktop_environment() {
 		sudo sh -c "echo 'password optional pam_gnome_keyring.so' >>/etc/pam.d/passwd"
 }
 
+install_github_cli() {
+	print "Installing Github CLI..." "info"
+	sudo pacman -S --needed --noconfirm github-cli
+	gh completion -s bash
+	gh completion -s zsh
+	gh completion -s fish
+}
+
 install_input_method() {
 	print "Installing Fcitx5..." "info"
 	sudo pacman -S --needed --noconfirm fcitx5-im fcitx5-rime fcitx5-chinese-addons fcitx5-material-color fcitx5-pinyin-zhwiki
@@ -237,6 +245,7 @@ main() {
 	install_bluetooth_drivers
 	install_audio_drivers
 	install_desktop_environment
+	install_github_cli
 	stow_packages
 	install_input_method
 	install_themes
