@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# Script to configure dns
+
+set -e
+
+RESOLVED_CONF="/etc/systemd/resolved.conf"
+
+sudo cp "$RESOLVED_CONF" "$RESOLVED_CONF.bak"
+
+sudo tee "$RESOLVED_CONF" <<EOF
+[Resolve]
+DNS=114.114.114.114 8.8.8.8 8.8.4.4
+FallbackDNS=223.5.5.5
+Cache=yes
+EOF
+
+sudo ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+
+sudo systemctl enable --now systemd-resolved

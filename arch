@@ -52,11 +52,6 @@ make_local_dirs() {
 	bash "$HOME/.dotfiles/bin/.local/bin/mkdir-local"
 }
 
-config_github_host() {
-	print "Configuring GitHub host..." "info"
-	bash "$HOME/.dotfiles/bin/.local/bin/github520"
-}
-
 add_archlinuxcn_repo() {
 	print "Adding ArchLinuxCN repository..." "info"
 
@@ -200,6 +195,11 @@ stow_packages() {
 	bash "$HOME/.dotfiles/bin/.local/bin/stow-packages"
 }
 
+config_dns() {
+	print "Configuring DNS over HTTPS..." "info"
+	bash "$HOME/.dotfiles/bin/.local/bin/dns"
+}
+
 install_aur_packages() {
 	# Install AUR helper
 	if ! command -v $AUR_HELPER &>/dev/null; then
@@ -223,12 +223,6 @@ install_aur_packages() {
 	sudo systemctl enable --now v2raya.service
 }
 
-config_doh() {
-	print "Configuring DNS over HTTPS..." "info"
-	sudo pacman -S --noconfirm --needed cloudflared bind
-	bash "$HOME/.dotfiles/bin/.local/bin/doh"
-}
-
 main() {
 	print "Starting installation..." "info"
 
@@ -246,8 +240,8 @@ main() {
 	install_input_method
 	install_themes
 	stow_packages
+	config_dns
 	install_aur_packages
-	# config_doh
 
 	print "Done." "success"
 }
