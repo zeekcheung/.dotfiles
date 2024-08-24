@@ -13,7 +13,7 @@ BASE_PACKAGES=(
 	# Shell
 	"fish" "bash-completion" "man-db" "starship" "zsh" "zsh-completions" "zsh-autosuggestions" "zsh-syntax-highlighting"
 	"git" "wget" "curl" "stow" "bat" "eza" "fd" "ripgrep" "zoxide" "fzf" "lazygit" "yazi" "bottom" "fastfetch"
-	"p7zip" "unrar" "unarchiver" "lzop" "lrzip"
+	"p7zip" "unrar" "unarchiver" "lzop" "lrzip" "wrangler"
 	# Editor
 	"neovim" "bob" "tmux" "xsel" "wl-clipboard"
 	# Languages
