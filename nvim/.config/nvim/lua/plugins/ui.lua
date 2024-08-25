@@ -99,6 +99,10 @@ return {
     enabled = true,
     optional = true,
     opts = function(_, opts)
+      local theme = require("lualine.themes.auto")
+      theme.normal.c = { fg = "#768390" }
+      opts.options.theme = theme
+
       opts.options.component_separators = { left = "", right = "" }
       opts.options.section_separators = { left = "", right = "" }
 
