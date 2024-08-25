@@ -3,7 +3,7 @@ return {
     "LazyVim/LazyVim",
     opts = {
       -- colorscheme = "rose-pine",
-      colorscheme = "tokyonight",
+      colorscheme = "github_dark_dimmed",
     },
   },
 
@@ -40,5 +40,24 @@ return {
     opts = {
       transparent_background = vim.g.transparent,
     },
+  },
+
+  {
+    "projekt0n/github-nvim-theme",
+    config = function()
+      vim.g.lazygit_config = false
+
+      require("github-theme").setup({
+        options = {
+          transparent = vim.g.transparent,
+        },
+        groups = {
+          all = {
+            -- NeoTreeDirectoryIcon = { link = "Directory" },
+            NeoTreeDirectoryIcon = { fg = "#8C96A2" },
+          },
+        },
+      })
+    end,
   },
 }

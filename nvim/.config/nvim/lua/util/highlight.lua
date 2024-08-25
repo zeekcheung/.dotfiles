@@ -2,6 +2,7 @@ local M = {}
 
 ---@type table<string, vim.api.keyset.highlight>
 M.highlights = {
+  -- Directory = { fg = "#8C96A2" },
   -- window
   WinSeparator = { bg = "NONE", fg = "#4e4d5d" },
   CursorLineNr = { bg = "NONE" },
@@ -29,9 +30,9 @@ M.highlights = {
   -- rainbow delimiter
   RainbowDelimiterRed = { fg = "#e67e80" },
   RainbowDelimiterYellow = { fg = "#dbbc7f" },
+  RainbowDelimiterGreen = { fg = "#a7c080" },
   RainbowDelimiterBlue = { fg = "#7fbbb3" },
   RainbowDelimiterOrange = { fg = "#e69875" },
-  RainbowDelimiterGreen = { fg = "#a7c080" },
   RainbowDelimiterViolet = { fg = "#d699b6" },
   -- fzf-lua
   FzfLuaBorder = { link = "FloatBorder" },

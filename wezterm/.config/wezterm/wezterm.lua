@@ -12,7 +12,7 @@ config.front_end = "OpenGL"
 -- config.webgpu_power_preference = 'HighPerformance'
 
 -- Appearence
-config.color_scheme = "Tokyo Night Moon"
+config.color_scheme = "github-dark-dimmed"
 -- config.window_background_opacity = 0.90
 config.animation_fps = 20
 config.default_cursor_style = "BlinkingBlock"
@@ -57,12 +57,13 @@ end)
 wezterm.on("update-right-status", function(window, pane)
   local host = wezterm.hostname()
   local date = wezterm.strftime("%Y-%m-%d  %H:%M")
-  local schemes = wezterm.get_builtin_color_schemes()
-  local scheme = schemes[config.color_scheme]
+  local builtin_colorschemes = wezterm.get_builtin_color_schemes()
+  local colorscheme = config.color_scheme
+  local colors = builtin_colorschemes[colorscheme]
+    or wezterm.color.load_scheme(wezterm.home_dir .. "/.config/wezterm/colors/" .. colorscheme .. ".toml")
 
-  -- Make it italic and underlined
   window:set_right_status(wezterm.format({
-    { Foreground = { Color = scheme.tab_bar.active_tab.fg_color } },
+    { Foreground = { Color = colors.tab_bar.active_tab.fg_color } },
     { Text = string.format("%s  %s", host, date) },
   }))
 end)
