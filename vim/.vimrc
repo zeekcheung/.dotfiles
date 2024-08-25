@@ -1,6 +1,3 @@
-" --------------------------------------------
-" ----------------- options ------------------
-" --------------------------------------------
 let mapleader=" "
 let maplocalleader=" "
 
@@ -48,7 +45,7 @@ set wildoptions=pum
 set wildignorecase
 
 " completion
-set completeopt="menu,menuone,noinsert"
+set completeopt=menu,menuone,noinsert
 set pumheight=10
 
 " chars
@@ -74,34 +71,32 @@ set ttyfast
 set timeoutlen=300
 set belloff=all
 
+" colorscheme
+colorscheme habamax
+
 " netrw
 let g:netrw_banner=0
 let g:netrw_winsize=30
 let g:netrw_altv=1
 let g:netrw_liststyle=3
 let g:netrw_browse_style=4
-let g:netrw_list_hide = ',\(^\|\s\s\)\zs\.\S\+'
-let g:netrw_localcopydircmd = 'cp -r'
-
-" colorscheme
-let g:colorscheme="habamax"
-let g:transparent_background=0
-" --------------------------------------------
-" ----------------- keymaps ------------------
-" --------------------------------------------
+let g:netrw_list_hide=',\(^\|\s\s\)\zs\.\S\+'
+let g:netrw_localcopydircmd='cp -r'
 
 " Better escape
 inoremap <silent> jj <esc>
+
+" Better paste
+vnoremap <silent> <C-v> pgvy
 
 " Better indenting
 vnoremap <silent> < <gv
 vnoremap <silent> > >gv
 
-" Buffers
-nnoremap <silent> <Tab> :bp<cr>
-nnoremap <silent> <S-Tab> :bn<cr>
-nnoremap <silent> <leader>bd :bd!<cr>
-nnoremap <silent> <leader>x :x!<cr>
+" Completion
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <Enter> pumvisible() ? "\<C-Y>" : "\<Enter>"
 
 " Misc
 vnoremap <silent> <C-c> "+y
@@ -114,76 +109,73 @@ xnoremap <silent> <C-s> <esc>:w!<cr><esc>
 snoremap <silent> <C-s> <esc>:w!<cr><esc>
 inoremap <silent> <C-s> <esc>:w!<cr><esc>
 
-" Move between windows
-nnoremap <silent> <C-l> :<C-u>echo<CR>
+" Window splitting
+nnoremap <silent> \| :split<cr>
+nnoremap <silent> \ :vsplit<cr>
 
+" Window navigation
+nnoremap <silent> <C-l> :<C-u>echo<CR>
 nnoremap <silent> <C-h> <C-w>h
 nnoremap <silent> <C-j> <C-w>j
 nnoremap <silent> <C-k> <C-w>k
 nnoremap <silent> <C-l> <C-w>l
 
-" Resize window using <ctrl> arrow keys
+" Window resize
 nnorema <silent> <C-Up> :resize +2<cr>
 nnorema <silent> <C-Down> :resize -2<cr>
 nnorema <silent> <C-Left> :vertical resize -2<cr>
 nnorema <silent> <C-Right> :vertical resize +2<cr>
 
-
-" Quit
-nnoremap <silent> <leader>qq :qa!<cr>
-nnoremap <silent> <leader>qw :close!<cr>
-
-"Source config
-nnoremap <silent> <leader>s :so%<cr>
-
-" Split window
-nnoremap <silent> \| :split<cr>
-nnoremap <silent> \ :vsplit<cr>
+" Buffers
+nnoremap <silent> <Tab> :bp<cr>
+nnoremap <silent> <S-Tab> :bn<cr>
+nnoremap <silent> <leader>bd :bd!<cr>
+nnoremap <silent> <leader>x :x!<cr>
 
 " Tab
-nnoremap <silent> <leader><tab><tab> :tabnew<cr>
-nnoremap <silent> <leader><tab>n :tabnext<cr>
-nnoremap <silent> <leader><tab>p :tabprevious<cr>
-nnoremap <silent> <leader><tab>d :tabclose<cr>
+nnoremap <silent> <leader><Tab><Tab> :tabnew<cr>
+nnoremap <silent> <leader><Tab>l :tablast<cr>
+nnoremap <silent> <leader><Tab>f :tabfirst<cr>
+nnoremap <silent> <leader><Tab>n :tabnext<cr>
+nnoremap <silent> <leader><Tab>p :tabprevious<cr>
+nnoremap <silent> <leader><Tab>d :tabclose<cr>
 
 " Terminal
 nnoremap <silent> <leader>th :term<cr>
 nnoremap <silent> <leader>tv :vert term<cr>
-tnoremap <silent> <esc> <C-\><C-n>
-
-" Toggle netrw
-nnoremap <silent> <leader>e :Lexplore<cr>
-
-" Undo
-nnoremap <silent> <C-z> :undo<cr>
-inoremap <silent> <C-z> <esc>:undo<cr>
+nnoremap <silent> <leader>tt :tab ter<cr>
+nnoremap <silent> <leader>gg :tab ter lazygit<cr>
+tnoremap <silent> <esc><esc> <C-\><C-n>
 
 " Netrw
+nnoremap <silent> <leader>e :Lexplore<cr>
 function! NetrwMapping()
     nmap <buffer> <C-l> <C-w>l
     nmap <buffer> H gh
     nmap <buffer> a %:w<CR>:buffer#<CR>
     nmap <buffer> r R
+    nmap <buffer> h <CR>
+    nmap <buffer> l <CR>
     nmap <buffer> ? <F1>
 endfunction
 
-" --------------------------------------------
-" ------------------- gvim -------------------
-" --------------------------------------------
+" Quit
+nnoremap <silent> <leader>qq :qa!<cr>
+nnoremap <silent> <leader>qw :close!<cr>
+
+" Clear search
+nnoremap <silent> <esc> :noh<cr>
+
+" GUI
 if has("gui_running")
     set guioptions=""
     set guifont=Maple\ Mono\ NF\ 18
     set guicursor+=a:blinkon0
-    let g:transparent_background=0
 
     " Misc
     vnoremap <silent> <C-S-c> "+y
     vnoremap <silent> <C-S-x> "+d
     inoremap <silent> <C-S-v> <C-r>+
-
-    " Clear search with <esc>
-    nnoremap <silent> <esc> <esc>:noh<cr><esc>
-    inoremap <silent> <esc> <esc>:noh<cr><esc>
 
     " Move lines
     " Hack: terminal emulator will send Esc when pressing Alt in vim
@@ -196,10 +188,6 @@ if has("gui_running")
     inoremap <A-k> <Esc>:m-2<CR>i
     vnoremap <A-k> :m-2<CR>gv=gv
 endif
-
-" --------------------------------------------
-" ----------------- autocmds -----------------
-" --------------------------------------------
 
 " Jump to last edit position when opening files
 silent! source $VIMRUNTIME/defaults.vim
@@ -231,36 +219,14 @@ augroup FiletypeClose
     autocmd FileType qf nnoremap <buffer> <silent> q :q<cr>
 augroup END
 
-" Colorscheme
-if findfile("colors/" . g:colorscheme .".vim", &rtp) != ""
-    execute "colorscheme " . g:colorscheme
-
+" Custom highlight groups
+function! DrawMyColors()
     set noshowcmd
-    if g:transparent_background == 1
-        hi! Normal ctermbg=NONE guibg=NONE
-    end
-    hi! StatusLine ctermfg=104 ctermbg=NONE guifg=#888888 guibg=NONE 
-    hi! StatusLineNC cterm=NONE ctermbg=NONE gui=NONE guibg=NONE
-    hi! Visual cterm=NONE ctermbg=105 ctermfg=16 guibg=Black guifg=Purple
-    hi! Pmenu ctermbg=NONE ctermfg=255
-    hi! PmenuSel ctermbg=105
-else
-    " Fallback colorscheme
-    function! DrawMyColors()
-        if g:transparent_background == 1
-            hi! Normal ctermbg=NONE guibg=NONE
-        end
-        hi! StatusLine ctermbg=NONE guibg=NONE
-        hi! StatusLineNC cterm=NONE ctermbg=NONE gui=NONE guibg=NONE
-        hi! CursorLine cterm=NONE ctermbg=237 guibg=#363841
-        hi! CursorLineNr cterm=NONE
-        hi! LineNr term=underline ctermfg=7 guifg=lightgrey
-    endfunction
+    hi! VertSplit ctermbg=NONE ctermfg=NONE guifg=NONE guibg=NONE
+endfunction
 
-    call DrawMyColors()
-    augroup MyColors
-        autocmd!
-        autocmd ColorScheme * call DrawMyColors()
-    augroup END
-endif
-
+call DrawMyColors()
+augroup MyColors
+    autocmd!
+    autocmd ColorScheme * call DrawMyColors()
+augroup END
