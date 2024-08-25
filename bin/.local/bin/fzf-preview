@@ -19,7 +19,7 @@ type=$(file --dereference --mime -- "$file")
 
 # Preview directory with eza
 if [ -d "$file" ]; then
-	eza -l --color=always "$file"
+	eza -la --color=always "$file"
 	exit
 fi
 

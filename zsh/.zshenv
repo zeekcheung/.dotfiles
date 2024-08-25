@@ -49,3 +49,21 @@ export FZF_DEFAULT_OPTS="
 --color=separator:#ff966c 
 --color=spinner:#ff008c 
 "
+
+export FZF_CTRL_T_OPTS="
+--walker-skip .git,node_modules,target
+--preview 'fzf-preview {}'
+--bind 'ctrl-/:change-preview-window(down|hidden|)'
+"
+
+export FZF_CTRL_R_OPTS="
+--bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
+--color header:italic
+--header 'Press CTRL-Y to copy command into clipboard'
+--preview='echo {}'
+"
+
+export FZF_ALT_C_OPTS="
+--walker-skip .git,node_modules,target
+--preview 'fzf-preview {}'
+"
