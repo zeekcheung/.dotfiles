@@ -29,7 +29,7 @@ BASE_PACKAGES=(
 	# Themes
 	"papirus-icon-theme" "adwaita-icon-theme" "gnome-themes-standard" "gnome-themes-extra"
 )
-AUR_PACKAGES=("xray" "v2raya" "wechat-universal-bwrap" "bibata-cursor-theme" "hyprshade")
+AUR_PACKAGES=("xray" "v2raya" "wechat-universal-bwrap" "bibata-cursor-theme" "hyprshade" "hyprpicker")
 
 declare -A SEVERITY=(
 	["success"]='\033[0;32m'
