@@ -2,8 +2,10 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
+      -- colorscheme = "catppuccin",
       -- colorscheme = "rose-pine",
-      colorscheme = "github_dark_dimmed",
+      colorscheme = "tokyonight",
+      -- colorscheme = "github_dark_dimmed",
     },
   },
 
@@ -25,6 +27,7 @@ return {
     opts = {
       transparent = vim.g.transparent,
       styles = {
+        keywords = { italic = true },
         sidebars = vim.g.transparent and "transparent" or "normal",
         floats = vim.g.transparent and "transparent" or "normal",
       },
@@ -32,6 +35,9 @@ return {
       on_colors = function(colors)
         colors.bg_statusline = colors.none
       end,
+      -- on_highlights = function(hl, c)
+      --   hl.MatchParen = { link = "LspReferenceText" }
+      -- end,
     },
   },
 
@@ -39,6 +45,7 @@ return {
     "catppuccin/nvim",
     opts = {
       transparent_background = vim.g.transparent,
+      no_bold = true,
     },
   },
 

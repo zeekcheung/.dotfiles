@@ -1,12 +1,12 @@
 # TokyoNight Alacritty Colors
 # Default colors
 [colors.primary]
-background = '#222436'
 foreground = '#c8d3f5'
+background = '#222436'
 
-#[colors.cursor]
-#cursor = '#c8d3f5'
-#text = '#222436'
+# [colors.cursor]
+# text = '#222436'
+# cursor = '#c8d3f5'
 
 # Normal colors
 [colors.normal]

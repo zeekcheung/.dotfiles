@@ -12,7 +12,7 @@ config.front_end = "OpenGL"
 -- config.webgpu_power_preference = 'HighPerformance'
 
 -- Appearence
-config.color_scheme = "github-dark-dimmed"
+config.color_scheme = "tokyonight-moon"
 -- config.window_background_opacity = 0.90
 config.animation_fps = 20
 config.default_cursor_style = "BlinkingBlock"
