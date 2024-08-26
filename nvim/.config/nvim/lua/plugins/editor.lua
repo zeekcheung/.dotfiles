@@ -29,6 +29,13 @@ return {
         modified = {
           symbol = "",
         },
+        icon = {
+          -- folder_closed = "",
+          -- folder_open = "",
+          -- folder_empty = "",
+          -- folder_empty_open = "",
+          default = "󰈔",
+        },
         git_status = {
           symbols = {
             added = "",
@@ -63,10 +70,10 @@ return {
         bind_to_cwd = true,
         follow_current_file = { enabled = false },
         filtered_items = {
-          visible = false,
+          visible = true,
           show_hidden_count = true,
-          hide_dotfiles = true,
-          hide_gitignored = true,
+          hide_dotfiles = false,
+          hide_gitignored = false,
           hide_by_name = {},
           always_show = {
             ".config",
