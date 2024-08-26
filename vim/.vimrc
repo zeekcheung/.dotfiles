@@ -201,6 +201,19 @@ autocmd VimResized * :wincmd =
 " Change indent size for different filetypes
 autocmd Filetype c,cpp,h,hpp,python setlocal shiftwidth=4 tabstop=4
 
+" Commenting
+function! ToggleComment(comment_char)
+	if getline(".") =~ "^" . a:comment_char
+		execute ".s/^" . a:comment_char . " " . "//g"
+	else
+		execute ".s/^/" . a:comment_char . " " . "/g"
+	endif
+endfunction
+
+autocmd FileType vim nnoremap <buffer> <silent> gcc :call ToggleComment('"')<CR>
+autocmd FileType javascript,typescript nnoremap <buffer> <silent> gcc :call ToggleComment("\\/\\/")<CR>
+autocmd FileType php,sh,zsh,bash,markdown nnoremap <buffer> <silent> gcc :call ToggleComment("#")<CR>
+
 " Netrw 
 augroup NetrwCustomKeymaps
     autocmd!
