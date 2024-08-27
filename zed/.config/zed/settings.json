@@ -11,6 +11,7 @@
     "inline_completion_provider": "supermaven"
   },
   "vim_mode": true,
+  "cursor_blink": false,
   "relative_line_numbers": true,
   "buffer_font_family": "Maple Mono NF",
   "buffer_font_features": {
@@ -22,16 +23,17 @@
   "ui_font_weight": 300,
   "tab_size": 2,
   "confirm_quit": false,
+  "current_line_highlight": "line",
   "theme": {
     "mode": "system",
     "light": "One Light",
-    "dark": "Tokyo Night Storm"
+    "dark": "Github Dark"
   },
   "indent_guides": {
     "enabled": true
   },
   "scrollbar": {
-    "show": "never"
+    "show": "auto"
   },
   "gutter": {
     "code_actions": false,
@@ -61,6 +63,16 @@
       "title": true
     }
   },
+  "project_panel": {
+    "scrollbar": {
+      "show": "never"
+    }
+  },
+  "assistant": {
+    "version": "2",
+    "enabled": false,
+    "button": false
+  },
   "collaboration_panel": {
     "dock": "right"
   },
@@ -68,5 +80,13 @@
     "diagnostics": false,
     "metrics": false
   },
-  "proxy": "http://127.0.0.1:20171"
+  "journal": {
+    "hour_format": "hour24"
+  },
+  "proxy": "http://127.0.0.1:20172",
+  "file_types": {
+    "Shell Script": ["conf"],
+    "JSONC": ["settings.json"],
+    "XML": ["fonts.conf"]
+  }
 }
