@@ -7,20 +7,14 @@ import datetime
 import socket
 from dataclasses import dataclass
 from typing import List
-from kitty.utils import color_as_int
-from kitty.fast_data_types import Screen, get_options
-from kitty.tab_bar import (
-    DrawData,
-    ExtraData,
-    TabBarData,
-    as_rgb,
-    draw_tab_with_separator,
-)
+from kitty.utils import color_as_int  # pyright: ignore[reportMissingImports]
+from kitty.fast_data_types import Screen, get_options  # pyright: ignore[reportMissingImports]
+from kitty.tab_bar import (DrawData, ExtraData, TabBarData, as_rgb, draw_tab_with_separator)  # fmt: skip
 
 
 # Translate the kitty colors to rgb.
 def color_as_rgb(color):
-    return as_rgb(color_as_int(color))
+    return as_rgb(color_as_int(color))  # pyright: ignore[reportCallIssue]
 
 
 opts = get_options()
@@ -103,22 +97,20 @@ def draw_right_status(screen: Screen, is_last: bool) -> int:
 
 # Draw the tab bar
 def draw_tab(
-    draw_data: DrawData,
+    draw_data: DrawData,  # pyright: ignore[reportGeneralTypeIssues]
     screen: Screen,
-    tab: TabBarData,
+    tab: TabBarData,  # pyright: ignore[reportGeneralTypeIssues]
     before: int,
     max_title_length: int,
     index: int,
     is_last: bool,
-    extra_data: ExtraData,
+    extra_data: ExtraData,  # pyright: ignore[reportGeneralTypeIssues]
 ) -> int:
     # Draw the left status.
     # See the functions named draw_tab_with_* in kitty’s source code:
     # [kitty/tab_bar.py](https://github.com/kovidgoyal/kitty/blob/master/kitty/tab_bar.py)
     # Remember importing the function from kitty.tab_bar
-    end = draw_tab_with_separator(
-        draw_data, screen, tab, before, max_title_length, index, is_last, extra_data
-    )
+    end = draw_tab_with_separator(draw_data, screen, tab, before, max_title_length, index, is_last, extra_data)  # fmt: skip # pyright: ignore[reportCallIssue]
     draw_right_status(screen, is_last)
 
     return end
