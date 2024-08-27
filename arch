@@ -23,13 +23,13 @@ BASE_PACKAGES=(
 	# Apps
 	"firefox-developer-edition" "rofi-wayland" "gnome-system-monitor" "solaar" "mpv" "spotify-launcher" "libreoffice-still"
 	# Fonts
-	"adobe-source-han-serif-cn-fonts" "wqy-zenhei" "noto-fonts" "noto-fonts-cjk" "noto-fonts-emoji" "noto-fonts-extra" "inter-font"
+	"adobe-source-han-serif-cn-fonts" "wqy-zenhei" "noto-fonts" "noto-fonts-cjk" "noto-fonts-emoji" "noto-fonts-extra" "inter-font" "ttf-sarasa-gothic"
 	# GTK/QT
 	"nwg-look" "gtk-engine-murrine" "qt5-wayland" "qt6-wayland" "qt6ct"
 	# Themes
 	"papirus-icon-theme" "adwaita-icon-theme" "gnome-themes-standard" "gnome-themes-extra"
 )
-AUR_PACKAGES=("xray" "v2raya" "wechat-universal-bwrap" "bibata-cursor-theme" "hyprshade" "hyprpicker")
+AUR_PACKAGES=("xray" "v2raya" "ttf-maple-beta" "wechat-universal-bwrap" "bibata-cursor-theme" "hyprshade" "hyprpicker")
 
 declare -A SEVERITY=(
 	["success"]='\033[0;32m'
