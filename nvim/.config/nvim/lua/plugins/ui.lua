@@ -122,8 +122,11 @@ return {
         -- "filename",
       }
       opts.sections.lualine_x = {
-        "encoding",
-        "fileformat",
+        -- tabstop
+        -- stylua: ignore
+        { "encoding", fmt = function(str) return string.upper(str) end, },
+        -- { "fileformat", symbols = { unix = "LF", dos = "CRLF", mac = "LF" } },
+        { "fileformat" },
         "%Y",
         "progress",
         "location",
