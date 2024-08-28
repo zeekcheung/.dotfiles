@@ -4,6 +4,13 @@
 
 local autocmd = vim.api.nvim_create_autocmd
 
+vim.filetype.add({
+  pattern = {
+    [".*/Code/.+%.json"] = "jsonc",
+    [".*/zed/.+%.json"] = "jsonc",
+  },
+})
+
 autocmd("BufWritePost", {
   desc = "Auto reload tmux config",
   pattern = { "*/.tmux.conf" },
