@@ -10,19 +10,6 @@ return {
   },
 
   {
-    "rose-pine/neovim",
-    name = "rose-pine",
-    opts = {
-      dark_variant = "moon",
-      dim_inactive_windows = false,
-      styles = {
-        bold = false,
-        transparency = vim.g.transparent,
-      },
-    },
-  },
-
-  {
     "folke/tokyonight.nvim",
     opts = {
       transparent = vim.g.transparent,
@@ -46,6 +33,19 @@ return {
     opts = {
       transparent_background = vim.g.transparent,
       no_bold = true,
+    },
+  },
+
+  {
+    "rose-pine/neovim",
+    name = "rose-pine",
+    opts = {
+      dark_variant = "moon",
+      dim_inactive_windows = false,
+      styles = {
+        bold = false,
+        transparency = vim.g.transparent,
+      },
     },
   },
 

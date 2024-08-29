@@ -17,6 +17,7 @@ opt.helpheight = 10
 -- status
 opt.foldcolumn = "0"
 -- opt.statusline = " %f %m %=  %Y  %{&fileencoding?&fileencoding:&encoding}  %P  %l:%c "
+opt.ruler = false
 opt.showcmd = false
 
 -- completion

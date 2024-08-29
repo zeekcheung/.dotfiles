@@ -1,7 +1,6 @@
 local border_with_highlight = require("util.highlight").border_with_highlight
 
 return {
-  -- Completion
   {
     "hrsh7th/nvim-cmp",
     ---@param opts cmp.ConfigSchema
@@ -63,7 +62,6 @@ return {
     end,
   },
 
-  -- Command line completion
   {
     "hrsh7th/cmp-cmdline",
     event = "CmdlineEnter",
