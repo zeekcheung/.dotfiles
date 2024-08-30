@@ -187,6 +187,13 @@ install_github_cli() {
 	gh completion -s fish
 }
 
+install_docker() {
+	print "Installing Docker..." "info"
+	sudo pacman -S --needed --noconfirm docker docker-compose
+	sudo systemctl enable docker
+	sudo usermod -aG docker "$USER"
+}
+
 install_input_method() {
 	print "Installing Fcitx5..." "info"
 	sudo pacman -S --needed --noconfirm fcitx5-im fcitx5-rime fcitx5-chinese-addons fcitx5-material-color fcitx5-pinyin-zhwiki
@@ -246,6 +253,7 @@ main() {
 	install_audio_drivers
 	install_desktop_environment
 	install_github_cli
+	install_docker
 	stow_packages
 	install_input_method
 	install_themes
