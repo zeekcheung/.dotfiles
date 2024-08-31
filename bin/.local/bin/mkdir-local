@@ -11,6 +11,7 @@ dirs=(
 	"$HOME/.local/share/icons"
 	"$HOME/.local/share/themes"
 	"$HOME/.local/share/fonts"
+	"$HOME/.local/share/zsh"
 )
 
 for dir in "${dirs[@]}"; do

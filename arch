@@ -29,7 +29,7 @@ BASE_PACKAGES=(
 	# Themes
 	"papirus-icon-theme" "adwaita-icon-theme" "gnome-themes-standard" "gnome-themes-extra"
 )
-AUR_PACKAGES=("xray" "v2raya" "ttf-maple-beta" "wechat-universal-bwrap" "bibata-cursor-theme" "hyprshade" "hyprpicker")
+AUR_PACKAGES=("xray" "v2raya" "wechat-universal-bwrap" "bibata-cursor-theme")
 
 declare -A SEVERITY=(
 	["success"]='\033[0;32m'
@@ -95,8 +95,8 @@ config_grub() {
 	GRUB_TIMEOUT=0
 	GRUB_CMDLINE_LINUX_DEFAULT="quiet loglevel=5 nowatchdog"
 
-	sed -i "s/GRUB_TIMEOUT=5/GRUB_TIMEOUT=${GRUB_TIMEOUT}/g" /etc/default/grub
-	sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet\"/GRUB_CMDLINE_LINUX_DEFAULT=\"${GRUB_CMDLINE_LINUX_DEFAULT}\"/g" /etc/default/grub
+	sudo sed -i "s/GRUB_TIMEOUT=5/GRUB_TIMEOUT=${GRUB_TIMEOUT}/g" /etc/default/grub
+	sudo sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet\"/GRUB_CMDLINE_LINUX_DEFAULT=\"${GRUB_CMDLINE_LINUX_DEFAULT}\"/g" /etc/default/grub
 }
 
 install_graphics_drivers() {
@@ -113,36 +113,35 @@ install_graphics_drivers() {
 			print "Enabling Wayland for Nvidia..." "info"
 
 			# Enable DRM (Direct Rendering Manager) kernel mode setting
-			sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"${GRUB_CMDLINE_LINUX_DEFAULT}\"/GRUB_CMDLINE_LINUX_DEFAULT=\"${GRUB_CMDLINE_LINUX_DEFAULT} nvidia_drm.modeset=1 nvidia_drm.fbdev=1 nvidia.NVreg_EnableGpuFirmware=0\"/g" \
-				/etc/default/grub
+			sudo sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"${GRUB_CMDLINE_LINUX_DEFAULT}\"/GRUB_CMDLINE_LINUX_DEFAULT=\"${GRUB_CMDLINE_LINUX_DEFAULT} nvidia_drm.modeset=1 nvidia_drm.fbdev=1 nvidia.NVreg_EnableGpuFirmware=0\"/g" /etc/default/grub
 
 			# Edit /etc/mkinitcpio.conf to add Nvidia modules
 			mkinitcpio_conf="/etc/mkinitcpio.conf"
 			if ! grep -q "^MODULES=.*nvidia" "$mkinitcpio_conf"; then
-				sed -i '/^MODULES=/ s/(\(.*\))/(\1 nvidia nvidia_modeset nvidia_uvm nvidia_drm)/' "$mkinitcpio_conf"
+				sudo sed -i '/^MODULES=/ s/(\(.*\))/(\1 nvidia nvidia_modeset nvidia_uvm nvidia_drm)/' "$mkinitcpio_conf"
 			fi
 
 			# Create /etc/modprobe.d/nvidia.conf with necessary options
-			echo "options nvidia_drm modeset=1 fbdev=1" >/etc/modprobe.d/nvidia.conf
-			echo "options nvidia NVreg_PreserveVideoMemoryAllocations=1" >/etc/modprobe.d/nvidia-power-management.conf
+			echo "options nvidia_drm modeset=1 fbdev=1" | sudo tee -a "/etc/modprobe.d/nvidia.conf"
+			echo "options nvidia NVreg_PreserveVideoMemoryAllocations=1" | sudo tee -a "/etc/modprobe.d/nvidia-power-management.conf"
 
 			# Rebuild initramfs
-			mkinitcpio -P
+			sudo mkinitcpio -P
 
 			# Preserve video memory after suspend
-			systemctl enable nvidia-suspend.service
-			systemctl enable nvidia-hibernate.service
-			systemctl enable nvidia-resume.service
+			sudo systemctl enable nvidia-suspend.service
+			sudo systemctl enable nvidia-hibernate.service
+			sudo systemctl enable nvidia-resume.service
 
 			# Force-enable Wayland
-			ln -s /dev/null /etc/udev/rules.d/61-gdm.rules
+			sudo ln -s /dev/null /etc/udev/rules.d/61-gdm.rules
 		fi
 	fi
 }
 
 generate_grub_config() {
 	print "Generating GRUB config..." "info"
-	grub-mkconfig -o /boot/grub/grub.cfg
+	sudo grub-mkconfig -o /boot/grub/grub.cfg
 }
 
 install_bluetooth_drivers() {
@@ -162,7 +161,9 @@ install_desktop_environment() {
 	# Install hyprland
 	sudo pacman -S --needed --noconfirm \
 		hyprland hyprlock hypridle hyprpaper xdg-desktop-portal-hyprland xdg-desktop-portal-gtk archlinux-xdg-menu \
-		ly waybar swww dunst pipewire pavucontrol network-manager-applet polkit-gnome gnome-keyring grim slurp nautilus eog
+		ly waybar inotify-tools swww dunst pipewire pavucontrol network-manager-applet polkit-gnome gnome-keyring grim slurp nautilus eog
+
+	AUR_PACKAGES+=("wlogout" "hyprshade" "hyprpicker")
 
 	# Enable systemd service
 	sudo systemctl enable ly
@@ -242,7 +243,6 @@ main() {
 	print "Starting installation..." "info"
 
 	make_local_dirs
-	config_github_host
 	add_archlinuxcn_repo
 	add_ustc_cargo_crates
 	install_base_packages
