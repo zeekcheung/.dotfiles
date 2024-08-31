@@ -9,5 +9,8 @@ data
 *tmp*
 *History*
 *globalStorage*
-sync
 *workspaceStorage*
+**/rime/**
+!**/rime/default.custom.yaml
+!**/rime/rime_rice.custom.yaml
+cached_layouts

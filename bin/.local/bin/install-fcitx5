@@ -21,7 +21,3 @@ cd /tmp/rime-auto-deploy || exit
 chmod +x ./installer.rb
 
 ./installer.rb
-
-# Make symbolic links for custom config
-ln -sf "$HOME"/.config/fcitx5/rime/default.custom.yaml "$HOME"/.local/share/fcitx5/rime/default.custom.yaml
-ln -sf "$HOME"/.config/fcitx5/rime/rime_ice.custom.yaml "$HOME"/.local/share/fcitx5/rime/rime_ice.custom.yaml
