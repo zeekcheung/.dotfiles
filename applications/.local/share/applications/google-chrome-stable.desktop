@@ -106,7 +106,8 @@ Comment[zh_CN]=访问互联网
 Comment[zh_HK]=連線到網際網路
 Comment[zh_TW]=連線到網際網路
 StartupWMClass=Google-chrome
-Exec=/usr/bin/google-chrome-stable %U --use-gl=desktop --use-angle=vulkan --use-cmd-decoder=passthrough --ozone-platform-hint=auto --enable-features=VaapiVideoDecoder
+# Exec=/usr/bin/google-chrome-stable %U --use-gl=desktop --use-angle=vulkan --use-cmd-decoder=passthrough --ozone-platform-hint=auto --enable-features=VaapiVideoDecoder
+Exec=/usr/bin/google-chrome-stable %U --use-gl=desktop --use-angle=vulkan --use-cmd-decoder=passthrough --enable-features=VaapiVideoDecoder
 StartupNotify=true
 Terminal=false
 Icon=google-chrome

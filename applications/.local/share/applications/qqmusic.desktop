@@ -2,7 +2,8 @@
 Name=QQMusic
 Name[zh_CN]=QQ音乐
 Keywords=qqmusic
-Exec=env GDK_DPI_SCALE=1.25 qqmusic --no-sandbox %U
+# Exec=env GDK_DPI_SCALE=1.25 qqmusic --no-sandbox %U
+Exec=qqmusic %U --no-sandbox
 Type=Application
 Icon=qqmusic
 StartupWMClass=qqmusic
