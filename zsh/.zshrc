@@ -213,15 +213,16 @@ tk() {
 y() {
   local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
   # Image preview with ueberzugpp or chafa
-  local ueberzugpp_available=$(command -v ueberzugpp &>/dev/null && echo true || echo false)
-  local hyprland_animate=$(
-    rg --multiline --quiet "animations\s*\{\s*enabled\s*=\s*true" "$HOME/.config/hypr/hyprland.conf" && echo true || echo false
-  )
-  if $ueberzugpp_available && $hyprland_animate; then
-    yazi "$@" --cwd-file="$tmp"
-  else
-    env -u XDG_SESSION_TYPE -u WAYLAND_DISPLAY -u DISPLAY yazi "$@" --cwd-file="$tmp"
-  fi
+  # local ueberzugpp_available=$(command -v ueberzugpp &>/dev/null && echo true || echo false)
+  # local hyprland_animate=$(
+  #   rg --multiline --quiet "animations\s*\{\s*enabled\s*=\s*true" "$HOME/.config/hypr/hyprland.conf" && echo true || echo false
+  # )
+  # if $ueberzugpp_available && $hyprland_animate; then
+  #   yazi "$@" --cwd-file="$tmp"
+  # else
+  #   env -u XDG_SESSION_TYPE -u WAYLAND_DISPLAY -u DISPLAY yazi "$@" --cwd-file="$tmp"
+  # fi
+  yazi "$@" --cwd-file="$tmp"
   if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
     cd -- "$cwd"
   fi
