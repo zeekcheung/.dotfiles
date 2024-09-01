@@ -5,6 +5,7 @@
 set -e
 
 dirs=(
+	"$HOME/Pictures/Screenshots"
 	"$HOME/.local/bin"
 	"$HOME/.local/share/applications"
 	"$HOME/.local/share/pixmaps"
