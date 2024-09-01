@@ -8,53 +8,22 @@ ENABLE_WAYLAND=true
 
 AUR_HELPER="paru"
 BASE_PACKAGES=(
-	# Terminals
-	"alacritty" "kitty"
-	# Shell
-	"fish" "bash-completion" "man-db" "starship" "zsh" "zsh-completions" "zsh-autosuggestions" "zsh-syntax-highlighting"
-	"git" "wget" "curl" "stow" "bat" "eza" "fd" "ripgrep" "zoxide" "fzf" "lazygit" "yazi" "bottom" "fastfetch"
-	"p7zip" "unrar" "unarchiver" "lzop" "lrzip" "wrangler"
-	# Editor
-	"neovim" "bob" "tmux" "xsel" "wl-clipboard"
-	# Languages
-	"clang" "cmake" "make" "go" "lua" "luarocks" "nodejs" "npm" "yarn" "ruby" "rust" "rust-analyzer"
-	# Libraries
-	"openslide" "sassc" "speech-dispatcher" "chafa" "imagemagick" "poppler-glib" "libheif" "ffmpegthumbnailer" "fuse2"
-	# Apps
-	"firefox-developer-edition" "rofi-wayland" "gnome-system-monitor" "solaar" "mpv" "spotify-launcher" "libreoffice-still"
-	# Fonts
+	"alacritty" "kitty" "fish" "zsh" "zsh-completions" "zsh-autosuggestions" "zsh-syntax-highlighting" "bash-completion" "man-db"
+	"neovim" "tmux" "xsel" "wl-clipboard" "stow" "starship" "bat" "eza" "fd" "ripgrep" "zoxide" "fzf" "lazygit" "yazi" "bottom" "fastfetch"
+	"clang" "cmake" "make" "go" "lua" "luarocks" "nodejs" "npm" "yarn" "ruby" "rust" "rust-analyzer" "wrangler"
+	"sassc" "speech-dispatcher" "chafa" "imagemagick" "poppler-glib" "libheif" "ffmpegthumbnailer" "openslide"
+	"firefox" "rofi-wayland" "gnome-system-monitor" "solaar" "mpv" "spotify-launcher" "libreoffice-still"
 	"adobe-source-han-serif-cn-fonts" "wqy-zenhei" "noto-fonts" "noto-fonts-cjk" "noto-fonts-emoji" "noto-fonts-extra" "inter-font" "ttf-sarasa-gothic"
-	# GTK/QT
-	"nwg-look" "gtk-engine-murrine" "qt5-wayland" "qt6-wayland" "qt6ct"
-	# Themes
-	"papirus-icon-theme" "adwaita-icon-theme" "gnome-themes-standard" "gnome-themes-extra"
+	"papirus-icon-theme" "adwaita-icon-theme" "gnome-themes-standard" "gnome-themes-extra" "nwg-look" "gtk-engine-murrine" "qt5-wayland" "qt6-wayland" "qt6ct"
+	"git" "wget" "curl" "flatpak" "fuse2" "p7zip" "unrar" "unarchiver" "lzop" "lrzip"
 )
-AUR_PACKAGES=("xray" "v2raya" "wechat-universal-bwrap" "qqmusic-appimage" "bibata-cursor-theme")
-
-declare -A SEVERITY=(
-	["success"]='\033[0;32m'
-	["warning"]='\033[0;33m'
-	["error"]='\033[0;31m'
-	["info"]='\033[0;34m'
-	["default"]='\033[0m'
-)
-
-print() {
-	local message=$1
-	local severity=${2:-"default"}
-	local bold='\033[1m'
-	[ "$severity" != "default" ] && echo -en "$bold"
-	echo -e "\n${SEVERITY[$severity]}::${message}${SEVERITY["default"]}"
-}
+AUR_PACKAGES=("xray" "v2raya" "bibata-cursor-theme")
 
 make_local_dirs() {
-	print "Creating local directories..." "info"
 	bash "$HOME/.dotfiles/bin/.local/bin/mkdir-local"
 }
 
 add_archlinuxcn_repo() {
-	print "Adding ArchLinuxCN repository..." "info"
-
 	pacman_conf="/etc/pacman.conf"
 	archlinuxcn_name="archlinuxcn"
 	archlinuxcn_server="https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/\$arch"
@@ -68,30 +37,12 @@ add_archlinuxcn_repo() {
 	fi
 }
 
-add_ustc_cargo_crates() {
-	print "Adding USTC Cargo Crates..." "info"
-
-	mkdir -vp "${CARGO_HOME:-$HOME/.cargo}"
-	cat <<EOF | tee -a "${CARGO_HOME:-$HOME/.cargo}"/config.toml
-[source.crates-io]
-replace-with = 'ustc'
-
-[source.ustc]
-registry = "sparse+https://mirrors.ustc.edu.cn/crates.io-index/"
-EOF
-}
-
 install_base_packages() {
-	print "Updating system..." "info"
 	sudo pacman -Syyu --noconfirm
-
-	print "Installing base packages..." "info"
 	sudo pacman -S --needed --noconfirm "${BASE_PACKAGES[@]}"
 }
 
 config_grub() {
-	print "Configuring GRUB..." "info"
-
 	GRUB_TIMEOUT=0
 	GRUB_CMDLINE_LINUX_DEFAULT="quiet loglevel=5 nowatchdog"
 
@@ -101,17 +52,13 @@ config_grub() {
 
 install_graphics_drivers() {
 	if $ENABLE_INTEL_GRAPHICS; then
-		print "Installing intel graphics driver..." "info"
 		sudo pacman -S --noconfirm --needed mesa lib32-mesa vulkan-intel lib32-vulkan-intel intel-gpu-tools libva-utils
 	fi
 
 	if $ENABLE_NVIDIA_GRAPHICS; then
-		print "Installing nvidia graphics driver..." "info"
-		sudo pacman -S --noconfirm --needed nvidia nvidia-settings nvidia-utils lib32-nvidia-utils libva-nvidia-driver egl-wayland
+		sudo pacman -S --noconfirm --needed nvidia nvidia-settings nvidia-utils lib32-nvidia-utils libva-nvidia-driver egl-wayland nvidia-prime
 
 		if $ENABLE_WAYLAND; then
-			print "Enabling Wayland for Nvidia..." "info"
-
 			# Enable DRM (Direct Rendering Manager) kernel mode setting
 			sudo sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"${GRUB_CMDLINE_LINUX_DEFAULT}\"/GRUB_CMDLINE_LINUX_DEFAULT=\"${GRUB_CMDLINE_LINUX_DEFAULT} nvidia_drm.modeset=1 nvidia_drm.fbdev=1 nvidia.NVreg_EnableGpuFirmware=0\"/g" /etc/default/grub
 
@@ -119,6 +66,7 @@ install_graphics_drivers() {
 			mkinitcpio_conf="/etc/mkinitcpio.conf"
 			if ! grep -q "^MODULES=.*nvidia" "$mkinitcpio_conf"; then
 				sudo sed -i '/^MODULES=/ s/(\(.*\))/(\1 nvidia nvidia_modeset nvidia_uvm nvidia_drm)/' "$mkinitcpio_conf"
+				sudo sed -i '/HOOKS/ s/kms//g' "$mkinitcpio_conf"
 			fi
 
 			# Create /etc/modprobe.d/nvidia.conf with necessary options
@@ -134,34 +82,28 @@ install_graphics_drivers() {
 			sudo systemctl enable nvidia-resume.service
 
 			# Force-enable Wayland
-			sudo ln -s /dev/null /etc/udev/rules.d/61-gdm.rules
+			sudo ln -sf /dev/null /etc/udev/rules.d/61-gdm.rules
 		fi
 	fi
 }
 
 generate_grub_config() {
-	print "Generating GRUB config..." "info"
 	sudo grub-mkconfig -o /boot/grub/grub.cfg
 }
 
 install_bluetooth_drivers() {
-	print "Installing Bluetooth driver..." "info"
 	sudo pacman -S --noconfirm --needed bluez bluez-utils bluez-obex
 	sudo systemctl enable bluetooth
 }
 
 install_audio_drivers() {
-	print "Installing Audio drivers..." "info"
 	sudo pacman -S --noconfirm --needed "sof-firmware" "alsa-firmware" "alsa-ucm-conf"
 }
 
 install_desktop_environment() {
-	print "Installing Hyprland..." "info"
-
 	# Install hyprland
-	sudo pacman -S --needed --noconfirm \
-		hyprland hyprlock hypridle hyprpaper xdg-desktop-portal-hyprland xdg-desktop-portal-gtk archlinux-xdg-menu \
-		ly waybar inotify-tools swww dunst pipewire pavucontrol network-manager-applet polkit-gnome gnome-keyring grim slurp nautilus eog
+	sudo pacman -S --needed --noconfirm hyprland hyprlock hypridle hyprpaper xdg-desktop-portal-hyprland xdg-desktop-portal-gtk archlinux-xdg-menu \
+		ly waybar inotify-tools swww dunst pipewire pavucontrol network-manager-applet polkit-gnome gnome-keyring grim slurp nautilus loupe
 
 	AUR_PACKAGES+=("wlogout" "hyprshade" "hyprpicker")
 
@@ -181,7 +123,6 @@ install_desktop_environment() {
 }
 
 install_github_cli() {
-	print "Installing Github CLI..." "info"
 	sudo pacman -S --needed --noconfirm github-cli
 	gh completion -s bash
 	gh completion -s zsh
@@ -189,30 +130,25 @@ install_github_cli() {
 }
 
 install_docker() {
-	print "Installing Docker..." "info"
 	sudo pacman -S --needed --noconfirm docker docker-compose
 	sudo systemctl enable docker
 	sudo usermod -aG docker "$USER"
 }
 
 install_input_method() {
-	print "Installing Fcitx5..." "info"
 	sudo pacman -S --needed --noconfirm fcitx5-im fcitx5-rime fcitx5-chinese-addons fcitx5-material-color fcitx5-pinyin-zhwiki
 	bash "$HOME/.dotfiles/bin/.local/bin/install-fcitx5"
 }
 
 install_themes() {
-	print "Installing themes..." "info"
 	bash "$HOME/.dotfiles/bin/.local/bin/install-themes"
 }
 
 stow_packages() {
-	print "Stowing packages..." "info"
 	bash "$HOME/.dotfiles/bin/.local/bin/stow-packages"
 }
 
 config_dns() {
-	print "Configuring DNS over HTTPS..." "info"
 	bash "$HOME/.dotfiles/bin/.local/bin/dns"
 }
 
@@ -241,11 +177,8 @@ install_aur_packages() {
 }
 
 main() {
-	print "Starting installation..." "info"
-
 	make_local_dirs
 	add_archlinuxcn_repo
-	add_ustc_cargo_crates
 	install_base_packages
 	config_grub
 	install_graphics_drivers
@@ -260,8 +193,6 @@ main() {
 	install_themes
 	config_dns
 	install_aur_packages
-
-	print "Done." "success"
 }
 
 main
