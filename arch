@@ -19,7 +19,7 @@ BASE_PACKAGES=(
 	# Languages
 	"clang" "cmake" "make" "go" "lua" "luarocks" "nodejs" "npm" "yarn" "ruby" "rust" "rust-analyzer"
 	# Libraries
-	"openslide" "sassc" "speech-dispatcher" "chafa" "imagemagick" "poppler-glib" "libheif" "ffmpegthumbnailer"
+	"openslide" "sassc" "speech-dispatcher" "chafa" "imagemagick" "poppler-glib" "libheif" "ffmpegthumbnailer" "fuse2"
 	# Apps
 	"firefox-developer-edition" "rofi-wayland" "gnome-system-monitor" "solaar" "mpv" "spotify-launcher" "libreoffice-still"
 	# Fonts
@@ -29,7 +29,7 @@ BASE_PACKAGES=(
 	# Themes
 	"papirus-icon-theme" "adwaita-icon-theme" "gnome-themes-standard" "gnome-themes-extra"
 )
-AUR_PACKAGES=("xray" "v2raya" "wechat-universal-bwrap" "bibata-cursor-theme")
+AUR_PACKAGES=("xray" "v2raya" "wechat-universal-bwrap" "qqmusic-appimage" "bibata-cursor-theme")
 
 declare -A SEVERITY=(
 	["success"]='\033[0;32m'
