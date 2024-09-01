@@ -178,6 +178,11 @@ f() {
   fd . "$@" | sed 's/\/$//' | fzf_filename_first
 }
 
+# Faster fuzzy find with fd and fzf
+ff() {
+  fd . "$@" | fzf
+}
+
 # Fuzzy find with fd and fzf then open with $EDITOR
 vf() {
   local file=$(f "$@")
