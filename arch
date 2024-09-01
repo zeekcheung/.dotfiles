@@ -228,8 +228,9 @@ install_aur_packages() {
 		fi
 	fi
 
-	# Enable color for pacman and helper
+	# Enable color and parallel downloads for pacman and helper
 	sudo sed -i "s/#Color/Color/g" /etc/pacman.conf
+	sudo sed -i "s/#ParallelDownloads/ParallelDownloads/g" /etc/pacman.conf
 
 	# Install aur packages
 	sh -c "$AUR_HELPER -S --needed --noconfirm ${AUR_PACKAGES[*]}"
