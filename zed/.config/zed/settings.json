@@ -7,9 +7,6 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
-  "features": {
-    "inline_completion_provider": "supermaven"
-  },
   "vim_mode": true,
   "cursor_blink": false,
   "relative_line_numbers": true,
@@ -17,17 +14,15 @@
   "buffer_font_features": {
     "calt": true
   },
-  "buffer_font_size": 20,
-  "buffer_font_weight": 300,
-  "ui_font_size": 20,
-  "ui_font_weight": 300,
+  "buffer_font_size": 24,
+  "ui_font_size": 24,
   "tab_size": 2,
   "confirm_quit": false,
   "current_line_highlight": "line",
   "theme": {
     "mode": "system",
     "light": "One Light",
-    "dark": "Github Dark"
+    "dark": "VSCode Dark Modern"
   },
   "indent_guides": {
     "enabled": true
@@ -73,6 +68,9 @@
     "enabled": false,
     "button": false
   },
+  "features": {
+    "inline_completion_provider": "none"
+  },
   "collaboration_panel": {
     "dock": "right"
   },
@@ -83,7 +81,6 @@
   "journal": {
     "hour_format": "hour24"
   },
-  "proxy": "http://127.0.0.1:20172",
   "file_types": {
     "Shell Script": ["conf"],
     "JSONC": ["settings.json"],
