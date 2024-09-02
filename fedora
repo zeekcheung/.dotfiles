@@ -1,60 +1,38 @@
 #!/usr/bin/env bash
 
-# Github dns
+sudo dnf upgrade -y && sudo dnf install -y \
+	alacritty zsh fish bash-completion stow neovim xsel wl-clipboard tmux \
+	bat eza zoxide fd-find ripgrep fzf fastfetch luarocks yarnpkg ruby golang cargo sassc openslide-tools \
+	gnome-tweaks gnome-extensions-app gnome-shell-extension-appindicator gnome-shell-extension-user-theme \
+	gnome-shell-extension-blur-my-shell gnome-shell-extension-dash-to-dock gnome-themes-extra gtk-murrine-engine \
+	fcitx5 fcitx5-qt fcitx5-lua fcitx5-rime fcitx5-gtk fcitx5-configtool fcitx5-autostart fcitx5-chinese-addons \
+	rsms-inter-fonts papirus-icon-theme mpv solaar xrandr \
+	igt-gpu-tools akmod-nvidia xorg-x11-drv-nvidia-cuda xorg-x11-drv-nvidia-cuda-libs xorg-x11-drv-nvidia-power \
+	vulkan nvidia-vaapi-driver libva-utils vdpauinfo
+
+sudo dnf mark install akmod-nvidia
+sudo systemctl enable nvidia-{suspend,resume,hibernate}
+
+stow -v git bin
+
+bash "$HOME/.dotfiles/bin/.local/bin/mkdir-local"
 bash "$HOME/.dotfiles/bin/.local/bin/github520"
+bash "$HOME/.dotfiles/bin/.local/bin/install-fcitx5"
+bash "$HOME/.dotfiles/bin/.local/bin/install-themes"
+bash "$HOME/.dotfiles/bin/.local/bin/dconf-restore"
+bash "$HOME/.dotfiles/bin/.local/bin/stow-packages"
+bash "$HOME/.dotfiles/bin/.local/bin/dns"
 
-# Upgrade system
-sudo dnf upgrade
+# v2raya
+sudo dnf copr enable zhullyb/v2rayA
+sudo dnf install -y v2raya
+sudo systemctl enable --now v2raya
 
-# Essential tools
-sudo dnf install -y \
-	stow fish zsh bash-completion alacritty neovim xsel wl-clipboard tmux \
-	bat eza zoxide fd-find ripgrep fzf fastfetch btop \
-	luarocks yarnpkg ruby golang cargo \
-	rofi papirus-icon-theme chromium mpv solaar xrandr \
-	gnome-tweaks gnome-extensions-app gnome-shell-extension-appindicator \
-	gnome-shell-extension-user-theme gnome-shell-extension-blur-my-shell \
-	gnome-shell-extension-dash-to-dock gnome-shell-extension-forge \
-	sassc gtk-murrine-engine gnome-themes-extra \
-	fcitx5 fcitx5-qt fcitx5-lua fcitx5-rime fcitx5-gtk fcitx5-configtool \
-	fcitx5-autostart fcitx5-chinese-addons \
-	rsms-inter-fonts fira-code-fonts \
-	openslide-tools
+# lazygit
+sudo dnf copr enable atim/lazygit -y
+sudo dnf install -y lazygit
 
 # Cursor theme
 sudo dnf copr enable peterwu/rendezvous
 sudo dnf install -y bibata-cursor-themes
-
-# lazygit
-sudo dnf copr enable atim/lazygit -y
-sudo dnf install lazygit
-
-# v2raya
-sudo dnf copr enable zhullyb/v2rayA
-sudo dnf install -y v2ray v2raya
-sudo systemctl enable --now v2ray
-sudo systemctl enable --now v2raya
-
-# nvidia, set https://docs.fedoraproject.org/en-US/quick-docs/set-nvidia-as-primary-gpu-on-optimus-based-laptops/
-sudo dnf install -y gcc kernel-headers kernel-devel \
-	akmod-nvidia xorg-x11-drv-nvidia xorg-x11-drv-nvidia-libs xorg-x11-drv-nvidia-libs.i686
-
-sudo akmods --force
-sudo dracut --force
-
-sudo cp -p "$HOME/.dotfiles/X11/xorg.conf.d/10-nvidia.conf" /etc/X11/xorg.conf.d/nvidia.conf
-
-# starship
-curl -sS https://starship.rs/install.sh | sh
-
-# fcitx5
-bash "$HOME/.dotfiles/bin/.local/bin/install-fcitx5"
-
-# dconf settings
-bash "$HOME/.dotfiles/bin/.local/bin/dconf-restore"
-
-# stow
-bash "$HOME/.dotfiles/bin/.local/bin/stow-packages"
-
-# monitor, see https://wiki.archlinux.org/title/GDM#Setup_default_monitor_settings
-sudo ln -sf "$HOME/.config/monitors.xml" /var/lib/gdm/.config/
+# curl -sS https://starship.rs/install.sh | sh
