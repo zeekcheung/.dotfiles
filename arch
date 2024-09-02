@@ -122,6 +122,10 @@ install_desktop_environment() {
 		sudo sh -c "echo 'password optional pam_gnome_keyring.so' >>/etc/pam.d/passwd"
 }
 
+install_flatpak() {
+	bash "$HOME/.dotfiles/bin/.local/bin/install-flatpak"
+}
+
 install_github_cli() {
 	sudo pacman -S --needed --noconfirm github-cli
 	gh completion -s bash
@@ -186,6 +190,7 @@ main() {
 	install_bluetooth_drivers
 	install_audio_drivers
 	install_desktop_environment
+	install_flatpak
 	install_github_cli
 	install_docker
 	stow_packages

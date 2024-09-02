@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+# Script to add package source and mirror for flatpak, and install some packages via flatpak
+
+set -e
+
+# Add flathub source
+sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+
+# Add sjtu mirror
+sudo flatpak remote-modify flathub --url=https://mirror.sjtu.edu.cn/flathub
+
+# Install packages
+# flatpak install -y flathub org.mozilla.firefox
+# flatpak install -y flathub com.brave.Browser
+flatpak install -y flathub com.google.Chrome
+# flatpak install -y flathub com.microsoft.Edge
+# flatpak install -y flathub com.visualstudio.code
+# flatpak install -y flathub dev.zed.Zed
+flatpak install -y flathub com.tencent.WeChat
+# flatpak install -y flathub com.qq.QQ
+flatpak install -y flathub com.qq.QQmusic
+# flatpak install -y flathub com.tencent.wemeet
+flatpak install -y flathub com.protonvpn.www
