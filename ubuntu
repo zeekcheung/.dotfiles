@@ -24,10 +24,7 @@ bash "$HOME/.dotfiles/bin/.local/bin/dconf-restore"
 bash "$HOME/.dotfiles/bin/.local/bin/dns"
 bash "$HOME/.dotfiles/bin/.local/bin/stow-packages"
 
-# export GO111MODULE=on
-# export GOPROXY=https://goproxy.cn
-
-# go install github.com/jesseduffield/lazygit@latest
 # curl -sS https://starship.rs/install.sh | sh
+# go install github.com/jesseduffield/lazygit@latest
 # git clone --depth 1 https://github.com/junegunn/fzf.git" "$HOME/.fzf"
 # "$HOME"/.fzf/install
