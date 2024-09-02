@@ -71,15 +71,10 @@ bindkey -M vicmd ys add-surround
 bindkey -M visual S add-surround
 
 # PLUGINS
-PLUGINS_DIR_PKG="/usr/share/zsh/plugins"
-PLUGINS_DIR_GIT="$XDG_DATA_HOME/zsh"
-
-source $PLUGINS_DIR_PKG/zsh-autosuggestions/zsh-autosuggestions.zsh ||
-  source $PLUGINS_DIR_GIT/zsh-autosuggestions/zsh-autosuggestions.zsh
-source $PLUGINS_DIR_PKG/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ||
-  source $PLUGINS_DIR_GIT/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-fpath+=(/usr/share/zsh/site-functions $PLUGINS_DIR_GIT/zsh-completions/src)
+PLUGINS_DIR="/usr/share/zsh/plugins"
+source $PLUGINS_DIR/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $PLUGINS_DIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fpath+=(/usr/share/zsh/site-functions $PLUGINS_DIR/zsh-completions/src)
 
 # ALIASES
 alias ~="cd ~"

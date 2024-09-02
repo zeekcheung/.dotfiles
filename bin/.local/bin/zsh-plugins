@@ -4,21 +4,8 @@
 
 set -e
 
-PLUGINS_DIR=$XDG_DATA_HOME/zsh
+PLUGINS_DIR="/usr/share/zsh/plugins"
 
-plugins=(
-	zsh-completions
-	zsh-autosuggestions
-	zsh-syntax-highlighting
-)
-
-# Bootstrap plugins
-for plugin in $plugins; do
-	# Install plugin if not already installed
-	plugin_dir=$PLUGINS_DIR/$plugin
-
-	if [ ! -d $plugin_dir ]; then
-		echo "Installing $plugin..."
-		git clone --depth=1 https://github.com/zsh-users/$plugin $plugin_dir
-	fi
-done
+sudo git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions $PLUGINS_DIR/zsh-autosuggestions
+sudo git clone --depth=2 https://github.com/zsh-users/zsh-syntax-highlighting $PLUGINS_DIR/zsh-syntax-highlighting
+sudo git clone --depth=1 https://github.com/zsh-users/zsh-completions $PLUGINS_DIR/zsh-completions
