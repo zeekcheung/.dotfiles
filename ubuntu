@@ -3,76 +3,31 @@
 set -e
 
 PACKAGES=(
-	# WSL
-	# "wslu" "xdg-utils"
-	# Fonts
-	"fonts-inter" "fonts-firacode"
-	# Libraries
-	"openslide-tools" "sassc"
-	# Terminal
-	"alacritty"
-	# Shell
-	"zsh" "fish" "bash-completion"
-	"curl" "unzip" "stow" "bat" "eza" "zoxide" "fd-find" "ripgrep" "fzf" "neofetch"
-	# Editor
-	"neovim" "xsel" "wl-clipboard"
-	# Languages
-	"build-essential" "cmake" "python3" "python3-pip" "python3.12-venv"
-	"luarocks" "ruby" "nodejs" "npm" "yarnpkg" "golang" "rust-all"
-	# Gnome
-	"gnome-tweaks" "gnome-shell-extensions" "gnome-shell-extension-manager"
-	# Fcitx5
-	"fcitx5" "fcitx5-chinese-addons" "fcitx5-material-color" "fcitx5-rime" "fcitx5-table-emoji"
-	"fcitx5-module-emoji" "fcitx5-config-qt" fcitx5-frontend-{gtk3,gtk4,qt5}
-	# GTK
-	"gtk2-engines-murrine"
-	# Themes
-	"papirus-icon-theme" "bibata-cursor-theme" "gnome-themes-extra"
-	# Apps
-	"gpick" "gimp" "solaar"
+	"alacritty" "zsh" "fish" "bash-completion" "curl" "unzip" "stow" "bat" "eza" "zoxide" "fd-find" "ripgrep" "fzf" "neovim" "xsel" "wl-clipboard"
+	"build-essential" "cmake" "python3" "python3-pip" "python3.12-venv" "luarocks" "ruby" "nodejs" "npm" "yarnpkg" "golang" "rust-all" "sassc" "openslide-tools"
+	"fcitx5" "fcitx5-chinese-addons" "fcitx5-material-color" "fcitx5-rime" "fcitx5-table-emoji" "fcitx5-module-emoji" "fcitx5-config-qt" fcitx5-frontend-{gtk3,gtk4,qt5}
+	"gnome-tweaks" "gnome-shell-extensions" "gnome-shell-extension-manager" "gtk2-engines-murrine" "gnome-themes-extra" "papirus-icon-theme" "bibata-cursor-theme"
+	"fonts-noto" "fonts-wqy-zenhei" "fonts-wqy-microhei" "fonts-inter" "gpick" "gimp" "solaar"
 )
 
-# Make sure some directories exist
-bash "$HOME/.dotfiles/bin/.local/bin/mkdir-local"
-
-# Github dns
-bash "$HOME/.dotfiles/bin/.local/bin/github520"
-
-# Github proxy
-# ghproxy="https://mirror.ghproxy.com"
-
-# Update and upgrade package sources
 sudo apt update && sudo apt upgrade
-
-# Essential tools
 sudo apt install -y "${PACKAGES[@]}"
 
-# bat is installed as batcat instead of bat on Debian/Ubuntu
-# sudo ln -sf /usr/bin/batcat /usr/local/bin/bat
+stow -v git
 
-# goproxy
-export GO111MODULE=on
-export GOPROXY=https://goproxy.cn
-
-# fzf
-# git clone --depth 1 "${ghproxy}/https://github.com/junegunn/fzf.git" "$HOME/.fzf"
-# "$HOME"/.fzf/install
-
-# lazygit
-go install github.com/jesseduffield/lazygit@latest
-sudo mv "$HOME/go/bin/lazygit" "/usr/local/bin/lazygit"
-
-# starship
-# curl -sS https://starship.rs/install.sh | sh
-
-# fcitx5
+bash "$HOME/.dotfiles/bin/.local/bin/mkdir-local"
+bash "$HOME/.dotfiles/bin/.local/bin/github520"
 bash "$HOME/.dotfiles/bin/.local/bin/install-fcitx5"
-
-# v2ray
 bash "$HOME/.dotfiles/bin/.local/bin/install-v2raya"
-
-# dconf settings
+bash "$HOME/.dotfiles/bin/.local/bin/install-themes"
 bash "$HOME/.dotfiles/bin/.local/bin/dconf-restore"
-
-# stow
 bash "$HOME/.dotfiles/bin/.local/bin/stow-packages"
+bash "$HOME/.dotfiles/bin/.local/bin/dns"
+
+# export GO111MODULE=on
+# export GOPROXY=https://goproxy.cn
+
+# go install github.com/jesseduffield/lazygit@latest
+# curl -sS https://starship.rs/install.sh | sh
+# git clone --depth 1 https://github.com/junegunn/fzf.git" "$HOME/.fzf"
+# "$HOME"/.fzf/install
