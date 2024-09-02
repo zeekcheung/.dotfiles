@@ -18,15 +18,11 @@ bash "$HOME/.dotfiles/bin/.local/bin/mkdir-local"
 bash "$HOME/.dotfiles/bin/.local/bin/github520"
 bash "$HOME/.dotfiles/bin/.local/bin/install-flatpak"
 bash "$HOME/.dotfiles/bin/.local/bin/install-fcitx5"
+bash "$HOME/.dotfiles/bin/.local/bin/install-v2raya"
 bash "$HOME/.dotfiles/bin/.local/bin/install-themes"
 bash "$HOME/.dotfiles/bin/.local/bin/dconf-restore"
 bash "$HOME/.dotfiles/bin/.local/bin/dns"
 bash "$HOME/.dotfiles/bin/.local/bin/stow-packages"
-
-# v2raya
-sudo dnf copr enable zhullyb/v2rayA
-sudo dnf install -y v2raya
-sudo systemctl enable --now v2raya
 
 # lazygit
 sudo dnf copr enable atim/lazygit -y

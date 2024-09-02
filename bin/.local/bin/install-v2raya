@@ -1,46 +1,80 @@
 #!/usr/bin/env bash
 
-# Script to install xray, v2ray and v2raya
-# TODO: support other distos
+# Script to install v2ray/xray and v2raya
 
 set -e
 
 ghproxy="https://gh.zeekcheung.asia"
+V2RAYA_CONFIG="/usr/local/etc/v2raya"
+V2RAYA_V2RAY_BIN="/usr/local/bin/v2ray"
+V2RAYA_XRAY_BIN="/usr/local/bin/xray"
+V2RAYA_BIN="/usr/local/bin/v2raya"
+V2RAYA_V2RAY_ASSETSDIR="/usr/local/share/v2ray"
+V2RAYA_XRAY_ASSETSDIR="/usr/local/share/xray"
+V2RAYA_LOG_FILE="/tmp/v2raya.log"
+Loyalsoldier_ip_dat="LoyalsoldierIP.dat"
+Loyalsoldier_site_Dat="LoyalsoldierSite.dat"
+
+pushd /tmp
+# v2ray
+curl -LO $ghproxy/https://github.com/v2fly/v2ray-core/releases/latest/download/v2ray-linux-64.zip
+unzip v2ray-linux-64.zip -d ./v2ray
+sudo mkdir -p $V2RAYA_V2RAY_ASSETSDIR && sudo cp ./v2ray/*dat $V2RAYA_V2RAY_ASSETSDIR
+sudo install -Dm755 ./v2ray/v2ray $V2RAYA_V2RAY_BIN
 
 # xray
-xray_version="1.8.13"
-xray_pkgname="Xray-linux-64.zip"
-xray_pkglink="https://github.com/XTLS/Xray-core/releases/download/v${xray_version}/${xray_pkgname}"
-
-# v2ray
-v2ray_version="5.16.1"
-v2ray_pkgname="v2ray_${v2ray_version}_amd64.deb"
-v2ray_pkglink="https://github.com/v2rayA/v2raya-apt/raw/master/pool/main/v/v2ray/${v2ray_pkgname}"
+curl -LO $ghproxy/https://github.com/XTLS/Xray-core/releases/latest/download/Xray-linux-64.zip
+unzip Xray-linux-64.zip -d ./xray
+sudo mkdir -p $V2RAYA_XRAY_ASSETSDIR && sudo cp ./xray/*dat $V2RAYA_XRAY_ASSETSDIR
+sudo install -Dm755 ./xray/xray $V2RAYA_XRAY_BIN
 
 # v2raya
-v2raya_version="2.2.5.6"
-v2raya_pkgname="installer_debian_x64_${v2raya_version}.deb"
-v2raya_pkglink="https://github.com/v2rayA/v2rayA/releases/download/v${v2raya_version}/${v2raya_pkgname}"
+version="$(wget -qO- https://apt.v2raya.org/dists/v2raya/main/binary-amd64/Packages | grep Version | sed '2q;d' | cut -d ' ' -f 2)"
+curl -LO "$ghproxy/https://github.com/v2rayA/v2rayA/releases/download/v$version/v2raya_linux_x64_$version"
+sudo install -Dm755 ./v2raya_linux_x64_"$version" $V2RAYA_BIN
+sudo chmod 755 $V2RAYA_CONFIG -R
 
-wget "${ghproxy}/${xray_pkglink}" -P /tmp
-wget "${ghproxy}/${v2ray_pkglink}" -P /tmp
-wget "${ghproxy}/${v2raya_pkglink}" -P /tmp
+# v2ray-rules-dat
+curl -Lo $Loyalsoldier_site_Dat $ghproxy/https://github.com/LoyalSoldier/v2ray-rules-dat/releases/latest/download/geosite.dat
+curl -Lo $Loyalsoldier_ip_dat $ghproxy/https://github.com/LoyalSoldier/v2ray-rules-dat/releases/latest/download/geoip.dat
+sudo cp $Loyalsoldier_site_Dat $Loyalsoldier_ip_dat $V2RAYA_V2RAY_ASSETSDIR
+sudo cp $Loyalsoldier_site_Dat $Loyalsoldier_ip_dat $V2RAYA_XRAY_ASSETSDIR
+popd
 
-unzip /tmp/${xray_pkgname} -d /tmp/Xray
+# v2raya service
+sudo tee /etc/systemd/system/v2raya.service <<EOF
+[Unit]
+Description=A web GUI client of Project V which supports VMess, VLESS, SS, SSR, Trojan, Tuic and Juicity protocols
+Documentation=https://v2raya.org
+After=network.target nss-lookup.target iptables.service ip6tables.service nftables.service
+Wants=network.target
 
-sudo mkdir /usr/local/share/xray
-sudo mkdir /usr/local/share/v2ray
+[Service]
+Environment="V2RAYA_CONFIG=$V2RAYA_CONFIG"
+Environment="V2RAYA_LOG_FILE=$V2RAYA_LOG_FILE"
+Type=simple
+User=root
+LimitNPROC=500
+LimitNOFILE=1000000
+ExecStart=$V2RAYA_BIN
+Restart=on-failure
 
-sudo cp -f /tmp/Xray/xray /usr/local/bin/xray
-sudo cp -f /tmp/Xray/xray /usr/local/bin/v2ray
-sudo cp -f /tmp/Xray/geoip.dat /usr/local/share/xray/
-sudo cp -f /tmp/Xray/geoip.dat /usr/local/share/v2ray
-sudo cp -f /tmp/Xray/geosite.dat /usr/local/share/xray/
-sudo cp -f /tmp/Xray/geosite.dat /usr/local/share/v2ray/
+[Install]
+WantedBy=multi-user.target
+EOF
 
-sudo chmod +x /usr/local/bin/xray /usr/local/bin/v2ray
-
-sudo dpkg -i /tmp/${v2ray_pkgname}
-sudo dpkg -i /tmp/${v2raya_pkgname}
-
+sudo systemctl daemon-reload
 sudo systemctl enable --now v2raya
+
+# v2raya routing rules:
+# # https://v2raya.org/docs/manual/ext/
+# default: proxy
+# # write your own rules below
+# domain(domain:mail.qq.com)->direct
+# domain(domain:okgg.top)->direct
+# domain(domain:zeekcheung.asia)->direct
+#
+# domain(geosite:google)->proxy
+# domain(geosite:tld-cn, geosite:category-games@cn)->direct
+# domain(geosite:cn, geosite:private)->direct
+# ip(geoip:cn, geoip:private)->direct
