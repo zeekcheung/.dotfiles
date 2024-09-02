@@ -13,8 +13,7 @@ PACKAGES=(
 sudo apt update && sudo apt upgrade
 sudo apt install -y "${PACKAGES[@]}"
 
-stow -v git
-
+bash "$HOME/.dotfiles/bin/.local/bin/stow-packages"
 bash "$HOME/.dotfiles/bin/.local/bin/mkdir-local"
 bash "$HOME/.dotfiles/bin/.local/bin/github520"
 bash "$HOME/.dotfiles/bin/.local/bin/install-flatpak"
@@ -22,8 +21,8 @@ bash "$HOME/.dotfiles/bin/.local/bin/install-fcitx5"
 bash "$HOME/.dotfiles/bin/.local/bin/install-v2raya"
 bash "$HOME/.dotfiles/bin/.local/bin/install-themes"
 bash "$HOME/.dotfiles/bin/.local/bin/dconf-restore"
-bash "$HOME/.dotfiles/bin/.local/bin/stow-packages"
 bash "$HOME/.dotfiles/bin/.local/bin/dns"
+bash "$HOME/.dotfiles/bin/.local/bin/stow-packages"
 
 # export GO111MODULE=on
 # export GOPROXY=https://goproxy.cn

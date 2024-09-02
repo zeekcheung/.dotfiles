@@ -13,16 +13,15 @@ sudo dnf upgrade -y && sudo dnf install -y \
 sudo dnf mark install akmod-nvidia
 sudo systemctl enable nvidia-{suspend,resume,hibernate}
 
-stow -v git bin
-
+bash "$HOME/.dotfiles/bin/.local/bin/stow-packages"
 bash "$HOME/.dotfiles/bin/.local/bin/mkdir-local"
 bash "$HOME/.dotfiles/bin/.local/bin/github520"
 bash "$HOME/.dotfiles/bin/.local/bin/install-flatpak"
 bash "$HOME/.dotfiles/bin/.local/bin/install-fcitx5"
 bash "$HOME/.dotfiles/bin/.local/bin/install-themes"
 bash "$HOME/.dotfiles/bin/.local/bin/dconf-restore"
-bash "$HOME/.dotfiles/bin/.local/bin/stow-packages"
 bash "$HOME/.dotfiles/bin/.local/bin/dns"
+bash "$HOME/.dotfiles/bin/.local/bin/stow-packages"
 
 # v2raya
 sudo dnf copr enable zhullyb/v2rayA

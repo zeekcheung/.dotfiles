@@ -198,6 +198,7 @@ main() {
 	install_themes
 	config_dns
 	install_aur_packages
+	stow_packages
 }
 
 main

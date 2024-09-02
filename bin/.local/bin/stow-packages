@@ -13,6 +13,9 @@ fi
 # Get the list of packages from the dotfiles directory
 PACKAGES=$(find "$HOME/.dotfiles" -maxdepth 1 -mindepth 1 -type d -not -path "*/.git" -not -path "*/etc" -exec basename {} \; | sort)
 
+# Clean some files
+rm -f ~/.bash* ~/.zsh*
+
 # Stow the packages
 while IFS= read -r package; do
 	echo "Stowing $package..."
