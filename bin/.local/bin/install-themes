@@ -11,3 +11,12 @@ bash /tmp/WhiteSur-gtk-theme/install.sh
 # WhiteSur-icon-theme
 git clone --depth=1 https://github.com/vinceliuice/WhiteSur-icon-theme.git /tmp/WhiteSur-icon-theme
 bash /tmp/WhiteSur-icon-theme/install.sh
+
+pushd /tmp
+ghproxy="https://gh.zeekcheung.asia"
+
+# Bibata-Modern-Ice
+curl -LO $ghproxy/https://github.com/ful1e5/Bibata_Cursor/releases/latest/download/Bibata-Modern-Ice.tar.xz
+tar -xvf Bibata-Modern-Ice.tar.xz
+mv Bibata-Modern-Ice ~/.local/share/icons/
+popd

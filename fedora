@@ -28,7 +28,4 @@ bash "$HOME/.dotfiles/bin/.local/bin/stow-packages"
 sudo dnf copr enable atim/lazygit -y
 sudo dnf install -y lazygit
 
-# Cursor theme
-sudo dnf copr enable peterwu/rendezvous
-sudo dnf install -y bibata-cursor-themes
 # curl -sS https://starship.rs/install.sh | sh

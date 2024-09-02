@@ -6,7 +6,7 @@ PACKAGES=(
 	"alacritty" "zsh" "fish" "bash-completion" "curl" "unzip" "stow" "bat" "eza" "zoxide" "fd-find" "ripgrep" "fzf" "neovim" "xsel" "wl-clipboard"
 	"build-essential" "cmake" "python3" "python3-pip" "python3.12-venv" "luarocks" "ruby" "nodejs" "npm" "yarnpkg" "golang" "rust-all" "sassc" "openslide-tools"
 	"fcitx5" "fcitx5-chinese-addons" "fcitx5-material-color" "fcitx5-rime" "fcitx5-table-emoji" "fcitx5-module-emoji" "fcitx5-config-qt" fcitx5-frontend-{gtk3,gtk4,qt5}
-	"gnome-tweaks" "gnome-shell-extensions" "gnome-shell-extension-manager" "gtk2-engines-murrine" "gnome-themes-extra" "papirus-icon-theme" "bibata-cursor-theme"
+	"gnome-tweaks" "gnome-shell-extensions" "gnome-shell-extension-manager" "gtk2-engines-murrine" "gnome-themes-extra" "papirus-icon-theme"
 	"fonts-noto" "fonts-wqy-zenhei" "fonts-wqy-microhei" "fonts-inter" "gpick" "gimp" "solaar" "flatpak" "gnome-software-plugin-flatpak"
 )
 
