@@ -102,6 +102,7 @@ return {
 
   {
     "supermaven-inc/supermaven-nvim",
+    enabled = false,
     event = "LazyFile",
     opts = {
       keymaps = {
