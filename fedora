@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# add some dnf options
+sudo cp /etc/dnf/dnf.conf{,.bak}
+sudo tee -a /etc/dnf/dnf.conf <<EOF
+defaultyes=True
+EOF
+
 sudo dnf upgrade -y && sudo dnf install -y \
 	alacritty zsh fish bash-completion stow neovim xsel wl-clipboard tmux \
 	bat eza zoxide fd-find ripgrep fzf fastfetch luarocks yarnpkg ruby golang cargo sassc openslide-tools \
