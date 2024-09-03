@@ -6,12 +6,12 @@ set -e
 
 RESOLVED_CONF="/etc/systemd/resolved.conf"
 
-sudo cp "$RESOLVED_CONF" "$RESOLVED_CONF.bak"
+[ -f $RESOLVED_CONF ] && sudo cp "$RESOLVED_CONF" "$RESOLVED_CONF.bak"
 
 sudo tee "$RESOLVED_CONF" <<EOF
 [Resolve]
-DNS=114.114.114.114 8.8.8.8 8.8.4.4
-FallbackDNS=223.5.5.5
+DNS=1.1.1.1 8.8.8.8 8.8.4.4
+FallbackDNS=223.5.5.5 119.29.29.29
 Cache=yes
 EOF
 
