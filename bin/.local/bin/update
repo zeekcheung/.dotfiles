@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# Script to update the packages installed via package manager and flatpak
+
+set -e
+
+id=$(grep ID /etc/os-release | sed "1q;d" | cut -d "=" -f 2)
+
+if [ "$id" = "arch" ]; then
+	sudo paru -Syyu
+elif [ "$id" = "fedora" ]; then
+	sudo dnf update
+elif [ "$id" = "ubuntu" ]; then
+	sudo apt update && sudo apt upgrade
+fi
+
+flatpak update
