@@ -6,7 +6,7 @@ local act = wezterm.action
 config.term = "wezterm"
 
 -- Performance
-config.enable_wayland = true
+config.enable_wayland = os.getenv("XDG_CURRENT_DESKTOP") ~= "GNOME"
 config.front_end = "OpenGL"
 -- config.front_end = config.enable_wayland and "WebGpu" or "OpenGL"
 -- config.webgpu_power_preference = 'HighPerformance'
@@ -23,7 +23,7 @@ config.font = wezterm.font_with_fallback({
   { family = "Maple Mono NF", weight = "Regular", italic = false },
   { family = "JetBrains Mono", weight = "Regular", italic = false },
 })
-config.font_size = 18
+config.font_size = config.enable_wayland and 18 or 16
 config.freetype_render_target = config.front_end == "WebGpu" and "Normal" or "HorizontalLcd"
 config.freetype_load_flags = config.front_end == "WebGpu" and "NO_HINTING" or "DEFAULT"
 
