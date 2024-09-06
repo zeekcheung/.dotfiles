@@ -10,6 +10,12 @@ sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flat
 # Add sjtu mirror
 sudo flatpak remote-modify flathub --url=https://mirror.sjtu.edu.cn/flathub
 
+# Options
+flatpak --user override --filesystem=xdg-config/gtk-3.0:ro
+flatpak --user override --filesystem=/usr/share/icons/:ro
+flatpak --user override --filesystem=/home/"$USER"/.local/share/icons/:ro
+flatpak -u override --env=XCURSOR_PATH=/home/"$USER"/.local/share/icons
+
 # Install packages
 # flatpak install -y flathub org.mozilla.firefox
 # flatpak install -y flathub com.brave.Browser
