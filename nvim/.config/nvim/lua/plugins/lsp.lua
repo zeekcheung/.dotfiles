@@ -32,4 +32,13 @@ return {
       -- }
     end,
   },
+
+  {
+    "williamboman/mason.nvim",
+    opts = {
+      github = {
+        download_url_template = "https://gh.zeekcheung.asia/https://github.com/%s/releases/download/%s/%s",
+      },
+    },
+  },
 }
