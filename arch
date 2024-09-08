@@ -162,9 +162,10 @@ install_aur_packages() {
 		if pacman -Ss "^${AUR_HELPER}$" >/dev/null 2>&1; then
 			sudo pacman -S --needed --noconfirm "$AUR_HELPER"
 		else
-			git clone --depth=1 https://aur.archlinux.org/${AUR_HELPER}.git "/tmp/$AUR_HELPER"
-			cd "/tmp/$AUR_HELPER" || return
-			makepkg -si
+			pushd /tmp
+			git clone --depth=1 https://aur.archlinux.org/$AUR_HELPER.git
+			cd $AUR_HELPER && makepkg -si
+			popd
 		fi
 	fi
 

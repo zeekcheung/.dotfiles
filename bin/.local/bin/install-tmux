@@ -2,8 +2,12 @@
 
 # Script to install tmux
 
-git clone --depth=1 https://github.com/tmux/tmux.git /tmp/tmux
-cd /tmp/tmux || return
+set -e
+
+pushd /tmp
+git clone --depth=1 https://github.com/tmux/tmux.git
+cd tmux
 sh autogen.sh
 ./configure --enable-sixel
 make && sudo make install
+popd

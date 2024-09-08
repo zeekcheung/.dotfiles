@@ -9,4 +9,4 @@ curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin \
 	installer=nightly launch=n
 
 # Desktop integration
-ln -sf "$HOME/.local/kitty.app/bin/kitty" "$HOME/.local/kitty.app/bin/kitten" "$HOME/.local/bin/"
+sudo ln -sf "$HOME"/.local/kitty.app/bin/* /usr/local/bin

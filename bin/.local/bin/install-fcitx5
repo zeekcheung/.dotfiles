@@ -14,10 +14,9 @@ EOF
 fi
 
 # Install rime-rice
-git clone --depth=1 https://github.com/Mark24Code/rime-auto-deploy.git --branch latest /tmp/rime-auto-deploy
-
-cd /tmp/rime-auto-deploy || exit
-
+pushd /tmp
+git clone --depth=1 --branch=latest https://github.com/Mark24Code/rime-auto-deploy.git
+cd rime-auto-deploy
 chmod +x ./installer.rb
-
 ./installer.rb
+popd
