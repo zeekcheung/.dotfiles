@@ -9,7 +9,7 @@ ENABLE_WAYLAND=true
 AUR_HELPER="paru"
 BASE_PACKAGES=(
 	"alacritty" "kitty" "fish" "zsh" "zsh-completions" "zsh-autosuggestions" "zsh-syntax-highlighting" "bash-completion" "man-db"
-	"neovim" "tmux" "xsel" "wl-clipboard" "stow" "starship" "bat" "eza" "fd" "ripgrep" "zoxide" "fzf" "lazygit" "yazi" "bottom" "fastfetch"
+	"neovim" "tmux" "xsel" "wl-clipboard" "cliphist" "stow" "starship" "bat" "eza" "fd" "ripgrep" "zoxide" "fzf" "lazygit" "yazi" "bottom" "fastfetch"
 	"clang" "cmake" "make" "go" "lua" "luarocks" "nodejs" "npm" "yarn" "ruby" "rust" "rust-analyzer" "wrangler"
 	"sassc" "speech-dispatcher" "chafa" "imagemagick" "poppler-glib" "libheif" "ffmpegthumbnailer" "openslide"
 	"firefox" "rofi-wayland" "gnome-system-monitor" "solaar" "mpv" "spotify-launcher" "libreoffice-still"
@@ -102,8 +102,8 @@ install_audio_drivers() {
 
 install_desktop_environment() {
 	# Install hyprland
-	sudo pacman -S --needed --noconfirm hyprland hyprlock hypridle hyprpaper xdg-desktop-portal-hyprland xdg-desktop-portal-gtk archlinux-xdg-menu \
-		ly waybar inotify-tools swww dunst pipewire pavucontrol network-manager-applet polkit-gnome gnome-keyring grim slurp nautilus loupe
+	sudo pacman -S --needed --noconfirm hyprland hyprlock hypridle hyprpaper xdg-desktop-portal-hyprland xdg-desktop-portal-gtk xdg-desktop-portal-gnome archlinux-xdg-menu \
+		ly waybar inotify-tools swww dunst pipewire pavucontrol blueman network-manager-applet polkit-gnome gnome-keyring grim slurp nautilus loupe
 
 	AUR_PACKAGES+=("wlogout" "hyprshade" "hyprpicker")
 
