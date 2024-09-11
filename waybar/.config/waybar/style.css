@@ -92,6 +92,7 @@ window#waybar.empty #window {
 
 #clock {
   color: @lavender;
+  font-weight: bold;
 }
 
 #cpu {

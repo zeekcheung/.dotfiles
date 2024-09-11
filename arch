@@ -15,7 +15,7 @@ BASE_PACKAGES=(
 	"firefox" "rofi-wayland" "gnome-system-monitor" "solaar" "mpv" "spotify-launcher" "libreoffice-still"
 	"adobe-source-han-serif-cn-fonts" "wqy-zenhei" "noto-fonts" "noto-fonts-cjk" "noto-fonts-emoji" "noto-fonts-extra" "inter-font" "ttf-sarasa-gothic"
 	"papirus-icon-theme" "adwaita-icon-theme" "gnome-themes-standard" "gnome-themes-extra" "nwg-look" "gtk-engine-murrine" "qt5-wayland" "qt6-wayland" "qt6ct"
-	"git" "wget" "curl" "flatpak" "fuse2" "p7zip" "unrar" "unarchiver" "lzop" "lrzip"
+	"git" "wget" "curl" "flatpak" "fuse2" "p7zip" "unrar" "unarchiver" "lzop" "lrzip" "xorg-xrdb"
 )
 AUR_PACKAGES=("xray" "v2raya")
 
@@ -102,10 +102,10 @@ install_audio_drivers() {
 
 install_desktop_environment() {
 	# Install hyprland
-	sudo pacman -S --needed --noconfirm hyprland hyprlock hypridle hyprpaper xdg-desktop-portal-hyprland xdg-desktop-portal-gtk xdg-desktop-portal-gnome archlinux-xdg-menu \
+	sudo pacman -S --needed --noconfirm hyprland hyprlock hypridle hyprpaper xdg-desktop-portal-hyprland archlinux-xdg-menu \
 		ly waybar inotify-tools swww dunst pipewire pavucontrol blueman network-manager-applet polkit-gnome gnome-keyring grim slurp nautilus loupe
 
-	AUR_PACKAGES+=("wlogout" "hyprshade" "hyprpicker")
+	AUR_PACKAGES+=("wlogout" "hyprpicker")
 
 	# Enable systemd service
 	sudo systemctl enable ly
@@ -191,7 +191,7 @@ main() {
 	install_bluetooth_drivers
 	install_audio_drivers
 	install_desktop_environment
-	install_flatpak
+	# install_flatpak
 	install_github_cli
 	install_docker
 	stow_packages

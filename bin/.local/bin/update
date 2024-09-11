@@ -7,7 +7,7 @@ set -e
 id=$(grep ID /etc/os-release | sed "1q;d" | cut -d "=" -f 2)
 
 if [ "$id" = "arch" ]; then
-	sudo paru -Syyu
+	paru -Syyu
 elif [ "$id" = "fedora" ]; then
 	sudo dnf update
 elif [ "$id" = "ubuntu" ]; then

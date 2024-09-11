@@ -70,7 +70,7 @@ element {
 }
 
 element-icon {
-    size: 25px;
+    size: 30px;
 }
 
 element selected {
@@ -80,7 +80,7 @@ element selected {
 
 mode-switcher {
     spacing: 0;
-  }
+}
 
 button {
     padding: 10px;

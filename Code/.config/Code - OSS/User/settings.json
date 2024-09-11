@@ -1,23 +1,31 @@
 {
-  "editor.fontFamily": "Maple Mono Nf, JetBrainsMono Nerd Font, Consolas",
+  "editor.fontFamily": "Maple Mono NF, JetBrains Mono, Consolas",
   "editor.fontSize": 16,
+  "editor.fontWeight": "normal",
   "editor.fontLigatures": true,
   "breadcrumbs.enabled": true,
-  "workbench.colorCustomizations": {},
-  "workbench.preferredDarkColorTheme": "Default Dark Modern",
+  "workbench.colorCustomizations": {
+    "editorBracketHighlight.foreground1": "#e67e89",
+    "editorBracketHighlight.foreground2": "#dbbc7f",
+    "editorBracketHighlight.foreground3": "#a7c080",
+    "editorBracketHighlight.foreground4": "#7fbbb3",
+    "editorBracketHighlight.foreground5": "#e69875",
+    "editorBracketHighlight.foreground6": "#d699b6"
+  },
   "workbench.editor.empty.hint": "hidden",
   "workbench.editor.pinnedTabSizing": "compact",
   "workbench.sideBar.location": "left",
   "workbench.tree.indent": 14,
   "workbench.tree.renderIndentGuides": "always",
   "workbench.layoutControl.enabled": false,
+  "workbench.activityBar.location": "default",
   "window.autoDetectColorScheme": true,
   "window.commandCenter": false,
   "window.title": "${appName}",
   "window.titleBarStyle": "custom",
   "window.menuBarVisibility": "classic",
   "window.newWindowDimensions": "inherit",
-  "window.zoomLevel": 2,
+  "window.zoomLevel": 2.5,
   // "editor.cursorStyle": "block",
   "editor.cursorBlinking": "smooth",
   "editor.cursorWidth": 3,
@@ -77,6 +85,7 @@
   },
   "terminal.integrated.cursorBlinking": true,
   "terminal.integrated.fontSize": 16,
+  "terminal.integrated.fontWeight": "normal",
   "terminal.integrated.copyOnSelection": true,
   "terminal.integrated.defaultProfile.windows": "Windows PowerShell",
   "terminal.integrated.enablePersistentSessions": false,
@@ -90,15 +99,28 @@
   "terminal.integrated.smoothScrolling": true,
   "files.autoGuessEncoding": true,
   "files.associations": {
+    ".bashenv": "shellscript",
+    ".clangd": "yaml",
+    ".shellcheckrc": "properties",
+    ".tmux.conf": "shellscript",
+    ".vimrc": "Vimscript",
+    "*.cjson": "jsonc",
+    "*.desktop": "properties",
     "*.env.dev": "env",
     "*.env.prod": "env",
     "*.env.development": "env",
     "*.env.production": "env",
-    "*.cjson": "jsonc",
+    "*.qss": "css",
     "*.wxss": "css",
     "*.wxs": "javascript",
-    "*.tsx": "typescriptreact",
-    ".clangd": "yaml"
+    "**/.local/bin/*": "shellscript",
+    "arch": "shellscript",
+    "dunstrc": "properties",
+    "fedora": "shellscript",
+    "fonts.conf": "xml",
+    "keymap.json": "jsonc",
+    "settings.json": "jsonc",
+    "ubuntu": "shellscript"
   },
   "files.autoSaveDelay": 10000,
   "files.exclude": {
@@ -158,13 +180,16 @@
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "typescript.updateImportsOnFileMove.enabled": "always",
   "Lua.format.enable": false,
-  "[lua]": {
-    "editor.defaultFormatter": "JohnnyMorganz.stylua"
-  },
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "markdown.preview.typographer": true,
+  "xml.validation.filters": [
+    {
+      "pattern": "fonts.conf",
+      "enabled": false
+    }
+  ],
 
   "vim.easymotion": true,
   "vim.easymotionMarkerForegroundColorOneChar": "#ff007c",
@@ -297,17 +322,13 @@
       "args": []
     }
   },
+
   "extensions.closeExtensionDetailsOnViewChange": true,
   "extensions.experimental.affinity": {
     "asvetliakov.vscode-neovim": 1,
     "vscodevim.vim": 1
   },
   "extensions.ignoreRecommendations": true,
-
-  "http.proxySupport": "fallback",
-  "http.proxyStrictSSL": false,
-  "http.noProxy": ["127.0.0.1"],
-  "http.proxy": "http://127.0.0.1:20171",
   "debug.onTaskErrors": "showErrors",
   "debug.inlineValues": "auto",
   "debug.console.closeOnEnd": true,
@@ -318,11 +339,19 @@
   "security.workspace.trust.untrustedFiles": "open",
   "security.workspace.trust.banner": "never",
   "security.workspace.trust.startupPrompt": "never",
+  "security.workspace.trust.enabled": false,
+  "settingsSync.ignoredSettings": ["-window.zoomLevel"],
+  "telemetry.telemetryLevel": "off",
   "task.allowAutomaticTasks": "on",
   "task.problemMatchers.neverPrompt": {
     "shell": true
   },
   "gitlens.launchpad.indicator.enabled": false,
   "window.customTitleBarVisibility": "auto",
-  "workbench.startupEditor": "none"
+  "workbench.startupEditor": "none",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "codeium.enableCodeLens": false,
+  "redhat.telemetry.enabled": false
 }

@@ -26,6 +26,7 @@ config.font = wezterm.font_with_fallback({
 config.font_size = config.enable_wayland and 18 or 16
 config.freetype_render_target = config.front_end == "WebGpu" and "Normal" or "HorizontalLcd"
 config.freetype_load_flags = config.front_end == "WebGpu" and "NO_HINTING" or "DEFAULT"
+config.underline_thickness = 2
 
 -- Dimensions
 config.initial_cols = 80

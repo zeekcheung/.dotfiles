@@ -93,7 +93,7 @@ alias df="df -h"
 alias du="du -h"
 alias grep="grep --color=auto"
 alias open="xdg-open"
-alias cl="clear"
+alias c="clear"
 alias se="sudoedit"
 alias diff="vi -d"
 

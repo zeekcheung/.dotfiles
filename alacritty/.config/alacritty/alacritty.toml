@@ -6,7 +6,7 @@ import = ["~/.config/alacritty/themes/tokyonight-storm.toml"]
 live_config_reload = true
 
 # shell = "zsh"
-shell = { program = "tmux", args = ["new-session", "-A", "-s", "main"] }
+# shell = { program = "tmux", args = ["new-session", "-A", "-s", "main"] }
 # shell = { program = "pwsh", args = ["-nologo", "-WorkingDirectory", "~"] }
 # shell = { program = "wsl", args = ["~", "tmux new-session -A -s main"] }
 

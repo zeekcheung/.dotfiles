@@ -1,10 +1,40 @@
 // Place your key bindings in this file to override the defaults
 [
+  // find file
+  {
+    "key": "space f f",
+    "command": "workbench.action.quickOpen",
+    "when": "!editorIsOpen && !inputFocus"
+  },
+  // find recent file
+  {
+    "key": "space f r",
+    "command": "workbench.action.openRecent",
+    "when": "!editorIsOpen && !inputFocus"
+  },
+  // search notifications
+  {
+    "key": "space s n",
+    "command": "notifications.showList",
+    "when": "!editorIsOpen && !inputFocus"
+  },
+  // find theme
+  {
+    "key": "space u C",
+    "command": "workbench.action.selectTheme",
+    "when": "!editorIsOpen && !inputFocus"
+  },
+  // toggle git
+  {
+    "key": "space g g",
+    "command": "workbench.scm.focus",
+    "when": "!editorIsOpen && !inputFocus"
+  },
   // explorer
   {
     "key": "space e",
     "command": "workbench.action.toggleSidebarVisibility",
-    "when": "listFocus && !inputFocus && !treestickyScrollFocused"
+    "when": "(!editorIsOpen && !inputFocus) || (listFocus && !inputFocus && !treestickyScrollFocused)"
   },
   {
     "key": "ctrl+e",
@@ -123,7 +153,11 @@
   //   "command": "workbench.action.focusActiveEditorGroup",
   //   "when": "viewContainer.workbench.view.extensions.enabled"
   // },
-
+  {
+    "key": "ctrl+k",
+    "command": "workbench.action.focusActiveEditorGroup",
+    "when": "terminal.active"
+  },
   // quick input
   {
     "key": "ctrl+n",

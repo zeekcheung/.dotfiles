@@ -4,19 +4,22 @@
 
 set -e
 
+DOT_DIR="$HOME/.dotfiles"
+
 # Check if the dotfiles directory exists
-if [[ ! -d "$HOME/.dotfiles" ]]; then
-	echo "Cannot find dotfiles directory at $HOME/.dotfiles!"
+if [[ ! -d $DOT_DIR ]]; then
+	echo "Cannot find the dotfiles directory $DOT_DIR!"
 	exit
 fi
 
 # Get the list of packages from the dotfiles directory
-PACKAGES=$(find "$HOME/.dotfiles" -maxdepth 1 -mindepth 1 -type d -not -path "*/.git" -not -path "*/etc" -exec basename {} \; | sort)
+PACKAGES=$(find "$DOT_DIR" -maxdepth 1 -mindepth 1 -type d -not -path "*/.git" -not -path "*/etc" -exec basename {} \; | sort)
 
 # Clean some files
 rm -f ~/.bash* ~/.zsh*
 
 # Stow the packages
+pushd "$DOT_DIR"
 while IFS= read -r package; do
 	echo "Stowing $package..."
 	stow -v --adopt "$package"
@@ -24,3 +27,4 @@ while IFS= read -r package; do
 done <<<"$PACKAGES"
 
 sudo stow -v --adopt -t /etc "etc"
+popd
