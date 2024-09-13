@@ -6,6 +6,7 @@ return {
       -- colorscheme = "rose-pine",
       colorscheme = "tokyonight",
       -- colorscheme = "github_dark_dimmed",
+      -- colorscheme = "gruvbox-material",
     },
   },
 
@@ -52,8 +53,6 @@ return {
   {
     "projekt0n/github-nvim-theme",
     config = function()
-      vim.g.lazygit_config = false
-
       require("github-theme").setup({
         options = {
           transparent = vim.g.transparent,
@@ -65,6 +64,20 @@ return {
           },
         },
       })
+    end,
+  },
+
+  {
+    "sainnhe/gruvbox-material",
+    config = function()
+      vim.g.gruvbox_material_background = "hard"
+      vim.g.gruvbox_material_enable_italic = true
+      vim.g.gruvbox_material_transparent_background = vim.g.transparent and 1 or 0
+      vim.g.gruvbox_material_show_eob = false
+      vim.g.gruvbox_material_diagnostic_text_highlight = true
+      vim.g.gruvbox_material_diagnostic_line_highlight = true
+      vim.g.gruvbox_material_inlay_hints_background = "dimmed"
+      vim.g.gruvbox_material_better_performance = true
     end,
   },
 }

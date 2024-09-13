@@ -138,6 +138,16 @@ return {
             vim.opt_local.statuscolumn = ""
           end,
         },
+        {
+          event = "after_render",
+          handler = function()
+            if vim.tbl_contains({ "gruvbox-material" }, vim.g.colors_name) then
+              local ns_id = 0
+              vim.api.nvim_set_hl(ns_id, "NeoTreeNormal", { link = "Normal", force = true })
+              vim.api.nvim_set_hl(ns_id, "NeoTreeEndOfBuffer", { link = "Normal", force = true })
+            end
+          end,
+        },
       },
     },
   },

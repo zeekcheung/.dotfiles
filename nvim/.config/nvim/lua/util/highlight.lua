@@ -9,12 +9,13 @@ M.highlights = {
   CursorLineNr = { bg = "NONE" },
   -- Directory = { fg = "#8C96A2" },
   -- FloatBorder = { link = "Comment" },
-  FloatBorder = { fg = "#4e4d5d", bg = "NONE" },
+  FloatBorder = { link = "IblIndent" },
   FzfLuaBorder = { link = "FloatBorder" },
   FzfLuaFzfBorder = { link = "FzfLuaBorder" },
   FzfLuaPreviewBorder = { link = "FzfLuaBorder" },
   HoverBorder = { link = "FloatBorder" },
   LspInfoBorder = { link = "FloatBorder" },
+  LualineNormalC = { fg = "#647087" },
   NormalFloat = { link = "Normal" },
   NotifyINFOBorder = { bg = "none" },
   NotifyINFOBorder69 = { bg = "none" },
@@ -38,14 +39,18 @@ M.highlights = {
   TelescopeResultsNormal = { fg = "#e0def4" },
   TelescopeSelection = { fg = "#e0def4", bg = "#393552" },
   -- TelescopeSelectionCaret = { fg = 'rose', bg = 'rose' },
-  WinSeparator = { bg = "NONE", fg = "#4e4d5d" },
+  WinSeparator = { link = "IblIndent" },
 }
 
+-- M.highlights["LualineNormalC"] = { fg = comment.fg }
+--
 -- Custom highlight group
 function M.draw_my_highlight()
   local ns_id = 0 -- Namespace id, set to 0 for global
+  local colorscheme = vim.g.colors_name
+  M[colorscheme] = M[colorscheme] or {}
 
-  for hl_name, hl_group in pairs(M.highlights) do
+  for hl_name, hl_group in pairs(vim.tbl_extend("force", M.highlights, M[colorscheme])) do
     vim.api.nvim_set_hl(ns_id, hl_name, hl_group)
   end
 end

@@ -16,6 +16,7 @@
   "github-nvim-theme": { "branch": "main", "commit": "6b461635230ccb5d0037f378fbe05a27c4ccf7cd" },
   "gitsigns.nvim": { "branch": "main", "commit": "1ef74b546732f185d0f806860fa5404df7614f28" },
   "grug-far.nvim": { "branch": "main", "commit": "76d86580f71bd2f07d4264c782ab8d1c12302e13" },
+  "gruvbox-material": { "branch": "master", "commit": "559b4a9abb6781699404dfd98fb7d6ec83113337" },
   "inc-rename.nvim": { "branch": "main", "commit": "8ba77017ca468f3029bf88ef409c2d20476ea66b" },
   "indent-blankline.nvim": { "branch": "master", "commit": "18603eb949eba08300799f64027af11ef922283f" },
   "lazy.nvim": { "branch": "main", "commit": "077102c5bfc578693f12377846d427f49bc50076" },

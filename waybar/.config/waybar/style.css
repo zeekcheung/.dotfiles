@@ -1,4 +1,4 @@
-@import "mocha.css";
+@import "themes/catppuccin-mocha.css";
 
 * {
   min-height: 0;
