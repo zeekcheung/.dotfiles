@@ -31,6 +31,7 @@ return {
 
   {
     "catppuccin/nvim",
+    name = "catppuccin",
     opts = {
       transparent_background = vim.g.transparent,
       no_bold = true,

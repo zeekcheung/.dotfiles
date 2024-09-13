@@ -225,7 +225,7 @@ return {
   },
 
   {
-    "MeanderingProgrammer/markdown.nvim",
+    "MeanderingProgrammer/render-markdown.nvim",
     ft = { "markdown", "rmd", "vimwiki", "org", "norg" },
     opts = {
       file_types = { "markdown", "rmd", "vimwiki", "org", "norg" },
