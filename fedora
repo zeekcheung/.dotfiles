@@ -8,7 +8,7 @@ EOF
 
 sudo dnf upgrade -y && sudo dnf install -y \
 	alacritty zsh fish bash-completion stow neovim xsel wl-clipboard tmux \
-	bat eza zoxide fd-find ripgrep fzf fastfetch luarocks yarnpkg ruby golang cargo sassc openslide-tools \
+	bat eza zoxide fd-find ripgrep fzf fastfetch luarocks yarnpkg ruby golang sassc openslide-tools \
 	gnome-tweaks gnome-extensions-app gnome-shell-extension-appindicator gnome-shell-extension-user-theme gnome-shell-extension-pop-shell \
 	gnome-shell-extension-blur-my-shell gnome-shell-extension-dash-to-dock gnome-themes-extra gtk-murrine-engine \
 	fcitx5 fcitx5-qt fcitx5-lua fcitx5-rime fcitx5-gtk fcitx5-configtool fcitx5-autostart fcitx5-chinese-addons \
@@ -25,6 +25,7 @@ bash "$HOME/.dotfiles/bin/.local/bin/github520"
 bash "$HOME/.dotfiles/bin/.local/bin/install-flatpak"
 bash "$HOME/.dotfiles/bin/.local/bin/install-fcitx5"
 bash "$HOME/.dotfiles/bin/.local/bin/install-v2raya"
+bash "$HOME/.dotfiles/bin/.local/bin/install-rust"
 bash "$HOME/.dotfiles/bin/.local/bin/install-themes"
 bash "$HOME/.dotfiles/bin/.local/bin/dconf-restore"
 bash "$HOME/.dotfiles/bin/.local/bin/dns"
