@@ -7,7 +7,7 @@ defaultyes=True
 EOF
 
 sudo dnf upgrade -y && sudo dnf install -y \
-	alacritty zsh fish bash-completion stow neovim xsel wl-clipboard tmux \
+	kitty zsh fish bash-completion stow neovim xsel wl-clipboard tmux \
 	bat eza zoxide fd-find ripgrep fzf fastfetch luarocks yarnpkg ruby golang sassc openslide-tools \
 	gnome-tweaks gnome-extensions-app gnome-shell-extension-appindicator gnome-shell-extension-user-theme gnome-shell-extension-pop-shell \
 	gnome-shell-extension-blur-my-shell gnome-shell-extension-dash-to-dock gnome-themes-extra gtk-murrine-engine \
@@ -35,4 +35,6 @@ bash "$HOME/.dotfiles/bin/.local/bin/stow-packages"
 sudo dnf copr enable atim/lazygit -y
 sudo dnf install -y lazygit
 
-# curl -sS https://starship.rs/install.sh | sh
+# starship
+sudo dnf copr enable atim/starship -y
+sudo dnf install -y starship

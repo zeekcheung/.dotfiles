@@ -14,3 +14,5 @@ data
 !**/rime/default.custom.yaml
 !**/rime/rime_rice.custom.yaml
 cached_layouts
+**/.cargo/**
+!**/.cargo/config.toml

@@ -1,7 +1,7 @@
 return {
   {
     "rcarriga/nvim-notify",
-    enabled = false,
+    enabled = true,
     opts = {
       top_down = false,
     },
@@ -15,7 +15,9 @@ return {
         mode = "tabs",
         diagnostics = false,
         show_duplicate_prefix = false,
-        indicator = { icon = "" },
+      },
+      highlights = {
+        buffer_selected = { italic = false, bold = false },
       },
     },
   },
@@ -58,16 +60,17 @@ return {
         "location",
       }
 
-      -- opts.sections.lualine_b[1] = { "branch", icon = "" }
-      -- opts.sections.lualine_c[1] = LazyVim.lualine.root_dir({ icon = "󱉭" })
+      --   opts.sections.lualine_b[1] = { "branch", icon = "" }
+      --   opts.sections.lualine_c[1] = LazyVim.lualine.root_dir({ icon = "󱉭" })
       --
-      -- -- opts.sections.lualine_c[4] = { "filename", separator = "", padding = { left = 0, right = 0 } }
-      -- opts.sections.lualine_c[4] = { LazyVim.lualine.pretty_path(), padding = { left = 0, right = 0 } }
+      --   opts.sections.lualine_c[4] = { "filename", separator = "", padding = { left = 0, right = 0 } }
+      --   opts.sections.lualine_c[4] = { LazyVim.lualine.pretty_path(), padding = { left = 0, right = 0 } }
     end,
   },
 
   {
     "folke/noice.nvim",
+    enabled = true,
     opts = {
       presets = {
         inc_rename = true,
@@ -97,6 +100,20 @@ return {
       },
       routes = {
         { filter = { event = "notify", find = "man%.lua" }, opts = { skip = true } },
+        { view = "notify", filter = { event = "msg_showmode" } },
+        {
+          filter = {
+            event = "msg_show",
+            any = {
+              { find = "%d+L, %d+B" },
+              { find = "; after #%d+" },
+              { find = "; before #%d+" },
+              { find = "%d fewer lines" },
+              { find = "%d more lines" },
+            },
+          },
+          opts = { skip = true },
+        },
       },
     },
     keys = {
@@ -226,6 +243,9 @@ return {
 
   {
     "MeanderingProgrammer/render-markdown.nvim",
+    dependencies = {
+      { "MeanderingProgrammer/markdown.nvim", enabled = false },
+    },
     ft = { "markdown", "rmd", "vimwiki", "org", "norg" },
     opts = {
       file_types = { "markdown", "rmd", "vimwiki", "org", "norg" },

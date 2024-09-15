@@ -16,6 +16,7 @@ M.highlights = {
   HoverBorder = { link = "FloatBorder" },
   LspInfoBorder = { link = "FloatBorder" },
   LualineNormalC = { fg = "#647087" },
+  NeoCodeiumSuggestion = { link = "CmpGhostText" },
   NormalFloat = { link = "Normal" },
   NotifyINFOBorder = { bg = "none" },
   NotifyINFOBorder69 = { bg = "none" },

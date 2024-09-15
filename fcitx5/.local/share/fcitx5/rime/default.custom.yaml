@@ -1,5 +1,8 @@
 patch:
+  schema_list:
+    - schema: rime_ice
   "switcher/hotkeys":
+    - F4
     - Control+Space
   # 菜单
   menu:

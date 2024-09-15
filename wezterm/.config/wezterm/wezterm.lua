@@ -7,8 +7,8 @@ config.term = "wezterm"
 
 -- Performance
 config.enable_wayland = os.getenv("XDG_CURRENT_DESKTOP") ~= "GNOME"
-config.front_end = "OpenGL"
--- config.front_end = config.enable_wayland and "WebGpu" or "OpenGL"
+-- config.front_end = "OpenGL"
+config.front_end = config.enable_wayland and "WebGpu" or "OpenGL"
 -- config.webgpu_power_preference = 'HighPerformance'
 
 -- Appearence

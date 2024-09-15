@@ -19,7 +19,7 @@ flatpak -u override --env=XCURSOR_PATH=/home/"$USER"/.local/share/icons
 # Install packages
 # flatpak install -y flathub org.mozilla.firefox
 # flatpak install -y flathub com.brave.Browser
-flatpak install -y flathub com.google.Chrome
+# flatpak install -y flathub com.google.Chrome
 # flatpak install -y flathub com.microsoft.Edge
 # flatpak install -y flathub com.visualstudio.code
 # flatpak install -y flathub dev.zed.Zed
@@ -27,4 +27,4 @@ flatpak install -y flathub com.tencent.WeChat
 # flatpak install -y flathub com.qq.QQ
 flatpak install -y flathub com.qq.QQmusic
 # flatpak install -y flathub com.tencent.wemeet
-flatpak install -y flathub com.protonvpn.www
+# flatpak install -y flathub com.protonvpn.www

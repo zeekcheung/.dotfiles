@@ -142,6 +142,10 @@ precmd() {
   [[ "$last_is_clear" == false ]] && echo
 }
 
+dus() {
+  du -h -d 1 $1 | sort -h
+}
+
 # Enable proxy
 proxy-on() {
   export http_proxy="http://127.0.0.1:20171"
