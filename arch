@@ -128,9 +128,8 @@ install_flatpak() {
 
 install_github_cli() {
 	sudo pacman -S --needed --noconfirm github-cli
-	gh completion -s bash
 	gh completion -s zsh
-	gh completion -s fish
+	gh completion -s fish >~/.config/fish/completions/gh.fish
 }
 
 install_docker() {
