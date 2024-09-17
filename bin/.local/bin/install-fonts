@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# Script to install fonts
+
+set -e
+
+target_dir=$HOME/Projects/fonts
+
+mkdir -p "$target_dir"
+git clone git@github.com:zeekcheung/fonts "$target_dir"
+pushd "$target_dir"
+sh "$target_dir"/install
+popd

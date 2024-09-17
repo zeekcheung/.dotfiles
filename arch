@@ -144,8 +144,16 @@ install_input_method() {
 	bash "$HOME/.dotfiles/bin/.local/bin/install-fcitx5"
 }
 
+install_fonts() {
+	bash "$HOME/.dotfiles/bin/.local/bin/install-fonts"
+}
+
 install_themes() {
 	bash "$HOME/.dotfiles/bin/.local/bin/install-themes"
+}
+
+install_wallpapers() {
+	bash "$HOME/.dotfiles/bin/.local/bin/install-wallpapaers"
 }
 
 stow_packages() {
@@ -197,6 +205,8 @@ main() {
 	stow_packages
 	install_input_method
 	install_themes
+	install_fonts
+	install_wallpapers
 	config_dns
 	install_aur_packages
 	stow_packages
