@@ -18,5 +18,8 @@ pushd /tmp
 git clone --depth=1 --branch=latest https://github.com/Mark24Code/rime-auto-deploy.git
 cd rime-auto-deploy
 chmod +x ./installer.rb
-./installer.rb
+./installer.rb <<EOF
+3
+1
+EOF
 popd
