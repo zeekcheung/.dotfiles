@@ -41,6 +41,9 @@ zle -N edit-command-line
 bindkey -M viins 'jj' vi-cmd-mode
 bindkey '^F' autosuggest-accept
 bindkey '^[f' vi-forward-word
+bindkey '\e[H' beginning-of-line
+bindkey '\e[F' end-of-line
+bindkey '\e[3~' delete-char
 
 # Text objects
 autoload -Uz select-bracketed select-quoted
