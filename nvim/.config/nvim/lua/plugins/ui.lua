@@ -243,9 +243,6 @@ return {
 
   {
     "MeanderingProgrammer/render-markdown.nvim",
-    dependencies = {
-      { "MeanderingProgrammer/markdown.nvim", enabled = false },
-    },
     ft = { "markdown", "rmd", "vimwiki", "org", "norg" },
     opts = {
       file_types = { "markdown", "rmd", "vimwiki", "org", "norg" },

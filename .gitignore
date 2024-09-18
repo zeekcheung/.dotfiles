@@ -16,3 +16,5 @@ data
 cached_layouts
 **/.cargo/**
 !**/.cargo/config.toml
+**/go/**
+!**/go/env

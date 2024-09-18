@@ -108,18 +108,18 @@ install_desktop_environment() {
 	AUR_PACKAGES+=("wlogout" "hyprpicker")
 
 	# Enable systemd service
-	sudo systemctl enable ly
+	# sudo systemctl enable ly
 
-	# Automatically unlock the gnome-keyring
-	PAM_FILE="/etc/pam.d/login"
-	sudo grep -qxF 'auth optional pam_gnome_keyring.so' "$PAM_FILE" ||
-		sudo sh -c "echo 'auth optional pam_gnome_keyring.so' >> $PAM_FILE"
-	sudo grep -qxF 'session optional pam_gnome_keyring.so auto_start' "$PAM_FILE" ||
-		sudo sh -c "echo 'session optional pam_gnome_keyring.so auto_start' >> $PAM_FILE"
+	# # Automatically unlock the gnome-keyring
+	# PAM_FILE="/etc/pam.d/login"
+	# sudo grep -qxF 'auth optional pam_gnome_keyring.so' "$PAM_FILE" ||
+	# 	sudo sh -c "echo 'auth optional pam_gnome_keyring.so' >> $PAM_FILE"
+	# sudo grep -qxF 'session optional pam_gnome_keyring.so auto_start' "$PAM_FILE" ||
+	# 	sudo sh -c "echo 'session optional pam_gnome_keyring.so auto_start' >> $PAM_FILE"
 
-	# Automatically change keyring password with user password
-	sudo grep -qxF "password optional pam_gnome_keyring.so" "$PAM_FILE" ||
-		sudo sh -c "echo 'password optional pam_gnome_keyring.so' >>/etc/pam.d/passwd"
+	# # Automatically change keyring password with user password
+	# sudo grep -qxF "password optional pam_gnome_keyring.so" "$PAM_FILE" ||
+	# 	sudo sh -c "echo 'password optional pam_gnome_keyring.so' >>/etc/pam.d/passwd"
 }
 
 install_flatpak() {
@@ -129,7 +129,7 @@ install_flatpak() {
 install_github_cli() {
 	sudo pacman -S --needed --noconfirm github-cli
 	gh completion -s zsh
-	gh completion -s fish >~/.config/fish/completions/gh.fish
+	# gh completion -s fish >~/.config/fish/completions/gh.fish
 }
 
 install_docker() {

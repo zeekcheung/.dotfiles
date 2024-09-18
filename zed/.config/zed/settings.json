@@ -14,15 +14,15 @@
   "buffer_font_features": {
     "calt": true
   },
-  "buffer_font_size": 24,
-  "ui_font_size": 24,
+  "buffer_font_size": 16,
+  "ui_font_size": 16,
   "tab_size": 2,
   "confirm_quit": false,
   "current_line_highlight": "line",
   "theme": {
     "mode": "system",
     "light": "One Light",
-    "dark": "VSCode Dark Modern"
+    "dark": "Rosé Pine"
   },
   "indent_guides": {
     "enabled": true
