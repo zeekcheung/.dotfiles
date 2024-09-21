@@ -18,3 +18,5 @@ cached_layouts
 !**/.cargo/config.toml
 **/go/**
 !**/go/env
+**/lazygit/state.yml
+!**/lazygit/config.yml

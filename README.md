@@ -1,6 +1,6 @@
 # Dotfiles
 
-My personal dotfiles for Linux (Arch, Fedora, Ubuntu).
+My personal dotfiles for Linux (Arch, Fedora, Debian).
 
 ## 🚀 Installation
 
@@ -25,6 +25,6 @@ My personal dotfiles for Linux (Arch, Fedora, Ubuntu).
    # Fedora
    bash fedora
 
-   # Ubuntu
-   bash ubuntu
+   # Debian
+   bash debian
    ```

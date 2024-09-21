@@ -6,7 +6,7 @@ set -e
 
 source "$(dirname "$0")/os-info"
 
-os_name="${os_info_arr[NAME]}"
+os_name="${os_info_arr[ID]}"
 os_version="${os_info_arr[VERSION_ID]}"
 
 output_file="$HOME/.dotfiles/gnome/.config/gnome/dconf_settings_${os_name}_${os_version}.ini"

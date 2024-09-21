@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+# Script to install cli tools
+
+set -e
+
+pushd /tmp
+# starship
+curl -Lo starship.tar.gz https://github.com/starship/starship/releases/latest/download/starship-x86_64-unknown-linux-gnu.tar.gz
+tar xf starship.tar.gz
+sudo install starship /usr/local/bin
+
+# lazygit
+LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+tar xf lazygit.tar.gz lazygit
+sudo install lazygit /usr/local/bin
+
+# fzf
+FZF_VERSION=$(curl -s "https://api.github.com/repos/junegunn/fzf/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+curl -Lo fzf.tar.gz "https://github.com/junegunn/fzf/releases/latest/download/fzf-${FZF_VERSION}-linux_amd64.tar.gz"
+tar xf fzf.tar.gz fzf
+sudo install fzf /usr/local/bin
+
+# eza
+curl -Lo eza.tar.gz https://github.com/eza-community/eza/releases/latest/download/eza_x86_64-unknown-linux-gnu.tar.gz
+tar xf eza.tar.gz
+sudo install eza /usr/local/bin
+
+# nvim
+curl -Lo nvim https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+chmod +x nvim
+sudo install nvim /usr/local/bin
+popd

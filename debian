@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+set -e
+
+sudo timedatectl set-timezone Asia/Shanghai
+
+sudo apt purge fcitx* ibus* xterm* mlterm* synaptic kasumi goldendict hdate-applet
+sudo apt autoremove
+
+# sudo sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
+sudo apt update && sudo apt upgrade
+
+sudo apt install linux-headers-amd64 systemd-resolved systemd-timesyncd firmware-misc-nonfree iptables gpg rsync \
+	nvidia-driver nvidia-suspend-common nvidia-xconfig \
+	zsh fish bash-completion stow bat zoxide fd-find xsel wl-clipboard tmux \
+	build-essential cmake python3 python3-pip luarocks ruby nodejs npm yarnpkg golang sassc openslide-tools libevent-dev ncurses-dev bison pkg-config \
+	fcitx5 fcitx5-chinese-addons fcitx5-material-color fcitx5-rime fcitx5-table-emoji fcitx5-module-emoji fcitx5-config-qt fcitx5-frontend-{gtk3,gtk4,qt5} \
+	gnome-shell-extension-appindicator gnome-shell-extension-dashtodock gnome-shell-extension-system-monitor \
+	fonts-noto fonts-wqy-zenhei fonts-wqy-microhei fonts-inter \
+	gtk2-engines-murrine gnome-themes-extra papirus-icon-theme \
+	gpick gimp solaar flatpak gnome-software-plugin-flatpak
+
+sudo install /usr/bin/batcat /usr/local/bin/bat
+sudo install /usr/bin/fdfind /usr/local/bin/fd
+
+echo "GRUB_CMDLINE_LINUX=\"$GRUB_CMDLINE_LINUX nvidia-drm.modeset=1\"" | sudo tee -a /etc/default/grub.d/nvidia-modeset.cfg
+sudo update-grub
+
+sudo systemctl enable nvidia-suspend.service
+sudo systemctl enable nvidia-hibernate.service
+sudo systemctl enable nvidia-resume.service
+
+bash "$HOME/.dotfiles/bin/.local/bin/stow-packages"
+bash "$HOME/.dotfiles/bin/.local/bin/mkdir-local"
+bash "$HOME/.dotfiles/bin/.local/bin/github520"
+bash "$HOME/.dotfiles/bin/.local/bin/install-tools"
+bash "$HOME/.dotfiles/bin/.local/bin/install-fcitx5"
+bash "$HOME/.dotfiles/bin/.local/bin/install-v2raya"
+bash "$HOME/.dotfiles/bin/.local/bin/install-rust"
+bash "$HOME/.dotfiles/bin/.local/bin/install-fonts"
+bash "$HOME/.dotfiles/bin/.local/bin/install-themes"
+# bash "$HOME/.dotfiles/bin/.local/bin/install-flatpak"
+bash "$HOME/.dotfiles/bin/.local/bin/zsh-plugins"
+bash "$HOME/.dotfiles/bin/.local/bin/dconf-restore"
+bash "$HOME/.dotfiles/bin/.local/bin/dns"
+bash "$HOME/.dotfiles/bin/.local/bin/stow-packages"

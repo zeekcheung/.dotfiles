@@ -6,10 +6,21 @@ set -e
 
 # Disable some environment variables on Pop!_OS
 if grep -qi pop /proc/version; then
-	sudo tee /etc/profile.d/z-pop-os-fcitx.sh <<'EOF'
+	sudo tee /etc/profile.d/z-pop-os-fcitx.sh <<EOF
 export GTK_IM_MODULE=""
 export QT_IM_MODULE=""
 export XMODIFIERS=""
+EOF
+fi
+
+# Set some environment variables on Debian
+if grep -qi debian /proc/version; then
+	sudo tee /etc/environment <<EOF
+GTK_IM_MODULE=fcitx
+QT_IM_MODULE=fcitx
+XMODIFIERS=@im=fcitx
+SDL_IM_MODULE=fcitx
+INPUT_METHOD=fcitx
 EOF
 fi
 

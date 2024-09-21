@@ -162,6 +162,7 @@ return {
 
   {
     "monkoose/neocodeium",
+    enabled = false,
     event = "VeryLazy",
     opts = {
       show_label = false,
