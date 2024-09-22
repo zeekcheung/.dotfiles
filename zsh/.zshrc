@@ -9,6 +9,7 @@ setopt globdots
 unsetopt AUTO_REMOVE_SLASH
 unsetopt HIST_EXPIRE_DUPS_FIRST
 unsetopt EXTENDED_HISTORY
+unsetopt nomatch
 
 HISTFILE=$XDG_DATA_HOME/zsh/.zsh_history
 HISTSIZE=10000
