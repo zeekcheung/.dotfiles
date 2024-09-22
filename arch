@@ -12,12 +12,12 @@ BASE_PACKAGES=(
 	"neovim" "tmux" "xsel" "wl-clipboard" "cliphist" "stow" "starship" "bat" "eza" "fd" "ripgrep" "zoxide" "fzf" "lazygit" "yazi" "bottom" "fastfetch"
 	"clang" "cmake" "make" "go" "lua" "luarocks" "nodejs" "npm" "yarn" "ruby" "rust" "rust-analyzer" "wrangler"
 	"sassc" "speech-dispatcher" "chafa" "imagemagick" "poppler-glib" "libheif" "ffmpegthumbnailer" "openslide"
-	"firefox" "rofi-wayland" "gnome-system-monitor" "solaar" "mpv" "spotify-launcher" "libreoffice-still"
+	"firefox" "chromium" "gnome-system-monitor" "solaar" "mpv" "spotify-launcher" "libreoffice-still"
 	"adobe-source-han-serif-cn-fonts" "wqy-zenhei" "noto-fonts" "noto-fonts-cjk" "noto-fonts-emoji" "noto-fonts-extra" "inter-font" "ttf-sarasa-gothic"
 	"papirus-icon-theme" "adwaita-icon-theme" "gnome-themes-standard" "gnome-themes-extra" "nwg-look" "gtk-engine-murrine" "qt5-wayland" "qt6-wayland" "qt6ct"
 	"git" "wget" "curl" "flatpak" "fuse2" "p7zip" "unrar" "unarchiver" "lzop" "lrzip" "xorg-xrdb"
 )
-AUR_PACKAGES=("xray" "v2raya")
+AUR_PACKAGES=("mkinitcpio-firmware" "xray" "v2raya" "wechat-universal-bwrap")
 
 make_local_dirs() {
 	bash "$HOME/.dotfiles/bin/.local/bin/mkdir-local"
@@ -97,15 +97,19 @@ install_bluetooth_drivers() {
 }
 
 install_audio_drivers() {
-	sudo pacman -S --noconfirm --needed "sof-firmware" "alsa-firmware" "alsa-ucm-conf"
+	sudo pacman -S --noconfirm --needed sof-firmware alsa-firmware alsa-ucm-conf
 }
 
 install_desktop_environment() {
-	# Install hyprland
-	sudo pacman -S --needed --noconfirm hyprland hyprlock hypridle hyprpaper xdg-desktop-portal-hyprland archlinux-xdg-menu \
-		ly waybar inotify-tools swww dunst pipewire pavucontrol blueman network-manager-applet polkit-gnome gnome-keyring grim slurp nautilus loupe
+	# Install gnome
+	sudo pacman -S --needed --noconfirm gnome gnome-tweaks gnome-shell-extension-appindicator gnome-shell-extension-dash-to-dock
+	sudo systemctl enable gdm
 
-	AUR_PACKAGES+=("wlogout" "hyprpicker")
+	# Install hyprland
+	# sudo pacman -S --needed --noconfirm hyprland hyprlock hypridle hyprpaper xdg-desktop-portal-hyprland archlinux-xdg-menu \
+	# 	ly rofi-wayland waybar inotify-tools swww dunst pipewire pavucontrol blueman network-manager-applet polkit-gnome gnome-keyring grim slurp nautilus loupe
+	#
+	# AUR_PACKAGES+=("wlogout" "hyprpicker")
 
 	# Enable systemd service
 	# sudo systemctl enable ly

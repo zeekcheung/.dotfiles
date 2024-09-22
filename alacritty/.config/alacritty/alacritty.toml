@@ -25,7 +25,7 @@ resize_increments = true
 
 [font]
 normal = { family = "Maple Mono NF", style = "Regular" }
-size = 18
+size = 14
 
 [colors]
 transparent_background_colors = true
