@@ -6,7 +6,7 @@ end
 vim.g.mini_animate = false
 
 -- font
-vim.o.guifont = "Maple Mono NF:h14"
+vim.o.guifont = "Maple Mono NF:h14:#e-subpixelantialias:#h-slight"
 
 -- background color
 vim.g.neovide_background_color = "#232136"

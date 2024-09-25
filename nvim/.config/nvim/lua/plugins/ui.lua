@@ -257,4 +257,10 @@ return {
       },
     },
   },
+
+  {
+    "karb94/neoscroll.nvim",
+    enabled = vim.g.mini_animate,
+    opts = {},
+  },
 }

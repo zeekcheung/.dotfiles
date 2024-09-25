@@ -109,7 +109,7 @@ install_desktop_environment() {
 	# sudo pacman -S --needed --noconfirm hyprland hyprlock hypridle hyprpaper xdg-desktop-portal-hyprland archlinux-xdg-menu \
 	# 	ly rofi-wayland waybar inotify-tools swww dunst pipewire pavucontrol blueman network-manager-applet polkit-gnome gnome-keyring grim slurp nautilus loupe
 	#
-	# AUR_PACKAGES+=("wlogout" "hyprpicker")
+	# AUR_PACKAGES+=("wlogout" "hyprpicker" "hyprshade")
 
 	# Enable systemd service
 	# sudo systemctl enable ly
