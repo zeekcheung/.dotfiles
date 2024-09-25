@@ -17,7 +17,7 @@ BASE_PACKAGES=(
 	"papirus-icon-theme" "adwaita-icon-theme" "gnome-themes-standard" "gnome-themes-extra" "nwg-look" "gtk-engine-murrine" "qt5-wayland" "qt6-wayland" "qt6ct"
 	"git" "wget" "curl" "flatpak" "fuse2" "p7zip" "unrar" "unarchiver" "lzop" "lrzip" "xorg-xrdb"
 )
-AUR_PACKAGES=("mkinitcpio-firmware" "xray" "v2raya" "wechat-universal-bwrap")
+AUR_PACKAGES=("mkinitcpio-firmware" "xray" "v2raya" "wechat-universal-bwrap" "google-chrome")
 
 make_local_dirs() {
 	bash "$HOME/.dotfiles/bin/.local/bin/mkdir-local"
