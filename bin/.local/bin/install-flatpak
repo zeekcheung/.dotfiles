@@ -13,8 +13,9 @@ sudo flatpak remote-modify flathub --url=https://mirror.sjtu.edu.cn/flathub
 # Options
 flatpak --user override --filesystem=xdg-config/gtk-3.0:ro
 flatpak --user override --filesystem=/usr/share/icons/:ro
-flatpak --user override --filesystem=/home/"$USER"/.local/share/icons/:ro
-flatpak -u override --env=XCURSOR_PATH=/home/"$USER"/.local/share/icons
+flatpak --user override --filesystem=$HOME/.local/share/icons/:ro
+flatpak --user override --filesystem=$HOME/.themes
+flatpak -u override --env=XCURSOR_PATH=$HOME/.local/share/icons
 
 # Install packages
 # flatpak install -y flathub org.mozilla.firefox
