@@ -1,23 +1,62 @@
 #!/usr/bin/env bash
 
-# add some dnf options
+# Add some dnf options
 sudo cp /etc/dnf/dnf.conf{,.bak}
 sudo tee -a /etc/dnf/dnf.conf <<EOF
 defaultyes=True
 EOF
 
-sudo dnf upgrade -y && sudo dnf install -y \
-	kitty zsh fish bash-completion stow neovim xsel wl-clipboard tmux \
-	bat eza zoxide fd-find ripgrep fzf fastfetch luarocks yarnpkg ruby golang sassc openslide-tools \
-	gnome-tweaks gnome-extensions-app gnome-shell-extension-appindicator gnome-shell-extension-user-theme gnome-shell-extension-pop-shell \
-	gnome-shell-extension-blur-my-shell gnome-shell-extension-dash-to-dock gnome-themes-extra gtk-murrine-engine \
-	fcitx5 fcitx5-qt fcitx5-lua fcitx5-rime fcitx5-gtk fcitx5-configtool fcitx5-autostart fcitx5-chinese-addons \
-	rsms-inter-fonts papirus-icon-theme mpv solaar xrandr \
-	igt-gpu-tools akmod-nvidia xorg-x11-drv-nvidia-cuda xorg-x11-drv-nvidia-cuda-libs xorg-x11-drv-nvidia-power \
-	vulkan nvidia-vaapi-driver libva-utils vdpauinfo
+# Enable third party repositories
+sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-"$(rpm -E %fedora)".noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"$(rpm -E %fedora)".noarch.rpm
+sudo dnf install --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' --setopt='terra.gpgkey=https://repos.fyralabs.com/terra$releasever/key.asc' terra-release
 
+# Install app-stream metadata
+sudo dnf group update core
+
+# Update system
+sudo dnf update -y && sudo dnf upgrade -y --refresh
+
+# Update firmware
+sudo fwupdmgr refresh --force
+sudo fwupdmgr get-devices # Lists devices with available updates.
+sudo fwupdmgr get-updates # Fetches list of available updates.
+sudo fwupdmgr update
+
+# Install packages
+sudo dnf install -y igt-gpu-tools vulkan libva-utils libGLEW mesa-libEGL mesa-libEGL-devel vdpauinfo \
+	kitty zsh fish bash-completion stow neovim xsel wl-clipboard tmux \
+	bat eza zoxide fd-find ripgrep fzf fastfetch luarocks yarnpkg ruby golang sassc openslide-tools meson pipx \
+	fcitx5 fcitx5-qt fcitx5-lua fcitx5-rime fcitx5-gtk fcitx5-configtool fcitx5-autostart fcitx5-chinese-addons \
+	rsms-inter-fonts papirus-icon-theme gnome-themes-extra gtk-murrine-engine xrandr mpv solaar
+
+# Intel drivers
+sudo dnf swap libva-intel-media-driver intel-media-driver --allowerasing
+
+# Nvidia drivers
+sudo dnf install -y akmod-nvidia nvidia-vaapi-driver xorg-x11-drv-nvidia-cuda xorg-x11-drv-nvidia-cuda-libs xorg-x11-drv-nvidia-power prime-run
 sudo dnf mark install akmod-nvidia
 sudo systemctl enable nvidia-{suspend,resume,hibernate}
+sudo grubby --update-kernel=ALL --args="nvidia-drm.modeset=1 nvidia_drm.fbdev=1 nvidia.NVreg_EnableGpuFirmware=0"
+echo 'add_drivers+=" nvidia nvidia_modeset nvidia_uvm nvidia_drm "' | sudo tee "/etc/dracut.conf.d/99-nvidia.conf"
+echo 'options nvidia_drm modeset=1 fbdev=1' | sudo tee "/etc/modprobe.d/nvidia.conf"
+sudo dracut --force
+
+# Media codecs
+sudo dnf swap "ffmpeg-free" "ffmpeg" --allowerasing # Switch to full FFMPEG.
+sudo dnf group install Multimedia
+sudo dnf update @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin # gstreamer components
+sudo dnf install @sound-and-video                                                                    # Useful Sound and Video complement packages
+
+# Gnome extensions
+sudo dnf install -y gnome-tweaks gnome-extensions-app gnome-shell-extension-appindicator gnome-shell-extension-user-theme \
+	gnome-shell-extension-blur-my-shell gnome-shell-extension-dash-to-dock gnome-shell-extension-pop-shell
+
+# Disable gnome software from startup apps
+sudo rm /etc/xdg/autostart/org.gnome.Software.desktop
+
+# Hyprland
+sudo dnf copr enable solopasha/hyprland
+sudo dnf install -y hyprland xdg-desktop-portal-hyprland hyprland-plugins hyprpaper hyprpicker hypridle hyprlock hyprshot waybar-git swww rofi-wayland wlogout inotify-tools blueman dunst network-manager-applet
 
 bash "$HOME/.dotfiles/bin/.local/bin/stow-packages"
 bash "$HOME/.dotfiles/bin/.local/bin/mkdir-local"
