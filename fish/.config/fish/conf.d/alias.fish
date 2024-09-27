@@ -47,6 +47,10 @@ alias pr "paru -Rns"
 alias pc "paru -c"
 alias pq "paru -Q"
 
+function dus --description "Disk usage with sorting"
+    du -h -d 1 $1 | sort -h
+end
+
 function tk --description "Kill tmux session"
     count $argv >/dev/null && tmux kill-session -t $argv || tmux kill-server
 end

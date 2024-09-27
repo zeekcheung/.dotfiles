@@ -12,6 +12,11 @@ set -gx VISUAL nvim
 set -gx MANPAGER "sh -c 'col -bx | bat --theme=ansi -l man -p'"
 set -gx MANROFFOPT -c
 set -gx N_PREFIX $HOME/.n
+source "$HOME/.cargo/env" 2>/dev/null
+
+# rustup mirror
+set -gx RUSTUP_DIST_SERVER "https://mirrors.ustc.edu.cn/rust-static"
+set -gx RUSTUP_UPDATE_ROOT "https://mirrors.ustc.edu.cn/rust-static/rustup"
 
 # path
 fish_add_path /usr/local/bin
