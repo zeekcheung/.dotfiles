@@ -17,7 +17,7 @@ BASE_PACKAGES=(
 	"papirus-icon-theme" "adwaita-icon-theme" "gnome-themes-standard" "gnome-themes-extra" "nwg-look" "gtk-engine-murrine" "qt5-wayland" "qt6-wayland" "qt6ct"
 	"git" "wget" "curl" "flatpak" "fuse2" "p7zip" "unrar" "unarchiver" "lzop" "lrzip" "xorg-xrdb"
 )
-AUR_PACKAGES=("mkinitcpio-firmware" "xray" "v2raya" "wechat-universal-bwrap" "google-chrome")
+AUR_PACKAGES=("mkinitcpio-firmware" "xray" "v2raya" "wechat-universal-bwrap" "visual-studio-code-bin")
 
 make_local_dirs() {
 	bash "$HOME/.dotfiles/bin/.local/bin/mkdir-local"
@@ -106,24 +106,24 @@ install_desktop_environment() {
 	sudo systemctl enable gdm
 
 	# Install hyprland
-	# sudo pacman -S --needed --noconfirm hyprland hyprlock hypridle hyprpaper xdg-desktop-portal-hyprland archlinux-xdg-menu \
-	# 	ly rofi-wayland waybar inotify-tools swww dunst pipewire pavucontrol blueman network-manager-applet polkit-gnome gnome-keyring grim slurp nautilus loupe
-	#
-	# AUR_PACKAGES+=("wlogout" "hyprpicker" "hyprshade")
+	sudo pacman -S --needed --noconfirm hyprland hyprlock hypridle hyprpaper xdg-desktop-portal-hyprland archlinux-xdg-menu \
+		ly rofi-wayland waybar inotify-tools swww dunst pipewire pavucontrol blueman network-manager-applet polkit-gnome gnome-keyring grim slurp nautilus loupe
+
+	AUR_PACKAGES+=("wlogout" "hyprpicker" "hyprshade")
 
 	# Enable systemd service
 	# sudo systemctl enable ly
 
-	# # Automatically unlock the gnome-keyring
-	# PAM_FILE="/etc/pam.d/login"
-	# sudo grep -qxF 'auth optional pam_gnome_keyring.so' "$PAM_FILE" ||
-	# 	sudo sh -c "echo 'auth optional pam_gnome_keyring.so' >> $PAM_FILE"
-	# sudo grep -qxF 'session optional pam_gnome_keyring.so auto_start' "$PAM_FILE" ||
-	# 	sudo sh -c "echo 'session optional pam_gnome_keyring.so auto_start' >> $PAM_FILE"
+	# Automatically unlock the gnome-keyring
+	PAM_FILE="/etc/pam.d/login"
+	sudo grep -qxF 'auth optional pam_gnome_keyring.so' "$PAM_FILE" ||
+		sudo sh -c "echo 'auth optional pam_gnome_keyring.so' >> $PAM_FILE"
+	sudo grep -qxF 'session optional pam_gnome_keyring.so auto_start' "$PAM_FILE" ||
+		sudo sh -c "echo 'session optional pam_gnome_keyring.so auto_start' >> $PAM_FILE"
 
-	# # Automatically change keyring password with user password
-	# sudo grep -qxF "password optional pam_gnome_keyring.so" "$PAM_FILE" ||
-	# 	sudo sh -c "echo 'password optional pam_gnome_keyring.so' >>/etc/pam.d/passwd"
+	# Automatically change keyring password with user password
+	sudo grep -qxF "password optional pam_gnome_keyring.so" "$PAM_FILE" ||
+		sudo sh -c "echo 'password optional pam_gnome_keyring.so' >>/etc/pam.d/passwd"
 }
 
 install_flatpak() {
