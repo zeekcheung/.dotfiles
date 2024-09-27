@@ -60,7 +60,7 @@
       "(.{72}).*": "$1.."
     },
     "icon": true,
-    "icon-size": 22
+    "icon-size": 20
   },
   "clock": {
     "format": "{:L%a %b %d %H:%M}",

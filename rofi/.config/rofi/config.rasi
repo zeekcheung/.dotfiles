@@ -160,3 +160,4 @@ configuration {
 }
 
 @theme "catppuccin-mocha"
+/* @theme "gruvbox-material" */
