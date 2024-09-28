@@ -2,217 +2,127 @@
 
 set -e
 
+BASE_PACKAGES=(
+	"sof-firmware" "alsa-firmware" "alsa-ucm-conf" "pipewire" "bluez" "bluez-utils" "bluez-obex"
+	"alacritty" "kitty" "fish" "zsh" "zsh-completions" "zsh-autosuggestions" "zsh-syntax-highlighting" "bash-completion" "man-db" "git" "wget" "curl" "flatpak" "fuse2" "p7zip" "unrar" "unarchiver" "lzop" "lrzip" "neovim" "tmux" "xsel" "wl-clipboard" "cliphist" "stow" "starship" "bat" "eza" "fd" "ripgrep" "zoxide" "fzf" "lazygit" "yazi" "bottom" "fastfetch"
+	"clang" "cmake" "make" "go" "lua" "luarocks" "nodejs" "npm" "yarn" "ruby" "rust" "rust-analyzer" "docker" "docker-compose" "wrangler" "sassc" "speech-dispatcher" "chafa" "imagemagick" "poppler-glib" "libheif" "ffmpegthumbnailer" "openslide"
+	"gnome" "gnome-tweaks" "gnome-shell-extension-appindicator" "gnome-shell-extension-dash-to-dock"
+	"hyprland" "hyprlock" "hypridle" "hyprpaper" "xdg-desktop-portal-hyprland" "archlinux-xdg-menu" "rofi-wayland" "waybar" "inotify-tools" "swww" "dunst" "pavucontrol" "blueman" "network-manager-applet" "polkit-gnome" "gnome-keyring" "grim" "slurp" "nautilus" "loupe"
+	"fcitx5-im" "fcitx5-rime" "fcitx5-chinese-addons" "fcitx5-material-color" "fcitx5-pinyin-zhwiki"
+	"firefox" "chromium" "gnome-system-monitor" "solaar" "mpv" "libreoffice-still"
+	"adobe-source-han-serif-cn-fonts" "wqy-zenhei" "noto-fonts" "noto-fonts-cjk" "noto-fonts-emoji" "noto-fonts-extra" "inter-font"
+	"papirus-icon-theme" "adwaita-icon-theme" "gnome-themes-standard" "gnome-themes-extra" "nwg-look" "gtk-engine-murrine" "qt5-wayland" "qt6-wayland" "qt6ct" "xorg-xrdb"
+)
+AUR_HELPER="paru"
+AUR_PACKAGES=("mkinitcpio-firmware" "xray" "v2raya" "wechat-universal-bwrap" "visual-studio-code-bin")
+AUR_PACKAGES+=("wlogout" "hyprpicker" "hyprshade")
+
 ENABLE_INTEL_GRAPHICS=true
 ENABLE_NVIDIA_GRAPHICS=true
-ENABLE_WAYLAND=true
+GRUB_TIMEOUT=0
+GRUB_CMDLINE_LINUX_DEFAULT="quiet loglevel=5 nowatchdog"
 
-AUR_HELPER="paru"
-BASE_PACKAGES=(
-	"alacritty" "kitty" "fish" "zsh" "zsh-completions" "zsh-autosuggestions" "zsh-syntax-highlighting" "bash-completion" "man-db"
-	"neovim" "tmux" "xsel" "wl-clipboard" "cliphist" "stow" "starship" "bat" "eza" "fd" "ripgrep" "zoxide" "fzf" "lazygit" "yazi" "bottom" "fastfetch"
-	"clang" "cmake" "make" "go" "lua" "luarocks" "nodejs" "npm" "yarn" "ruby" "rust" "rust-analyzer" "wrangler"
-	"sassc" "speech-dispatcher" "chafa" "imagemagick" "poppler-glib" "libheif" "ffmpegthumbnailer" "openslide"
-	"firefox" "chromium" "gnome-system-monitor" "solaar" "mpv" "spotify-launcher" "libreoffice-still"
-	"adobe-source-han-serif-cn-fonts" "wqy-zenhei" "noto-fonts" "noto-fonts-cjk" "noto-fonts-emoji" "noto-fonts-extra" "inter-font" "ttf-sarasa-gothic"
-	"papirus-icon-theme" "adwaita-icon-theme" "gnome-themes-standard" "gnome-themes-extra" "nwg-look" "gtk-engine-murrine" "qt5-wayland" "qt6-wayland" "qt6ct"
-	"git" "wget" "curl" "flatpak" "fuse2" "p7zip" "unrar" "unarchiver" "lzop" "lrzip" "xorg-xrdb"
-)
-AUR_PACKAGES=("mkinitcpio-firmware" "xray" "v2raya" "wechat-universal-bwrap" "visual-studio-code-bin")
+# Pacman options
+sudo sed -i "s/#Color/Color/g" /etc/pacman.conf
+sudo sed -i "s/#ParallelDownloads/ParallelDownloads/g" /etc/pacman.conf
 
-make_local_dirs() {
-	bash "$HOME/.dotfiles/bin/.local/bin/mkdir-local"
-}
+# Archlinuxcn
+pacman_conf="/etc/pacman.conf"
+archlinuxcn_name="archlinuxcn"
+archlinuxcn_server="https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/\$arch"
 
-add_archlinuxcn_repo() {
-	pacman_conf="/etc/pacman.conf"
-	archlinuxcn_name="archlinuxcn"
-	archlinuxcn_server="https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/\$arch"
+if ! grep -q "\[${archlinuxcn_name}\]" "$pacman_conf"; then
+	echo "[${archlinuxcn_name}]" | sudo tee -a "$pacman_conf" >/dev/null
+	echo "Server = ${archlinuxcn_server}" | sudo tee -a "$pacman_conf" >/dev/null
+	sudo pacman-key --lsign-key "farseerfc@archlinux.org"
+	sudo pacman -Sy --noconfirm archlinuxcn-keyring
+fi
 
-	if ! grep -q "\[${archlinuxcn_name}\]" "$pacman_conf"; then
-		echo "Adding package repository ${archlinuxcn_name} to pacman.conf..."
-		echo "[${archlinuxcn_name}]" | sudo tee -a "$pacman_conf" >/dev/null
-		echo "Server = ${archlinuxcn_server}" | sudo tee -a "$pacman_conf" >/dev/null
-		sudo pacman-key --lsign-key "farseerfc@archlinux.org"
-		sudo pacman -Sy archlinuxcn-keyring --noconfirm
-	fi
-}
+# Update system and install packages
+sudo pacman -Syyu --noconfirm
+sudo pacman -S --needed --noconfirm "${BASE_PACKAGES[@]}"
 
-install_base_packages() {
-	sudo pacman -Syyu --noconfirm
-	sudo pacman -S --needed --noconfirm "${BASE_PACKAGES[@]}"
-}
+# GRUB config
+sudo sed -i "s/GRUB_TIMEOUT=5/GRUB_TIMEOUT=${GRUB_TIMEOUT}/g" /etc/default/grub
+sudo sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet\"/GRUB_CMDLINE_LINUX_DEFAULT=\"${GRUB_CMDLINE_LINUX_DEFAULT}\"/g" /etc/default/grub
 
-config_grub() {
-	GRUB_TIMEOUT=0
-	GRUB_CMDLINE_LINUX_DEFAULT="quiet loglevel=5 nowatchdog"
+# Intel drivers
+if $ENABLE_INTEL_GRAPHICS; then
+	sudo pacman -S --noconfirm --needed mesa lib32-mesa vulkan-intel lib32-vulkan-intel intel-gpu-tools libva-utils
+fi
 
-	sudo sed -i "s/GRUB_TIMEOUT=5/GRUB_TIMEOUT=${GRUB_TIMEOUT}/g" /etc/default/grub
-	sudo sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet\"/GRUB_CMDLINE_LINUX_DEFAULT=\"${GRUB_CMDLINE_LINUX_DEFAULT}\"/g" /etc/default/grub
-}
+# Nvidia drivers
+if $ENABLE_NVIDIA_GRAPHICS; then
+	sudo pacman -S --noconfirm --needed nvidia nvidia-settings nvidia-utils lib32-nvidia-utils libva-nvidia-driver egl-wayland nvidia-prime
 
-install_graphics_drivers() {
-	if $ENABLE_INTEL_GRAPHICS; then
-		sudo pacman -S --noconfirm --needed mesa lib32-mesa vulkan-intel lib32-vulkan-intel intel-gpu-tools libva-utils
+	# Enable DRM (Direct Rendering Manager) kernel mode setting
+	sudo sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"${GRUB_CMDLINE_LINUX_DEFAULT}\"/GRUB_CMDLINE_LINUX_DEFAULT=\"${GRUB_CMDLINE_LINUX_DEFAULT} nvidia_drm.modeset=1 nvidia_drm.fbdev=1 nvidia.NVreg_EnableGpuFirmware=0\"/g" /etc/default/grub
+
+	# Edit /etc/mkinitcpio.conf to add Nvidia modules
+	mkinitcpio_conf="/etc/mkinitcpio.conf"
+	if ! grep -q "^MODULES=.*nvidia" "$mkinitcpio_conf"; then
+		sudo sed -i '/^MODULES=/ s/(\(.*\))/(\1 nvidia nvidia_modeset nvidia_uvm nvidia_drm)/' "$mkinitcpio_conf"
+		sudo sed -i '/HOOKS/ s/kms//g' "$mkinitcpio_conf"
 	fi
 
-	if $ENABLE_NVIDIA_GRAPHICS; then
-		sudo pacman -S --noconfirm --needed nvidia nvidia-settings nvidia-utils lib32-nvidia-utils libva-nvidia-driver egl-wayland nvidia-prime
+	# Create /etc/modprobe.d/nvidia.conf with necessary options
+	echo "options nvidia_drm modeset=1 fbdev=1" | sudo tee -a "/etc/modprobe.d/nvidia.conf"
+	echo "options nvidia NVreg_PreserveVideoMemoryAllocations=1" | sudo tee -a "/etc/modprobe.d/nvidia-power-management.conf"
 
-		if $ENABLE_WAYLAND; then
-			# Enable DRM (Direct Rendering Manager) kernel mode setting
-			sudo sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"${GRUB_CMDLINE_LINUX_DEFAULT}\"/GRUB_CMDLINE_LINUX_DEFAULT=\"${GRUB_CMDLINE_LINUX_DEFAULT} nvidia_drm.modeset=1 nvidia_drm.fbdev=1 nvidia.NVreg_EnableGpuFirmware=0\"/g" /etc/default/grub
+	# Rebuild initramfs
+	sudo mkinitcpio -P
 
-			# Edit /etc/mkinitcpio.conf to add Nvidia modules
-			mkinitcpio_conf="/etc/mkinitcpio.conf"
-			if ! grep -q "^MODULES=.*nvidia" "$mkinitcpio_conf"; then
-				sudo sed -i '/^MODULES=/ s/(\(.*\))/(\1 nvidia nvidia_modeset nvidia_uvm nvidia_drm)/' "$mkinitcpio_conf"
-				sudo sed -i '/HOOKS/ s/kms//g' "$mkinitcpio_conf"
-			fi
+	# Preserve video memory after suspend
+	sudo systemctl enable nvidia-suspend.service
+	sudo systemctl enable nvidia-hibernate.service
+	sudo systemctl enable nvidia-resume.service
 
-			# Create /etc/modprobe.d/nvidia.conf with necessary options
-			echo "options nvidia_drm modeset=1 fbdev=1" | sudo tee -a "/etc/modprobe.d/nvidia.conf"
-			echo "options nvidia NVreg_PreserveVideoMemoryAllocations=1" | sudo tee -a "/etc/modprobe.d/nvidia-power-management.conf"
+	# Force-enable Wayland
+	sudo ln -sf /dev/null /etc/udev/rules.d/61-gdm.rules
+fi
 
-			# Rebuild initramfs
-			sudo mkinitcpio -P
+# Generate a GRUB configuration file
+sudo grub-mkconfig -o /boot/grub/grub.cfg
 
-			# Preserve video memory after suspend
-			sudo systemctl enable nvidia-suspend.service
-			sudo systemctl enable nvidia-hibernate.service
-			sudo systemctl enable nvidia-resume.service
+# Automatically unlock the gnome-keyring
+PAM_FILE="/etc/pam.d/login"
+sudo grep -qxF 'auth optional pam_gnome_keyring.so' "$PAM_FILE" || sudo sh -c "echo 'auth optional pam_gnome_keyring.so' >> $PAM_FILE"
+sudo grep -qxF 'session optional pam_gnome_keyring.so auto_start' "$PAM_FILE" || sudo sh -c "echo 'session optional pam_gnome_keyring.so auto_start' >> $PAM_FILE"
 
-			# Force-enable Wayland
-			sudo ln -sf /dev/null /etc/udev/rules.d/61-gdm.rules
-		fi
+# Automatically change keyring password with user password
+sudo grep -qxF "password optional pam_gnome_keyring.so" "$PAM_FILE" || sudo sh -c "echo 'password optional pam_gnome_keyring.so' >>/etc/pam.d/passwd"
+
+bash "$HOME/.dotfiles/bin/.local/bin/stow-packages"
+bash "$HOME/.dotfiles/bin/.local/bin/mkdir-local"
+bash "$HOME/.dotfiles/bin/.local/bin/install-flatpak"
+bash "$HOME/.dotfiles/bin/.local/bin/install-fcitx5"
+bash "$HOME/.dotfiles/bin/.local/bin/install-fonts"
+bash "$HOME/.dotfiles/bin/.local/bin/install-themes"
+bash "$HOME/.dotfiles/bin/.local/bin/install-wallpapaers"
+bash "$HOME/.dotfiles/bin/.local/bin/dconf-restore"
+bash "$HOME/.dotfiles/bin/.local/bin/stow-packages"
+bash "$HOME/.dotfiles/bin/.local/bin/dns"
+
+# Install AUR helper
+if ! command -v $AUR_HELPER &>/dev/null; then
+	if pacman -Ss "^${AUR_HELPER}$" >/dev/null 2>&1; then
+		sudo pacman -S --needed --noconfirm "$AUR_HELPER"
+	else
+		pushd /tmp
+		git clone --depth=1 https://aur.archlinux.org/$AUR_HELPER.git
+		cd $AUR_HELPER && makepkg -si
+		popd
 	fi
-}
+fi
 
-generate_grub_config() {
-	sudo grub-mkconfig -o /boot/grub/grub.cfg
-}
+# Install aur packages
+sh -c "$AUR_HELPER -S --needed --noconfirm ${AUR_PACKAGES[*]}"
 
-install_bluetooth_drivers() {
-	sudo pacman -S --noconfirm --needed bluez bluez-utils bluez-obex
-	sudo systemctl enable bluetooth
-}
+# Enable system services
+sudo systemctl enable --now bluetooth
+sudo systemctl enable --now docker
+sudo systemctl enable --now xray
+sudo systemctl enable --now v2raya
+# sudo systemctl enable ly
 
-install_audio_drivers() {
-	sudo pacman -S --noconfirm --needed sof-firmware alsa-firmware alsa-ucm-conf
-}
-
-install_desktop_environment() {
-	# Install gnome
-	sudo pacman -S --needed --noconfirm gnome gnome-tweaks gnome-shell-extension-appindicator gnome-shell-extension-dash-to-dock
-	sudo systemctl enable gdm
-
-	# Install hyprland
-	sudo pacman -S --needed --noconfirm hyprland hyprlock hypridle hyprpaper xdg-desktop-portal-hyprland archlinux-xdg-menu \
-		ly rofi-wayland waybar inotify-tools swww dunst pipewire pavucontrol blueman network-manager-applet polkit-gnome gnome-keyring grim slurp nautilus loupe
-
-	AUR_PACKAGES+=("wlogout" "hyprpicker" "hyprshade")
-
-	# Enable systemd service
-	# sudo systemctl enable ly
-
-	# Automatically unlock the gnome-keyring
-	PAM_FILE="/etc/pam.d/login"
-	sudo grep -qxF 'auth optional pam_gnome_keyring.so' "$PAM_FILE" ||
-		sudo sh -c "echo 'auth optional pam_gnome_keyring.so' >> $PAM_FILE"
-	sudo grep -qxF 'session optional pam_gnome_keyring.so auto_start' "$PAM_FILE" ||
-		sudo sh -c "echo 'session optional pam_gnome_keyring.so auto_start' >> $PAM_FILE"
-
-	# Automatically change keyring password with user password
-	sudo grep -qxF "password optional pam_gnome_keyring.so" "$PAM_FILE" ||
-		sudo sh -c "echo 'password optional pam_gnome_keyring.so' >>/etc/pam.d/passwd"
-}
-
-install_flatpak() {
-	bash "$HOME/.dotfiles/bin/.local/bin/install-flatpak"
-}
-
-install_github_cli() {
-	sudo pacman -S --needed --noconfirm github-cli
-	gh completion -s zsh
-	# gh completion -s fish >~/.config/fish/completions/gh.fish
-}
-
-install_docker() {
-	sudo pacman -S --needed --noconfirm docker docker-compose
-	sudo systemctl enable docker
-	sudo usermod -aG docker "$USER"
-}
-
-install_input_method() {
-	sudo pacman -S --needed --noconfirm fcitx5-im fcitx5-rime fcitx5-chinese-addons fcitx5-material-color fcitx5-pinyin-zhwiki
-	bash "$HOME/.dotfiles/bin/.local/bin/install-fcitx5"
-}
-
-install_fonts() {
-	bash "$HOME/.dotfiles/bin/.local/bin/install-fonts"
-}
-
-install_themes() {
-	bash "$HOME/.dotfiles/bin/.local/bin/install-themes"
-}
-
-install_wallpapers() {
-	bash "$HOME/.dotfiles/bin/.local/bin/install-wallpapaers"
-}
-
-stow_packages() {
-	bash "$HOME/.dotfiles/bin/.local/bin/stow-packages"
-}
-
-config_dns() {
-	bash "$HOME/.dotfiles/bin/.local/bin/dns"
-}
-
-install_aur_packages() {
-	# Install AUR helper
-	if ! command -v $AUR_HELPER &>/dev/null; then
-		if pacman -Ss "^${AUR_HELPER}$" >/dev/null 2>&1; then
-			sudo pacman -S --needed --noconfirm "$AUR_HELPER"
-		else
-			pushd /tmp
-			git clone --depth=1 https://aur.archlinux.org/$AUR_HELPER.git
-			cd $AUR_HELPER && makepkg -si
-			popd
-		fi
-	fi
-
-	# Enable color and parallel downloads for pacman and helper
-	sudo sed -i "s/#Color/Color/g" /etc/pacman.conf
-	sudo sed -i "s/#ParallelDownloads/ParallelDownloads/g" /etc/pacman.conf
-
-	# Install aur packages
-	sh -c "$AUR_HELPER -S --needed --noconfirm ${AUR_PACKAGES[*]}"
-
-	# Enable system services
-	sudo systemctl enable --now xray.service
-	sudo systemctl enable --now v2raya.service
-}
-
-main() {
-	make_local_dirs
-	add_archlinuxcn_repo
-	install_base_packages
-	config_grub
-	install_graphics_drivers
-	generate_grub_config
-	install_bluetooth_drivers
-	install_audio_drivers
-	install_desktop_environment
-	# install_flatpak
-	install_github_cli
-	install_docker
-	stow_packages
-	install_input_method
-	install_themes
-	install_fonts
-	install_wallpapers
-	config_dns
-	install_aur_packages
-	stow_packages
-}
-
-main
+sudo usermod -aG docker "$USER"
