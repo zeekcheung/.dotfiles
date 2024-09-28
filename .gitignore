@@ -10,6 +10,7 @@ data
 *History*
 *globalStorage*
 *workspaceStorage*
+**/fcitx5/conf/notifications.conf
 **/rime/**
 !**/rime/default.custom.yaml
 !**/rime/rime_rice.custom.yaml
