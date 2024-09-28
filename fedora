@@ -71,6 +71,7 @@ bash "$HOME/.dotfiles/bin/.local/bin/install-wallpapaers"
 bash "$HOME/.dotfiles/bin/.local/bin/zsh-plugins"
 bash "$HOME/.dotfiles/bin/.local/bin/dconf-restore"
 bash "$HOME/.dotfiles/bin/.local/bin/dns"
+bash "$HOME/.dotfiles/bin/.local/bin/setup-default-monitor"
 bash "$HOME/.dotfiles/bin/.local/bin/stow-packages"
 
 # lazygit

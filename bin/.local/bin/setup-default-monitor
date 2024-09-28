@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# Script to setup default monitor settings
+
+TARGET_DIR="/etc/systemd/system/gdm.service.d"
+OVERRIDE_FILE="override.conf"
+MONITOR_CONFIG="$HOME/.config/monitors.xml"
+DESTINATION="/var/lib/gdm/.config/monitors.xml"
+
+sudo mkdir -p "$TARGET_DIR"
+
+echo "[Service]" | sudo tee "$TARGET_DIR/$OVERRIDE_FILE" >/dev/null
+echo "ExecStartPre=/bin/cp $MONITOR_CONFIG $DESTINATION" | sudo tee -a "$TARGET_DIR/$OVERRIDE_FILE" >/dev/null
+
+sudo systemctl daemon-reload
+sudo systemctl restart gdm
