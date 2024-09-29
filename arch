@@ -126,3 +126,5 @@ sudo systemctl enable --now v2raya
 # sudo systemctl enable ly
 
 sudo usermod -aG docker "$USER"
+
+echo "FONT=ter-132n" | sudo tee -a /etc/vconsole.conf
