@@ -11,6 +11,17 @@ vim.filetype.add({
   },
 })
 
+autocmd("TermOpen", {
+  desc = "Setup terminal local options",
+  pattern = "*",
+  callback = function()
+    vim.opt_local.number = false
+    vim.opt_local.relativenumber = false
+    vim.opt_local.signcolumn = "no"
+    vim.opt_local.statuscolumn = ""
+  end,
+})
+
 autocmd("BufWritePost", {
   desc = "Auto reload tmux config",
   pattern = { "*/.tmux.conf" },
