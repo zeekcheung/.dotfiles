@@ -7,7 +7,8 @@ set -e
 target_dir=$HOME/Projects/wallpapers
 
 mkdir -p "$target_dir"
-git clone git@github.com:zeekcheung/wallpapers "$target_dir"
+# git clone git@github.com:zeekcheung/wallpapers "$target_dir"
+git clone https://github.com/zeekcheung/wallpapers "$target_dir"
 pushd "$target_dir"
 sh "$target_dir"/install
 popd
