@@ -19,8 +19,6 @@ AUR_PACKAGES+=("wlogout" "hyprpicker" "hyprshade")
 
 ENABLE_INTEL_GRAPHICS=true
 ENABLE_NVIDIA_GRAPHICS=true
-GRUB_TIMEOUT=0
-GRUB_CMDLINE_LINUX_DEFAULT="quiet loglevel=5 nowatchdog"
 
 # Pacman options
 sudo sed -i "s/#Color/Color/g" /etc/pacman.conf
@@ -42,10 +40,6 @@ fi
 sudo pacman -Syyu --noconfirm
 sudo pacman -S --needed --noconfirm "${BASE_PACKAGES[@]}"
 
-# GRUB config
-sudo sed -i "s/GRUB_TIMEOUT=5/GRUB_TIMEOUT=${GRUB_TIMEOUT}/g" /etc/default/grub
-sudo sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet\"/GRUB_CMDLINE_LINUX_DEFAULT=\"${GRUB_CMDLINE_LINUX_DEFAULT}\"/g" /etc/default/grub
-
 # Intel drivers
 if $ENABLE_INTEL_GRAPHICS; then
 	sudo pacman -S --noconfirm --needed mesa lib32-mesa vulkan-intel lib32-vulkan-intel intel-gpu-tools libva-utils
@@ -55,22 +49,17 @@ fi
 if $ENABLE_NVIDIA_GRAPHICS; then
 	sudo pacman -S --noconfirm --needed nvidia nvidia-settings nvidia-utils lib32-nvidia-utils libva-nvidia-driver egl-wayland nvidia-prime
 
-	# Enable DRM (Direct Rendering Manager) kernel mode setting
-	sudo sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"${GRUB_CMDLINE_LINUX_DEFAULT}\"/GRUB_CMDLINE_LINUX_DEFAULT=\"${GRUB_CMDLINE_LINUX_DEFAULT} nvidia_drm.modeset=1 nvidia_drm.fbdev=1 nvidia.NVreg_EnableGpuFirmware=0\"/g" /etc/default/grub
+	# Pass parameters to nvidia module
+	echo "options nvidia_drm modeset=1 fbdev=1" | sudo tee -a "/etc/modprobe.d/nvidia.conf"
+	echo "options nvidia NVreg_PreserveVideoMemoryAllocations=1" | sudo tee -a "/etc/modprobe.d/nvidia-power-management.conf"
 
-	# Edit /etc/mkinitcpio.conf to add Nvidia modules
+	# Early load nvidia modules
 	mkinitcpio_conf="/etc/mkinitcpio.conf"
 	if ! grep -q "^MODULES=.*nvidia" "$mkinitcpio_conf"; then
 		sudo sed -i '/^MODULES=/ s/(\(.*\))/(\1 nvidia nvidia_modeset nvidia_uvm nvidia_drm)/' "$mkinitcpio_conf"
 		sudo sed -i '/HOOKS/ s/kms//g' "$mkinitcpio_conf"
+		sudo mkinitcpio -P
 	fi
-
-	# Create /etc/modprobe.d/nvidia.conf with necessary options
-	echo "options nvidia_drm modeset=1 fbdev=1" | sudo tee -a "/etc/modprobe.d/nvidia.conf"
-	echo "options nvidia NVreg_PreserveVideoMemoryAllocations=1" | sudo tee -a "/etc/modprobe.d/nvidia-power-management.conf"
-
-	# Rebuild initramfs
-	sudo mkinitcpio -P
 
 	# Preserve video memory after suspend
 	sudo systemctl enable nvidia-suspend.service
@@ -80,9 +69,6 @@ if $ENABLE_NVIDIA_GRAPHICS; then
 	# Force-enable Wayland
 	sudo ln -sf /dev/null /etc/udev/rules.d/61-gdm.rules
 fi
-
-# Generate a GRUB configuration file
-sudo grub-mkconfig -o /boot/grub/grub.cfg
 
 # Automatically unlock the gnome-keyring
 PAM_FILE="/etc/pam.d/login"
