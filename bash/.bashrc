@@ -15,6 +15,7 @@ export N_PREFIX=$HOME/.n
 export MANROFFOPT="-c"
 export MANPAGER="sh -c 'col -bx | bat --theme=ansi -l man -p'"
 source "$HOME/.cargo/env" 2>/dev/null
+source "$HOME/.fzfrc" 2>/dev/null
 
 # path
 bash_add_path() { export PATH="$1:$PATH"; }
@@ -25,36 +26,6 @@ bash_add_path "$HOME/go/bin"
 bash_add_path "$N_PREFIX/bin"
 bash_add_path "$XDG_DATA_HOME/bob/nvim-bin"
 bash_add_path "$XDG_DATA_HOME/nvim/mason/bin"
-
-# fzf
-export FZF_DEFAULT_OPTS="
---layout=reverse
---inline-info
---ansi
---cycle
---bind=tab:down,shift-tab:up,ctrl-a:select-all,ctrl-d:deselect-all,ctrl-t:toggle,ctrl-y:accept
---preview='echo {}\n && fzf-preview {}'
---preview-window=right,60%
---color=bg+:-1
-"
-
-export FZF_CTRL_T_OPTS="
---walker-skip .git,node_modules,target
---preview 'fzf-preview {}'
---bind 'ctrl-/:change-preview-window(down|hidden|)'
-"
-
-export FZF_CTRL_R_OPTS="
---bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
---color header:italic
---header 'Press CTRL-Y to copy command into clipboard'
---preview='echo {}'
-"
-
-export FZF_ALT_C_OPTS="
---walker-skip .git,node_modules,target
---preview 'fzf-preview {}'
-"
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
@@ -106,74 +77,74 @@ alias pq="paru -Q"
 
 # Enable proxy
 function proxy-on() {
-	export http_proxy="http://127.0.0.1:20171"
-	export https_proxy="http://127.0.0.1:20171"
-	export all_proxy="socks5://127.0.0.1:20170"
-	export no_proxy="127.0.0.1"
+  export http_proxy="http://127.0.0.1:20171"
+  export https_proxy="http://127.0.0.1:20171"
+  export all_proxy="socks5://127.0.0.1:20170"
+  export no_proxy="127.0.0.1"
 
-	git config --global http.proxy "http://127.0.0.1:20171"
-	git config --global https.proxy "http://127.0.0.1:20171"
+  git config --global http.proxy "http://127.0.0.1:20171"
+  git config --global https.proxy "http://127.0.0.1:20171"
 }
 
 # Disable proxy
 function proxy-off() {
-	unset http_proxy
-	unset https_proxy
-	unset all_proxy
+  unset http_proxy
+  unset https_proxy
+  unset all_proxy
 
-	git config --global --unset http.proxy
-	git config --global --unset https.proxy
+  git config --global --unset http.proxy
+  git config --global --unset https.proxy
 }
 
 # Fuzzy find with filename_first format and preview
 function fzf_filename_first() {
-	fzf --delimiter / --with-nth -2,-1 --preview 'echo {} && fzf-preview {}'
+  fzf --delimiter / --with-nth -2,-1 --preview 'echo {} && fzf-preview {}'
 }
 
 # Fuzzy find with fd and fzf
 function f() {
-	fd . "$@" | sed 's/\/$//' | fzf_filename_first
+  fd . "$@" | sed 's/\/$//' | fzf_filename_first
 }
 
 # Fuzzy find with fd and fzf then open with $EDITOR
 function vf() {
-	local file
-	file=$(f "$@")
-	[[ -n "$file" ]] && $EDITOR "$file"
+  local file
+  file=$(f "$@")
+  [[ -n "$file" ]] && $EDITOR "$file"
 }
 
 # Fuzzy find a dotfile and open with $EDITOR
 DOT_DIR="$HOME/.dotfiles"
 function dot() {
-	if [[ $# -eq 0 ]]; then
-		vf -H "$DOT_DIR"
-	else
-		local target="$DOT_DIR/$1"
-		if [[ -d "$target" ]]; then
-			vf -H "$target"
-		else
-			$EDITOR "$target"
-		fi
-	fi
+  if [[ $# -eq 0 ]]; then
+    vf -H "$DOT_DIR"
+  else
+    local target="$DOT_DIR/$1"
+    if [[ -d "$target" ]]; then
+      vf -H "$target"
+    else
+      $EDITOR "$target"
+    fi
+  fi
 }
 
 # Kill tmux session
 function tk() {
-	if [[ $# -eq 0 ]]; then
-		tmux kill-server
-	else
-		tmux kill-session -t "$1"
-	fi
+  if [[ $# -eq 0 ]]; then
+    tmux kill-server
+  else
+    tmux kill-session -t "$1"
+  fi
 }
 
 # yazi
 function y() {
-	tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
-	yazi "$@" --cwd-file="$tmp"
-	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-		cd -- "$cwd" || exit
-	fi
-	rm -f -- "$tmp"
+  tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+  yazi "$@" --cwd-file="$tmp"
+  if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+    cd -- "$cwd" || exit
+  fi
+  rm -f -- "$tmp"
 }
 
 # default prompt
@@ -188,7 +159,7 @@ alias clear="unset PROMPT_COMMAND; clear; PROMPT_COMMAND='export PROMPT_COMMAND=
 
 # Use bash-completion, if available
 [[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] &&
-	. /usr/share/bash-completion/bash_completion
+  . /usr/share/bash-completion/bash_completion
 
 # Tab completion
 bind 'set show-all-if-ambiguous on'
