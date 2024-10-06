@@ -13,9 +13,9 @@ sudo flatpak remote-modify flathub --url=https://mirror.sjtu.edu.cn/flathub
 # Options
 flatpak --user override --filesystem=xdg-config/gtk-3.0:ro
 flatpak --user override --filesystem=/usr/share/icons/:ro
-flatpak --user override --filesystem=$HOME/.local/share/icons/:ro
-flatpak --user override --filesystem=$HOME/.themes
-flatpak -u override --env=XCURSOR_PATH=$HOME/.local/share/icons
+flatpak --user override --filesystem="$HOME"/.local/share/icons/:ro
+flatpak --user override --filesystem="$HOME"/.themes
+flatpak -u override --env=XCURSOR_PATH="$HOME"/.local/share/icons
 
 # Install packages
 # flatpak install -y flathub org.mozilla.firefox
@@ -24,8 +24,8 @@ flatpak -u override --env=XCURSOR_PATH=$HOME/.local/share/icons
 # flatpak install -y flathub com.microsoft.Edge
 # flatpak install -y flathub com.visualstudio.code
 # flatpak install -y flathub dev.zed.Zed
-flatpak install -y flathub com.tencent.WeChat
+# flatpak install -y flathub com.tencent.WeChat
 # flatpak install -y flathub com.qq.QQ
-flatpak install -y flathub com.qq.QQmusic
+# flatpak install -y flathub com.qq.QQmusic
 # flatpak install -y flathub com.tencent.wemeet
 # flatpak install -y flathub com.protonvpn.www

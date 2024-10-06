@@ -25,7 +25,6 @@ return {
   {
     "nvim-lualine/lualine.nvim",
     enabled = true,
-    optional = true,
     opts = function(_, opts)
       -- local theme = require("lualine.themes.auto")
       -- theme.normal.c = require("util.highlight").highlights.LualineNormalC

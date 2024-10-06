@@ -4,17 +4,17 @@ set -e
 
 BASE_PACKAGES=(
 	"sof-firmware" "alsa-firmware" "alsa-ucm-conf" "pipewire" "bluez" "bluez-utils" "bluez-obex"
-	"alacritty" "kitty" "fish" "zsh" "zsh-completions" "zsh-autosuggestions" "zsh-syntax-highlighting" "bash-completion" "man-db" "git" "wget" "curl" "flatpak" "fuse2" "p7zip" "unrar" "unarchiver" "lzop" "lrzip" "neovim" "tmux" "xsel" "wl-clipboard" "cliphist" "stow" "starship" "bat" "eza" "fd" "ripgrep" "zoxide" "fzf" "lazygit" "yazi" "bottom" "fastfetch"
-	"clang" "cmake" "make" "go" "lua" "luarocks" "nodejs" "npm" "yarn" "ruby" "rust" "rust-analyzer" "docker" "docker-compose" "wrangler" "sassc" "speech-dispatcher" "chafa" "imagemagick" "poppler-glib" "libheif" "ffmpegthumbnailer" "openslide"
-	"gnome" "gnome-tweaks" "gnome-shell-extension-appindicator" "gnome-shell-extension-dash-to-dock"
-	"hyprland" "hyprlock" "hypridle" "hyprpaper" "xdg-desktop-portal-hyprland" "archlinux-xdg-menu" "rofi-wayland" "waybar" "inotify-tools" "swww" "dunst" "pavucontrol" "blueman" "network-manager-applet" "polkit-gnome" "gnome-keyring" "grim" "slurp" "nautilus" "loupe"
+	"alacritty" "kitty" "fish" "zsh" "zsh-completions" "zsh-autosuggestions" "zsh-syntax-highlighting" "bash-completion" "man-db" "git" "wget" "curl" "flatpak" "fuse2" "p7zip" "unrar" "unarchiver" "lzop" "lrzip" "zed" "neovim" "tmux" "xsel" "wl-clipboard" "cliphist" "stow" "starship" "bat" "eza" "fd" "ripgrep" "zoxide" "fzf" "lazygit" "yazi" "bottom" "fastfetch"
+	"clang" "cmake" "make" "go" "lua" "luarocks" "nodejs" "npm" "yarn" "pnpm" "ruby" "rust" "rust-analyzer" "docker" "docker-compose" "wrangler" "sassc" "speech-dispatcher" "chafa" "imagemagick" "poppler-glib" "libheif" "ffmpegthumbnailer" "openslide"
+	# "gnome" "gnome-tweaks" "gnome-shell-extension-appindicator" "gnome-shell-extension-dash-to-dock"
+	"hyprland" "hyprlock" "hypridle" "hyprpaper" "xdg-desktop-portal-hyprland" "archlinux-xdg-menu" "rofi-wayland" "waybar" "inotify-tools" "swww" "dunst" "pavucontrol" "blueman" "network-manager-applet" "polkit-gnome" "gnome-keyring" "grim" "slurp" "nautilus" "loupe" "ly"
 	"fcitx5-im" "fcitx5-rime" "fcitx5-chinese-addons" "fcitx5-material-color" "fcitx5-pinyin-zhwiki"
 	"firefox" "chromium" "gnome-system-monitor" "solaar" "mpv" "libreoffice-still"
 	"adobe-source-han-serif-cn-fonts" "wqy-zenhei" "noto-fonts" "noto-fonts-cjk" "noto-fonts-emoji" "noto-fonts-extra" "inter-font"
 	"papirus-icon-theme" "adwaita-icon-theme" "gnome-themes-standard" "gnome-themes-extra" "nwg-look" "gtk-engine-murrine" "qt5-wayland" "qt6-wayland" "qt6ct" "xorg-xrdb"
 )
 AUR_HELPER="paru"
-AUR_PACKAGES=("mkinitcpio-firmware" "xray" "v2raya" "wechat-universal-bwrap" "visual-studio-code-bin")
+AUR_PACKAGES=("mkinitcpio-firmware" "xray" "v2raya" "wechat-universal-bwrap")
 AUR_PACKAGES+=("wlogout" "hyprpicker" "hyprshade")
 
 ENABLE_INTEL_GRAPHICS=true

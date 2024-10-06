@@ -80,6 +80,9 @@ source $PLUGINS_DIR/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $PLUGINS_DIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fpath+=(/usr/share/zsh/site-functions $PLUGINS_DIR/zsh-completions/src)
 
+# Avoid comments are invisible when using syntax highlighting
+ZSH_HIGHLIGHT_STYLES[comment]='none'
+
 # ALIASES
 alias ~="cd ~"
 alias ..="cd .."
@@ -100,6 +103,7 @@ alias open="xdg-open"
 alias c="clear"
 alias se="sudoedit"
 alias diff="vi -d"
+alias fetch="fastfetch"
 
 # git
 alias ga="git add"

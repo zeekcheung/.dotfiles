@@ -103,7 +103,7 @@ return {
   {
     "supermaven-inc/supermaven-nvim",
     enabled = false,
-    event = "LazyFile",
+    event = "VeryLazy",
     opts = {
       keymaps = {
         accept_suggestion = "<C-f>",
@@ -162,7 +162,7 @@ return {
 
   {
     "monkoose/neocodeium",
-    enabled = false,
+    enabled = true,
     event = "VeryLazy",
     opts = {
       show_label = false,
