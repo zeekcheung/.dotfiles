@@ -27,4 +27,9 @@ while IFS= read -r package; do
 done <<<"$PACKAGES"
 
 sudo stow -v --adopt -t /etc "etc"
+
+FIREFOX_PROFILE_DIR=$(find "$HOME"/.mozilla/firefox -maxdepth 1 -mindepth 1 -type d -name "*default-release")
+FIREFOX_PACKAGE_PROFILE_DIR="$DOT_DIR/firefox/.mozilla/firefox/profile"
+ln -sf "$FIREFOX_PACKAGE_PROFILE_DIR/user.js" "$FIREFOX_PROFILE_DIR/user.js"
+ln -sf "$FIREFOX_PACKAGE_PROFILE_DIR/chrome/userChrome.css" "$FIREFOX_PROFILE_DIR/chrome/userChrome.css"
 popd
