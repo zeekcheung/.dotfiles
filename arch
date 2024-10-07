@@ -6,6 +6,7 @@ BASE_PACKAGES=(
 	"sof-firmware" "alsa-firmware" "alsa-ucm-conf" "pipewire" "bluez" "bluez-utils" "bluez-obex"
 	"alacritty" "kitty" "fish" "zsh" "zsh-completions" "zsh-autosuggestions" "zsh-syntax-highlighting" "bash-completion" "man-db" "git" "wget" "curl" "flatpak" "fuse2" "p7zip" "unrar" "unarchiver" "lzop" "lrzip" "zed" "neovim" "tmux" "xsel" "wl-clipboard" "cliphist" "stow" "starship" "bat" "eza" "fd" "ripgrep" "zoxide" "fzf" "lazygit" "yazi" "bottom" "fastfetch"
 	"clang" "cmake" "make" "go" "lua" "luarocks" "nodejs" "npm" "yarn" "pnpm" "ruby" "rust" "rust-analyzer" "docker" "docker-compose" "wrangler" "sassc" "speech-dispatcher" "chafa" "imagemagick" "poppler-glib" "libheif" "ffmpegthumbnailer" "openslide"
+	"bash-language-server" "vscode-css-languageserver" "gopls" "vscode-html-languageserver" "vscode-json-languageserver" "lua-language-server" "marksman" "pyright" "ruff" "ruff-lsp" "tailwindcss-language-server" "taplo-cli" "typescript-language-server" "vue-language-server" "yaml-language-server"
 	# "gnome" "gnome-tweaks" "gnome-shell-extension-appindicator" "gnome-shell-extension-dash-to-dock"
 	"hyprland" "hyprlock" "hypridle" "hyprpaper" "xdg-desktop-portal-hyprland" "archlinux-xdg-menu" "rofi-wayland" "waybar" "inotify-tools" "swww" "dunst" "pavucontrol" "blueman" "network-manager-applet" "polkit-gnome" "gnome-keyring" "grim" "slurp" "nautilus" "loupe" "ly"
 	"fcitx5-im" "fcitx5-rime" "fcitx5-chinese-addons" "fcitx5-material-color" "fcitx5-pinyin-zhwiki"

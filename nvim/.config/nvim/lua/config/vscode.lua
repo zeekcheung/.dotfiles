@@ -20,13 +20,12 @@ vim.cmd([[syntax off]])
 
 -- below value is needed to make some plugins work properly
 vim.env.TERM = "vscode"
-vim.g.colorscheme = ""
 
--- Keymaps
 -- Make all keymaps silent by default
 local map = vim.keymap.set
 
 -- stylua: ignore start
+
 -- buffers/tabs
 map('n', '<tab>', function() call 'workbench.action.previousEditor' end)
 map('n', '<S-tab>', function() call 'workbench.action.nextEditor' end)

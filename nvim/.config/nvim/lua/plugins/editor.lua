@@ -1,27 +1,7 @@
 return {
   {
     "nvim-neo-tree/neo-tree.nvim",
-    dependencies = {
-      { "echasnovski/mini.icons" },
-    },
-    -- keys = {
-    --   { "<leader>fe", false },
-    --   { "<leader>fE", false },
-    --   {
-    --     "<leader>fe",
-    --     function()
-    --       require("neo-tree.command").execute({ toggle = true, dir = vim.uv.cwd() })
-    --     end,
-    --     desc = "Explorer NeoTree (cwd)",
-    --   },
-    --   {
-    --     "<leader>E",
-    --     function()
-    --       require("neo-tree.command").execute({ toggle = true, dir = LazyVim.root() })
-    --     end,
-    --     desc = "Explorer NeoTree (Root Dir)",
-    --   },
-    -- },
+    dependencies = { "echasnovski/mini.icons" },
     opts = {
       enable_diagnostics = false,
       sources = { "filesystem", "buffers", "git_status", "document_symbols" },
@@ -33,11 +13,6 @@ return {
           symbol = "",
         },
         icon = {
-          -- folder_closed = "",
-          -- folder_open = "",
-          -- folder_empty = "",
-          -- folder_empty_open = "",
-          default = "󰈔",
           provider = function(icon, node) -- setup a custom icon provider
             local text, hl
             local mini_icons = require("mini.icons")
@@ -129,7 +104,6 @@ return {
           },
         },
       },
-
       event_handlers = {
         {
           event = "neo_tree_buffer_enter",
@@ -158,7 +132,6 @@ return {
       winopts = {
         backdrop = 100,
         preview = {
-          -- layout = "horizontal",
           scrollbar = false,
         },
       },
@@ -168,22 +141,6 @@ return {
         },
       },
     },
-    -- keys = {
-    --   { "<leader>/", LazyVim.pick("live_grep", { root = false }), desc = "Grep (cwd)" },
-    --   { "<leader><space>", LazyVim.pick("files", { root = false }), desc = "Find Files (cwd)" },
-    --   -- find
-    --   { "<leader>ff", LazyVim.pick("files", { root = false }), desc = "Find Files (cwd)" },
-    --   { "<leader>fF", LazyVim.pick("files"), desc = "Find Files (Root Dir)" },
-    --   { "<leader>fr", LazyVim.pick("oldfiles", { cwd = vim.uv.cwd() }), desc = "Recent (cwd)" },
-    --   -- search
-    --   { "<leader>sg", LazyVim.pick("live_grep", { root = false }), desc = "Grep (cwd)" },
-    --   { "<leader>sG", LazyVim.pick("live_grep"), desc = "Grep (Root Dir)" },
-    --   { "<leader>sW", LazyVim.pick("grep_cword"), desc = "Word (Root Dir)" },
-    --   { "<leader>sw", LazyVim.pick("grep_cword", { root = false }), desc = "Word (cwd)" },
-    --   { "<leader>sw", LazyVim.pick("grep_visual", { root = false }), mode = "v", desc = "Selection (cwd)" },
-    --   { "<leader>sW", LazyVim.pick("grep_visual"), mode = "v", desc = "Selection (Root Dir)" },
-    --   { "<leader>uC", LazyVim.pick("colorschemes"), desc = "Colorscheme with Preview" },
-    -- },
   },
 
   {

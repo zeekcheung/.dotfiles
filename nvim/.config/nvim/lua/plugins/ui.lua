@@ -9,7 +9,7 @@ return {
 
   {
     "akinsho/bufferline.nvim",
-    enabled = true,
+    enabled = false,
     opts = {
       options = {
         mode = "tabs",
@@ -49,7 +49,6 @@ return {
         -- "filename",
       }
       opts.sections.lualine_x = {
-        -- tabstop
         -- stylua: ignore
         { "encoding", fmt = function(str) return string.upper(str) end, },
         -- { "fileformat", symbols = { unix = "LF", dos = "CRLF", mac = "LF" } },
@@ -65,6 +64,11 @@ return {
       --   opts.sections.lualine_c[4] = { "filename", separator = "", padding = { left = 0, right = 0 } }
       --   opts.sections.lualine_c[4] = { LazyVim.lualine.pretty_path(), padding = { left = 0, right = 0 } }
     end,
+  },
+
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    enabled = true,
   },
 
   {
@@ -138,8 +142,18 @@ return {
         [".env.development"] = { glyph = "", hl = "MiniIconsYellow" },
         [".env.example"] = { glyph = "", hl = "MiniIconsYellow" },
         [".env.production"] = { glyph = "", hl = "MiniIconsYellow" },
+        [".eslintrc.js"] = { glyph = "󰱺", hl = "MiniIconsPurple" },
         [".gitconfig"] = { glyph = "󰊢", hl = "MiniIconsOrange" },
+        [".go-version"] = { glyph = "", hl = "MiniIconsBlue" },
+        [".eslintrc.js"] = { glyph = "󰱺", hl = "MiniIconsYellow" },
+        [".node-version"] = { glyph = "", hl = "MiniIconsGreen" },
+        [".prettierrc"] = { glyph = "", hl = "MiniIconsPurple" },
+        [".prettierrc.json"] = { glyph = "", hl = "MiniIconsPurple" },
+        [".prettierrc.js"] = { glyph = "", hl = "MiniIconsPurple" },
+        [".prettierrc.toml"] = { glyph = "", hl = "MiniIconsPurple" },
         [".shellcheckrc"] = { glyph = "󰒓", hl = "MiniIconsGrey" },
+        [".prettierrc"] = { glyph = "", hl = "MiniIconsPurple" },
+        [".yarnrc.yml"] = { glyph = "", hl = "MiniIconsBlue" },
         [".zshrc"] = { glyph = "", hl = "MiniIconsGreen" },
         ["arch"] = { glyph = "󰣇", hl = "MiniIconsBlue" },
         ["fedora"] = { glyph = "󰣛", hl = "MiniIconsBlue" },
@@ -155,13 +169,14 @@ return {
         ["LICENSE"] = { glyph = "", hl = "MiniIconsYellow" },
         ["LICENSE.md"] = { glyph = "", hl = "MiniIconsYellow" },
         ["LICENSE.txt"] = { glyph = "", hl = "MiniIconsYellow" },
-        [".prettierrc.json"] = { glyph = "", hl = "MiniIconsPurple" },
-        [".prettierrc.js"] = { glyph = "", hl = "MiniIconsPurple" },
-        [".prettierrc.toml"] = { glyph = "", hl = "MiniIconsPurple" },
+        ["package.json"] = { glyph = "", hl = "MiniIconsGreen" },
         ["README"] = { glyph = "", hl = "MiniIconsAzure" },
         ["README.md"] = { glyph = "", hl = "MiniIconsAzure" },
         ["README.txt"] = { glyph = "", hl = "MiniIconsAzure" },
         ["tsconfig.json"] = { glyph = "", hl = "MiniIconsAzure" },
+        ["tsconfig.build.json"] = { glyph = "", hl = "MiniIconsAzure" },
+        ["tsconfig.build.json"] = { glyph = "", hl = "MiniIconsAzure" },
+        ["yarn.lock"] = { glyph = "", hl = "MiniIconsBlue" },
       },
       filetype = {
         css = { glyph = "", hl = "MiniIconsAzure" },
@@ -170,6 +185,7 @@ return {
         godoc = { glyph = "", hl = "MiniIconsOrange" },
         gomod = { glyph = "", hl = "MiniIconsAzure" },
         gosum = { glyph = "", hl = "MiniIconsCyan" },
+        gotmpl = { glyph = "", hl = "MiniIconsGrey" },
         gowork = { glyph = "", hl = "MiniIconsPurple" },
         html = { glyph = "", hl = "MiniIconsOrange" },
         javascript = { glyph = "", hl = "MiniIconsYellow" },
@@ -226,6 +242,7 @@ return {
 
   {
     "HiPhish/rainbow-delimiters.nvim",
+    enabled = false,
     event = "LazyFile",
     config = function()
       vim.g.rainbow_delimiters = {
@@ -243,6 +260,7 @@ return {
 
   {
     "MeanderingProgrammer/render-markdown.nvim",
+    enabled = false,
     ft = { "markdown", "rmd", "vimwiki", "org", "norg" },
     opts = {
       file_types = { "markdown", "rmd", "vimwiki", "org", "norg" },
@@ -259,7 +277,7 @@ return {
 
   {
     "karb94/neoscroll.nvim",
-    enabled = vim.g.mini_animate,
+    cond = not vim.g.neovide,
     opts = {},
   },
 }

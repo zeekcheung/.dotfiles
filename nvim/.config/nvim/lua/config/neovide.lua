@@ -2,24 +2,16 @@ if not vim.g.neovide then
   return
 end
 
--- disable mini.aniate
-vim.g.mini_animate = false
-
--- font
+-- misc
 vim.o.guifont = "Maple Mono NF:h14:#e-subpixelantialias:#h-slight"
-
--- background color
-vim.g.neovide_background_color = "#232136"
 vim.g.transparent = false
+vim.g.neovide_hide_mouse_when_typing = true
+vim.g.neovide_cursor_vfx_mode = "railgun"
 
 -- floating shadow
 -- FIXME: Drop shadow causes incorrect rendering of float border
 -- See: https://github.com/neovide/neovide/issues/2113
 vim.g.neovide_floating_shadow = false
-
--- misc
-vim.g.neovide_hide_mouse_when_typing = true
-vim.g.neovide_cursor_vfx_mode = "railgun"
 
 -- keymaps
 local map = vim.keymap.set

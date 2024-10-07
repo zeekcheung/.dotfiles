@@ -9,7 +9,6 @@ M.highlights = {
   CursorLineNr = { bg = "NONE" },
   -- Directory = { fg = "#8C96A2" },
   -- FloatBorder = { link = "Comment" },
-  FloatBorder = { link = "IblIndent" },
   FzfLuaBorder = { link = "FloatBorder" },
   FzfLuaFzfBorder = { link = "FzfLuaBorder" },
   FzfLuaPreviewBorder = { link = "FzfLuaBorder" },
@@ -40,11 +39,9 @@ M.highlights = {
   TelescopeResultsNormal = { fg = "#e0def4" },
   TelescopeSelection = { fg = "#e0def4", bg = "#393552" },
   -- TelescopeSelectionCaret = { fg = 'rose', bg = 'rose' },
-  WinSeparator = { link = "IblIndent" },
+  WinSeparator = { link = "FloatBorder" },
 }
 
--- M.highlights["LualineNormalC"] = { fg = comment.fg }
---
 -- Custom highlight group
 function M.draw_my_highlight()
   local ns_id = 0 -- Namespace id, set to 0 for global
