@@ -72,7 +72,9 @@ set timeoutlen=300
 set belloff=all
 
 " colorscheme
-colorscheme habamax
+set termguicolors
+" colorscheme habamax
+colorscheme tokyonight-moon
 
 " netrw
 let g:netrw_banner=0
@@ -144,7 +146,7 @@ nnoremap <silent> <leader><Tab>d :tabclose<cr>
 nnoremap <silent> <leader>th :term<cr>
 nnoremap <silent> <leader>tv :vert term<cr>
 nnoremap <silent> <leader>tt :tab ter<cr>
-nnoremap <silent> <leader>gg :tab ter lazygit<cr>
+nnoremap <silent> <leader>gg :tab ter ++close lazygit<cr>
 tnoremap <silent> <esc><esc> <C-\><C-n>
 
 " Netrw
@@ -169,7 +171,7 @@ nnoremap <silent> <esc> :noh<cr>
 " GUI
 if has("gui_running")
     set guioptions=""
-    set guifont=Maple\ Mono\ NF\ 18
+    set guifont=Maple\ Mono\ NF\ 14
     set guicursor+=a:blinkon0
 
     " Misc
@@ -197,6 +199,9 @@ autocmd FocusGained * checktime
 
 " Resize splits if window is resized
 autocmd VimResized * :wincmd =
+
+" Terminal options
+autocmd TerminalOpen * setlocal nonumber
 
 " Change indent size for different filetypes
 autocmd Filetype c,cpp,h,hpp,python setlocal shiftwidth=4 tabstop=4
@@ -235,7 +240,9 @@ augroup END
 " Custom highlight groups
 function! DrawMyColors()
     set noshowcmd
-    hi! VertSplit ctermbg=NONE ctermfg=NONE guifg=NONE guibg=NONE
+    hi! VertSplit term=NONE cterm=NONE ctermfg=NONE ctermbg=NONE gui=NONE guifg=NONE guibg=NONE
+    hi! CursorLine term=NONE cterm=NONE
+    hi! CursorLineNr cterm=NONE
 endfunction
 
 call DrawMyColors()
