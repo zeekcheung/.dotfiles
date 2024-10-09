@@ -20,6 +20,7 @@ return {
         volar = { mason = false },
         vtsls = { mason = false },
         ts_ls = { mason = false },
+        eslint = { mason = false },
         ruff = { mason = false },
         pyright = { mason = false },
       },
