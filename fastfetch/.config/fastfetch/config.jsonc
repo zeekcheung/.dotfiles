@@ -19,9 +19,9 @@
     "swap",
     "disk",
     "break",
-    "colors",
+    "colors"
   ],
   "logo": {
     // "type": "small",
-  },
+  }
 }

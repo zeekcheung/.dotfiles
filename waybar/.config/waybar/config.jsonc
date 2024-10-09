@@ -14,9 +14,7 @@
     "custom/separator",
     "hyprland/window"
   ],
-  "modules-center": [
-    "clock"
-  ],
+  "modules-center": ["clock"],
   "modules-right": [
     "custom/separator",
     "cpu",
@@ -115,11 +113,7 @@
       "phone": "",
       "portable": "",
       "car": "",
-      "default": [
-        " ",
-        " ",
-        " "
-      ]
+      "default": [" ", " ", " "]
     },
     "on-click-middle": "pamixer -t",
     "on-click": "pavucontrol"
@@ -154,18 +148,7 @@
     "format-charging": "󰂄 {capacity}%",
     "format-plugged": "󰂏 {capacity}%",
     "format-alt": "{time} {icon}",
-    "format-icons": [
-      "󰁺",
-      "󰁻",
-      "󰁼",
-      "󰁽",
-      "󰁾",
-      "󰁿",
-      "󰂀",
-      "󰂁",
-      "󰂂",
-      "󰁹"
-    ]
+    "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
   },
   "custom/power": {
     "format": "⏻ ",
