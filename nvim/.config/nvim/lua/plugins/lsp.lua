@@ -21,6 +21,7 @@ return {
         vtsls = { mason = false },
         ts_ls = { mason = false },
         eslint = { mason = false },
+        biome = {},
         ruff = { mason = false },
         pyright = { mason = false },
       },
