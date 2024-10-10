@@ -9,7 +9,112 @@
       "ctrl-l": ["workspace::ActivatePaneInDirection", "Right"]
     }
   },
+  // Pane
+  {
+    "context": "Pane",
+    "bindings": {}
+  },
+  // Workspace
+  {
+    "context": "Workspace",
+    "bindings": {}
+  },
+  // Editor
+  {
+    "context": "Editor && !menu",
+    "bindings": {
+      "ctrl-s": "workspace::Save",
+      "ctrl-shift-c": "editor::Copy",
+      "ctrl-shift-v": "editor::Paste"
+    }
+  },
+  {
+    "context": "Editor && showing_completions",
+    "bindings": {
+      "ctrl-y": "editor::ConfirmCompletion"
+    }
+  },
+  // Menu
+  {
+    "context": "Menu",
+    "bindings": {}
+  },
+  // Terminal
+  {
+    "context": "Terminal",
+    "bindings": {
+      "ctrl-l": ["terminal::SendKeystroke", "ctrl-l"]
+    }
+  },
+  // Assistant
+  {
+    "context": "Assistant",
+    "bindings": {}
+  },
+  // ProjectPanel
+  {
+    "context": "ProjectPanel && not_editing",
+    "bindings": {
+      "a": "project_panel::NewFile",
+      "A": "project_panel::NewDirectory",
+      "x": "project_panel::Cut",
+      "y": "project_panel::Copy",
+      "p": "project_panel::Paste",
+      "d": "project_panel::Delete",
+      "r": "project_panel::Rename",
+      "q": "workspace::ToggleLeftDock",
+      "space e": "workspace::ToggleLeftDock",
+      "ctrl-e": "workspace::ToggleLeftDock"
+    }
+  },
+  // ProjectSearch
+  {
+    "context": "ProjectSearch",
+    "bindings": {}
+  },
+  // BufferSearch
+  {
+    "context": "BufferSearch",
+    "bindings": {}
+  },
+  // Search
+  {
+    "context": "Search",
+    "bindings": {}
+  },
+  // Dock
+  {
+    "context": "Dock",
+    "bindings": {
+      "ctrl-w h": ["workspace::ActivatePaneInDirection", "Left"],
+      "ctrl-w l": ["workspace::ActivatePaneInDirection", "Right"],
+      "ctrl-w k": ["workspace::ActivatePaneInDirection", "Up"],
+      "ctrl-w j": ["workspace::ActivatePaneInDirection", "Down"]
+    }
+  },
+  // EmptyPane
+  {
+    "context": "EmptyPane",
+    "bindings": {}
+  },
+  // SharedScreen
+  {
+    "context": "SharedScreen",
+    "bindings": {}
+  },
+  // Indicates that vim keybindings should work
+  {
+    "context": "VimControl",
+    "bindings": {}
+  },
   // Normal mode
+  {
+    "context": "vim_mode == normal",
+    "bindings": {
+      "\\": "pane::SplitRight",
+      "|": "pane::SplitDown"
+    }
+  },
   {
     "context": "vim_mode == normal || EmptyPane || SharedScreen",
     "bindings": {
@@ -64,16 +169,7 @@
       "z o": "editor::UnfoldLines"
     }
   },
-  // Insert mode
-  {
-    "context": "vim_mode == insert",
-    "bindings": {
-      "j j": "vim::NormalBefore",
-      "ctrl-f": "editor::AcceptInlineCompletion",
-      "alt-f": "editor::AcceptPartialInlineCompletion"
-    }
-  },
-  // Visual mode
+  // Visual Mode
   {
     "context": "vim_mode == visual",
     "bindings": {
@@ -82,54 +178,29 @@
       "alt-k": "editor::MoveLineUp"
     }
   },
-  // Normal & Visual mode
+  // Insert Mode
   {
-    "context": "VimControl && !menu",
+    "context": "vim_mode == insert",
     "bindings": {
-      // put key-bindings here if you want them to work in normal & visual mode
+      "j j": "vim::NormalBefore",
+      "ctrl-f": "editor::AcceptInlineCompletion",
+      "alt-f": "editor::AcceptPartialInlineCompletion"
     }
   },
-  // Editor
+  // Replace mode
   {
-    "context": "Editor && !menu",
-    "bindings": {
-      "ctrl-s": "workspace::Save",
-      "ctrl-shift-c": "editor::Copy",
-      "ctrl-shift-v": "editor::Paste"
-    }
+    "context": "vim_mode == replace",
+    "bindings": {}
   },
-  // Completion
+  // Waiting for another binding to trigger (e.g., after typing c or d)
   {
-    "context": "Editor && showing_completions",
-    "bindings": {
-      "ctrl-y": "editor::ConfirmCompletion"
-    }
+    "context": "vim_mode == operator",
+    "bindings": {}
   },
-  // Dock
+  // Waiting for an arbitrary key (e.g., after typing f or t)
   {
-    "context": "Dock",
-    "bindings": {
-      "ctrl-w h": ["workspace::ActivatePaneInDirection", "Left"],
-      "ctrl-w l": ["workspace::ActivatePaneInDirection", "Right"],
-      "ctrl-w k": ["workspace::ActivatePaneInDirection", "Up"],
-      "ctrl-w j": ["workspace::ActivatePaneInDirection", "Down"]
-    }
-  },
-  // File panel
-  {
-    "context": "ProjectPanel && not_editing",
-    "bindings": {
-      "a": "project_panel::NewFile",
-      "A": "project_panel::NewDirectory",
-      "x": "project_panel::Cut",
-      "y": "project_panel::Copy",
-      "p": "project_panel::Paste",
-      "d": "project_panel::Delete",
-      "r": "project_panel::Rename",
-      "q": "workspace::ToggleLeftDock",
-      "space e": "workspace::ToggleLeftDock",
-      "ctrl-e": "workspace::ToggleLeftDock"
-    }
+    "context": "vim_mode == waiting",
+    "bindings": {}
   },
   // Picker
   {

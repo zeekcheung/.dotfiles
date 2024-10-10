@@ -14,15 +14,15 @@
   "buffer_font_features": {
     "calt": true
   },
-  "buffer_font_size": 16,
-  "ui_font_size": 16,
+  "buffer_font_size": 17,
+  "ui_font_size": 17,
   "tab_size": 2,
   "confirm_quit": false,
   "current_line_highlight": "line",
   "theme": {
-    "mode": "system",
+    "mode": "dark",
     "light": "One Light",
-    "dark": "Gruvbox Dark Soft"
+    "dark": "Andromeda"
   },
   "indent_guides": {
     "enabled": true
@@ -69,7 +69,7 @@
     "button": false
   },
   "features": {
-    "inline_completion_provider": "none"
+    "inline_completion_provider": "supermaven"
   },
   "collaboration_panel": {
     "dock": "right"
@@ -85,5 +85,88 @@
     "Shell Script": ["conf"],
     "JSONC": ["settings.json"],
     "XML": ["fonts.conf"]
+  },
+  "formatter": {
+    "language_server": {
+      "name": "biome"
+    }
+  },
+  "lsp": {
+    "biome": {
+      "settings": {
+        "require_config_file": true
+      },
+      "binary": {
+        "arguments": ["lsp-proxy"]
+      }
+    },
+    "clangd": {
+      "binary": {
+        "path": "/bin/clangd",
+        "arguments": [
+          "--background-index",
+          "--clang-tidy",
+          "--header-insertion=iwyu",
+          "--completion-style=detailed",
+          "--function-arg-placeholders",
+          "--fallback-style=llvm"
+        ]
+      }
+    },
+    "deno": {
+      "settings": {
+        "deno": {
+          "enable": true
+        }
+      }
+    }
+  },
+  "languages": {
+    "JavaScript": {
+      "language_servers": [
+        "biome",
+        "!deno",
+        "!typescript-language-server",
+        "!vtsls",
+        "!eslint"
+      ],
+      "formatter": "language_server"
+    },
+    "TypeScript": {
+      "language_servers": [
+        "biome",
+        "!deno",
+        "!typescript-language-server",
+        "!vtsls",
+        "!eslint"
+      ],
+      "formatter": "language_server"
+    },
+    "TSX": {
+      "language_servers": [
+        "biome",
+        "!deno",
+        "!typescript-language-server",
+        "!vtsls",
+        "!eslint"
+      ],
+      "formatter": "language_server"
+    },
+    "JSON": {
+      "language_servers": ["json-language-server"],
+      "formatter": "prettier"
+    },
+    "JSONC": {
+      "language_servers": ["json-language-server"],
+      "formatter": "prettier"
+    },
+    "CSS": {
+      "language_servers": ["biome"],
+      "formatter": "language_server"
+    }
+  },
+  "code_actions_on_format": {
+    "source.fixAll.biome": true,
+    "source.organizeImports.biome": true
   }
 }
