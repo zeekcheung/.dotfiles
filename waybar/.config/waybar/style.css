@@ -1,5 +1,9 @@
+@import "themes/catppuccin-mocha.css";
+/*@import "themes/gruvbox-material.css";*/
+
 * {
   min-height: 0;
+  /* biome-ignore lint/a11y/useGenericFontNames: <explanation> */
   font-family: "Maple Mono NF", "Fira Code Nerd Font", "JetBrainsMono Nerd Font";
   font-size: 14px;
   font-weight: 600;
@@ -76,6 +80,3 @@ window#waybar.empty #window {
 tooltip {
   border-radius: 8px;
 }
-
-@import "themes/catppuccin-mocha.css";
-/*@import "themes/gruvbox-material.css";*/
