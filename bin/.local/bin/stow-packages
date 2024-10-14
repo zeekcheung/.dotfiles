@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+set -e
+
+DOT_DIR="$HOME/.dotfiles"
+
+if [ ! -d "$DOT_DIR" ]; then
+  echo "Error: dotfiles directory not found."
+  exit 1
+fi
+
+pushd "$HOME/.dotfiles"
+for package in */; do
+  package=${package%/}
+  stow -v --adopt "$package"
+done
+
+git clean -fd
+popd

@@ -1,0 +1,9 @@
+[submodule "nvim/.config/nvim"]
+	path = nvim/.config/nvim
+	url = git@github.com:zeekcheung/lazyvim-config
+[submodule "fonts/.local/share/fonts"]
+	path = fonts/.local/share/fonts
+	url = git@github.com:zeekcheung/fonts
+[submodule "hypr/.config/hypr"]
+	path = hypr/.config/hypr
+	url = git@github.com:zeekcheung/hypr
