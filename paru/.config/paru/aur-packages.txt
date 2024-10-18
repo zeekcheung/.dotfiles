@@ -1,0 +1,7 @@
+ast-firmware
+hyprshade
+mkinitcpio-firmware
+qqmusic-appimage
+visual-studio-code-bin
+wechat-universal-bwrap
+wlrctl
