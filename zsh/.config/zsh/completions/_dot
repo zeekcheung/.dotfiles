@@ -1,0 +1,11 @@
+#compdef dot
+compdef _dot dot
+
+_dot() {
+  _files -W "$DOTDIR"
+}
+
+# don't run the completion function when being source-ed or eval-ed
+if [ "$funcstack[1]" = "_dot" ]; then
+  _dot
+fi

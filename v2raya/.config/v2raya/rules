@@ -1,0 +1,18 @@
+# https://v2raya.org/docs/manual/ext/
+default: proxy
+# write your own rules below
+domain(domain:zeekcheung.asia)->direct
+domain(domain:registry.npmmirror.com)->direct
+domain(domain:www.markji.com)->direct
+domain(domain:www.bilibili.com)->direct
+domain(domain:kimi.moonshot.cn)->direct
+domain(domain:gitlab.com)->direct
+domain(domain:github.com)->proxy
+domain(domain:raw.githubusercontent.com)->proxy
+domain(domain:starship.rs)->proxy
+
+domain(geosite:google)->proxy
+domain(geosite:tld-cn, geosite:category-games@cn)->direct
+domain(geosite:cn, geosite:private)->direct
+ip(geoip:cn, geoip:private)->direct
+

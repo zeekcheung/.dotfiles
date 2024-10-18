@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+# Script to stow packages
+
+set -e
+
+DOT_DIR="$HOME/.dotfiles"
+
+if [ ! -d "$DOT_DIR" ]; then
+  echo "Error: dotfiles directory not found."
+  exit 1
+fi
+
+excluded=(".git" ".vscode" "firefox")
+excluded_args=()
+for name in "${excluded[@]}"; do
+  excluded_args+=("-not" "-name" "$name")
+done
+
+packages=$(find "$DOT_DIR" -maxdepth 1 -mindepth 1 -type d "${excluded_args[@]}")
+
+pushd "$DOT_DIR" >/dev/null
+for package in $packages; do
+  stow -v --adopt "$(basename "$package")"
+done
+
+# Make symlinks for firefox profile
+target_dir=$(find ~/.mozilla/firefox -maxdepth 1 -mindepth 1 -name "*.default-release")
+source_dir=$DOT_DIR/firefox/.mozilla/firefox/profile/
+mkdir -p "$target_dir"/chrome
+ln -sf "$source_dir"/user.js "$target_dir"/user.js
+ln -sf "$source_dir"/chrome/userChrome.css "$target_dir"/chrome/userChrome.css
+
+git clean -fd
+popd >/dev/null

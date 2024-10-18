@@ -1,0 +1,5 @@
+.DS_Store
+*.log
+**/.cache/**
+**/fcitx5/conf/cached_layouts
+**/.zcompdump

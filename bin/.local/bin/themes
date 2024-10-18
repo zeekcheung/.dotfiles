@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+# Script to install themes
+
+set -e
+
+SYSTEM_THEME_DIR="$HOME/.themes"
+ICON_THEME_DIR="$HOME/.local/share/themes"
+mkdir -p "$SYSTEM_THEME_DIR" "$ICON_THEME_DIR"
+
+pushd /tmp >/dev/null
+# WhiteSur-gtk-theme
+if [ ! -d "WhiteSur-gtk-theme" ]; then
+  git clone https://github.com/vinceliuice/WhiteSur-gtk-theme.git --depth=1
+fi
+./WhiteSur-gtk-theme/install.sh
+
+# WhiteSur-icon-theme
+if [ ! -d "WhiteSur-icon-theme" ]; then
+  git clone https://github.com/vinceliuice/WhiteSur-icon-theme.git --depth=1
+fi
+./WhiteSur-icon-theme/install.sh
+
+# Bibata-Modern-Ice
+if [ ! -f "Bibata-Modern-Ice.tar.xz" ]; then
+  curl -LO https://github.com/ful1e5/Bibata_Cursor/releases/latest/download/Bibata-Modern-Ice.tar.xz
+fi
+tar -xf Bibata-Modern-Ice.tar.xz -C "$ICON_THEME_DIR"
+popd >/dev/null

@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# Script to install rime-ice
+
+set -e
+
+pushd /tmp >/dev/null
+if [ ! -d "rime-auto-deploy" ]; then
+  git clone --depth=1 https://github.com/Mark24Code/rime-auto-deploy.git --branch latest
+fi
+cd rime-auto-deploy
+echo -e "3\n1" | ./installer.rb
+popd >/dev/null
