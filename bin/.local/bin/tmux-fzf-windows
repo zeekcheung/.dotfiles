@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# Fuzzy find windows with fzf in tmux
+
+window=$(tmux list-windows -a -F '#S:#I' | fzf --preview "tmux capture-pane -t {} -p -e | head -n 20")
+
+tmux select-window -t "$window"

@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# Fuzzy find sessions with fzf in tmux
+
+selection=$(tmux list-sessions -F "#{session_name}" | fzf --preview 'tmux capture-pane -t {} -p -e')
+
+tmux switch-client -t "$selection"

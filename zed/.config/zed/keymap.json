@@ -1,0 +1,141 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "bindings": {
+      "ctrl-c": "menu::Cancel",
+      "tab": "menu::SelectNext",
+      "shift-tab": "menu::SelectPrev",
+      "ctrl-h": ["workspace::ActivatePaneInDirection", "Left"],
+      "ctrl-l": ["workspace::ActivatePaneInDirection", "Right"],
+      "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"],
+      "ctrl-j": ["workspace::ActivatePaneInDirection", "Down"]
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-shift-b": "workspace::ToggleLeftDock",
+      "ctrl-shift-c": "editor::Copy",
+      "ctrl-shift-v": "editor::Paste"
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-s": "workspace::Save",
+      "alt-j": "editor::MoveLineDown",
+      "alt-k": "editor::MoveLineUp"
+    }
+  },
+  {
+    "context": "vim_mode == normal && !menu",
+    "bindings": {
+      "\\": "pane::SplitRight",
+      "|": "pane::SplitDown",
+      "tab": "pane::ActivateNextItem",
+      "shift-tab": "pane::ActivatePrevItem",
+      "shift-y": ["workspace::SendKeystrokes", "y $"],
+      "] h": "editor::GoToHunk",
+      "[ h": "editor::GoToPrevHunk",
+      "] d": "editor::GoToDiagnostic",
+      "[ d": "editor::GoToPrevDiagnostic",
+      "g d": "editor::GoToDefinition",
+      "g D": "editor::GoToDeclaration",
+      "g I": "editor::GoToImplementation",
+      "g r": "editor::FindAllReferences",
+      "space space": "file_finder::Toggle",
+      "space ,": "tab_switcher::Toggle",
+      "space /": "buffer_search::Deploy",
+      "space q w": "pane::CloseActiveItem",
+      "space c a": "editor::ToggleCodeActions",
+      "space c d": "editor::GoToDiagnostic",
+      "space c f": "editor::Format",
+      "space c r": "editor::Rename",
+      "space c s": "project_symbols::Toggle",
+      "space c l": "debug::OpenLanguageServerLogs",
+      "space s g": "buffer_search::Deploy",
+      "space s G": "workspace::NewSearch",
+      "space s r": ["buffer_search::Deploy", { "replace_enabled": true }],
+      "space s d": "diagnostics::Deploy",
+      "space t h": "workspace::ToggleBottomDock",
+      "space u g": "editor::ToggleIndentGuides",
+      "space u h": "editor::ToggleInlayHints",
+      "space u l": "editor::ToggleLineNumbers",
+      "space u L": "editor::ToggleRelativeLineNumbers",
+      "space u w": "editor::ToggleSoftWrap",
+      "space b n": "pane::ActivateNextItem",
+      "space b p": "pane::ActivatePrevItem",
+      "space b P": "pane::TogglePinTab",
+      "space b d": "pane::CloseActiveItem",
+      "space b o": "pane::CloseInactiveItems",
+      "space tab n": "pane::ActivateNextItem",
+      "space tab p": "pane::ActivatePrevItem",
+      "space tab P": "pane::TogglePinTab"
+    }
+  },
+  {
+    "context": "(vim_mode == normal && !menu) || EmptyPane || SharedScreen",
+    "bindings": {
+      "space e": "workspace::ToggleLeftDock",
+      "space q q": "workspace::CloseWindow",
+      "space f f": "file_finder::Toggle",
+      "space f c": "zed::OpenSettings",
+      "space f C": "zed::OpenDefaultSettings",
+      "space f k": "zed::OpenKeymap",
+      "space f K": "zed::OpenDefaultKeymap",
+      "space f r": "file_finder::Toggle",
+      "space f p": "projects::OpenRecent",
+      "space s k": "zed::OpenKeymap",
+      "space s K": "zed::OpenDefaultKeymap",
+      "space u C": "theme_selector::Toggle",
+      "space u x": "zed::Extensions",
+      "space tab tab": "workspace::NewFile",
+      "space g g": "workspace::ToggleBottomDock"
+    }
+  },
+  {
+    "context": "Editor && vim_mode == insert",
+    "bindings": {
+      "j j": ["workspace::SendKeystrokes", "escape"]
+    }
+  },
+  {
+    "context": "Editor && vim_mode == insert && inline_completion",
+    "bindings": {
+      "ctrl-f": "editor::AcceptInlineCompletion",
+      "alt-f": "editor::AcceptPartialInlineCompletion"
+    }
+  },
+  {
+    "context": "ProjectPanel && not_editing",
+    "bindings": {
+      "space e": "workspace::ToggleLeftDock",
+      "a": "project_panel::NewFile",
+      "shift-a": "project_panel::NewDirectory",
+      "y": "project_panel::Copy",
+      "x": "project_panel::Cut",
+      "d": "project_panel::Delete",
+      "p": "project_panel::Paste",
+      "r": "project_panel::Rename",
+      "l": "project_panel::Open"
+    }
+  },
+  {
+    "context": "Terminal",
+    "bindings": {
+      "ctrl-`": "workspace::ToggleBottomDock",
+      "ctrl-l": "zed::NoAction",
+      "ctrl-shift-c": "workspace::NewTerminal",
+      "ctrl-shift-x": "pane::CloseActiveItem",
+      "ctrl-shift-n": "pane::ActivateNextItem",
+      "ctrl-shift-p": "pane::ActivatePrevItem",
+      "ctrl-shift-m": "workspace::ToggleZoom"
+    }
+  }
+]

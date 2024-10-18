@@ -1,0 +1,27 @@
+#!/bin/bash
+
+export FZF_DEFAULT_OPTS="\
+  --ansi --cycle --reverse --border --height=100% \
+  --preview='fzf-preview {}' --preview-window='right,50%,border-left,<50(down,50%,border-up)' \
+  --color=bg+:#2d3f76,bg:#1e2030,spinner:#ff007c,hl:#65bcff \
+  --color=fg:#c8d3f5,header:#ff966c,info:#545c7e,pointer:#ff007c \
+  --color=marker:#ff007c,prompt:#65bcff,hl+:#65bcff,border:#3b4261 \
+  --color=gutter:#1e2030,query:#c8d3f5:regular,scrollbar:#589ed7,separator:#ff966c \
+  "
+
+export FZF_CTRL_T_OPTS="\
+  --walker-skip .git,node_modules,target \
+  --bind 'ctrl-/:change-preview-window(down|hidden|)' \
+  "
+
+export FZF_CTRL_R_OPTS="\
+  --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' \
+  --color header:italic \
+  --header 'Press CTRL-Y to copy command into clipboard' \
+  --preview 'echo {}' --preview-window='wrap' \
+  "
+
+export FZF_ALT_C_OPTS="\
+  --walker-skip .git,node_modules,target \
+  --preview 'tree -C {}' \
+  "

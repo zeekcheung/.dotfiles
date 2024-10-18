@@ -1,0 +1,101 @@
+@import "themes/mocha.css";
+
+* {
+  font-family: "Maple Mono NF";
+  font-size: 14px;
+}
+
+#waybar {
+  color: @text;
+  background-color: #1f1e25;
+  opacity: 0.9;
+}
+
+#workspaces {
+  margin: 4px 0 4px 4px;
+}
+
+#workspaces button {
+  padding: 0 4px;
+  margin: 0 2px;
+}
+
+#workspaces button.active {
+  background-color: @surface0;
+  font-weight: bold;
+  color: @sky;
+}
+
+#workspaces button:hover {
+  background-color: @surface0;
+  font-weight: bold;
+  color: @sapphire;
+}
+
+#window {
+  margin: 0 2px;
+}
+
+#clock {
+  font-weight: bold;
+}
+
+#tray {
+  padding: 0 4px;
+}
+
+#cpu {
+  color: @teal;
+}
+
+#memory {
+  color: @sky
+}
+
+#pulseaudio {
+  color: @sapphire;
+}
+
+#backlight {
+  color: @yellow;
+}
+
+#battery {
+  color: @green;
+}
+
+#battery.chargin {
+  color: @green
+}
+
+#battery.warning:not(.chargin) {
+  color: @red;
+}
+
+tooltip {
+  background-color: #1f1e25;
+  border: none;
+  /* opacity: 0.9; */
+}
+
+tooltip label {
+  background-color: #1f1e25;
+  color: @text;
+  border-radius: 8;
+}
+
+#custom-logo {
+  color: @blue;
+  margin-left: 8px;
+}
+
+#custom-separator {
+  color: @overlay1;
+  margin: 0 4px;
+}
+
+#custom-power {
+  margin-left: 4px;
+  margin-right: 8px;
+  color: @red;
+}
