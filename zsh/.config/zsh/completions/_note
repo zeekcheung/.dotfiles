@@ -1,0 +1,11 @@
+#compdef note
+compdef _note dot
+
+_note() {
+  _files -W "$NOTE_DIR"
+}
+
+# don't run the completion function when being source-ed or eval-ed
+if [ "$funcstack[1]" = "_note" ]; then
+  _note
+fi

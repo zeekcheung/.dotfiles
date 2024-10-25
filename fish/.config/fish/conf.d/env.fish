@@ -7,6 +7,9 @@ set -gx XDG_CACHE_HOME "$HOME/.cache"
 set -gx XDG_DATA_HOME "$HOME/.local/share"
 set -gx XDG_STATE_HOME "$HOME/.local/state"
 
+set -gx DOT_DIR "$HOME/.dotfiles"
+set -gx NOTE_DIR "$HOME/notes"
+
 # Misc
 set -gx LANG "en_US.UTF-8"
 set -gx LC_ALL "en_US.UTF-8"
@@ -14,7 +17,6 @@ set -gx EDITOR nvim
 set -gx VISUAL nvim
 set -gx MANPAGER "nvim +Man!"
 set -gx MANROFFOPT -c
-set -gx DOTDIR "$HOME/.dotfiles"
 source "$HOME/.config/fzf/.fzfrc"
 
 set -gx GOPATH "$HOME/go"

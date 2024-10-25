@@ -2,7 +2,7 @@
 compdef _dot dot
 
 _dot() {
-  _files -W "$DOTDIR"
+  _files -W "$DOT_DIR"
 }
 
 # don't run the completion function when being source-ed or eval-ed

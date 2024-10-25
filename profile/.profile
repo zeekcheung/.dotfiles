@@ -4,6 +4,9 @@ export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 
+export DOT_DIR="$HOME/.dotfiles"
+export NOTE_DIR="$HOME/notes"
+
 # Misc
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
@@ -11,7 +14,6 @@ export EDITOR="nvim"
 export VISUAL="nvim"
 export MANPAGER="nvim +Man!"
 export MANROFFOPT="-c"
-export DOTDIR="$HOME/.dotfiles"
 source "$HOME/.config/fzf/.fzfrc"
 
 export GOPATH="$HOME/go"
@@ -96,21 +98,32 @@ vf() {
   if [ -f "$target" ]; then
     vi "$target"
   elif [ -d "$target" ]; then
-    pushd "$target" >/dev/null
+    pushd "$target" || exit
     local file
     file="$(fzf)"
     if [ -n "$file" ]; then
       vi "$file"
     fi
-    popd >/dev/null
+    popd || exit
   fi
 }
 
 # Fuzzy find a dotfile and open it with vi
 dot() {
-  pushd "$DOTDIR" >/dev/null
+  pushd "$DOT_DIR" || exit
   vf "$1"
-  popd >/dev/null
+  popd || exit
+}
+
+# Fuzzy find a note file and open it with vi
+note() {
+  if [ -n "$1" ]; then
+    vi "$NOTE_DIR/$1"
+  else
+    pushd "$NOTE_DIR" || exit
+    vf "$1"
+    popd || exit
+  fi
 }
 
 # Force yazi to use chafa

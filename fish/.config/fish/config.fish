@@ -82,9 +82,19 @@ function vf --description "Fuzzy find a file and open it with vi"
 end
 
 function dot --description "Fuzzy find a dotfile and open it with vi"
-    pushd "$DOTDIR"
+    pushd "$DOT_DIR"
     vf $argv
     popd
+end
+
+function note --description "Fuzzy find a note file and open it with vi"
+    if test -n "$argv"
+        vi "$NOTE_DIR/$argv"
+    else
+        pushd "$NOTE_DIR"
+        vf $argv
+        popd
+    end
 end
 
 function yazi --description "Force yazi to use chafa"
