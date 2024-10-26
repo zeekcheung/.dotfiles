@@ -5,7 +5,10 @@
 if [[ $# -eq 1 ]]; then
   selected=$1
 else
-  selected=$(find ~/projects ~/Projects -mindepth 1 -maxdepth 1 -type d | fzf --preview "eza --color=always --tree {}")
+  find_dirs=("$HOME/Projects" "$HOME/projects")
+  readarray -t projects < <(find "${find_dirs[@]}" -mindepth 1 -maxdepth 1 -type d 2>/dev/null)
+  projects+=("$DOT_DIR" "$NOTE_DIR")
+  selected=$(printf "%s\n" "${projects[@]}" | fzf --preview="eza --color=always --tree {}")
 fi
 
 if [[ -z $selected ]]; then
