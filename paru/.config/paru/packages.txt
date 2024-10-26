@@ -38,6 +38,7 @@ ffmpegthumbnailer
 firefox
 fish
 flatpak
+foot
 fuse2
 fzf
 git
