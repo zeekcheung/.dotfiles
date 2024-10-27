@@ -5,6 +5,8 @@ return {
       ensure_installed = {
         "cpp",
         "css",
+        "desktop",
+        -- "ini",
         "xresources",
       },
     },

@@ -12,6 +12,8 @@ return {
       style = "moon",
       -- lualine_bold = true,
       styles = {
+        comments = { italic = true },
+        keywords = { italic = false },
         sidebars = "normal",
         floats = "normal",
       },
