@@ -19,13 +19,25 @@ patch:
       states: [正常, 单字]
 
   app_options:
-    org.alacritty:
+    alacritty:
       ascii_mode: true
-    md.obsidian:
+    foot:
       ascii_mode: true
-    com.microsoft.VSCode:
+    footclient:
       ascii_mode: true
-    com.jetbrains.intellij:
+    kitty:
+      ascii_mode: true
+    wezterm-gui:
+      ascii_mode: true
+    obsidian:
+      ascii_mode: true
+    code:
+      ascii_mode: true
+    zed-editor:
+      ascii_mode: true
+    firefox:
+      ascii_mode: true
+    chromium:
       ascii_mode: true
 
   # 拼写设定
