@@ -1,0 +1,15 @@
+{
+  "keyMappings": "map f LinkHints.activateModeToOpenInNewTab\nmap F LinkHints.activateMode\nmap o Vomnibar.activateInNewTab\nmap O Vomnibar.activate",
+  "grabBackFocus": true,
+  "settingsVersion": "2.1.2",
+  "exclusionRules": [
+    {
+      "passKeys": "",
+      "pattern": "https?://mail.google.com/*"
+    },
+    {
+      "passKeys": "",
+      "pattern": "https?://leetcode.com/*"
+    }
+  ]
+}
