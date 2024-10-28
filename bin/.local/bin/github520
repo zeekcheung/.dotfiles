@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+# Script to setup [github520](https://github.com/521xueweihan/GitHub520)
+
+set -e
+
+# Create systemd service
+sudo tee /etc/systemd/system/github520.service <<EOF
+[Unit]
+Description=Automatically update GitHub hosts
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c 'sed -i "/# GitHub520 Host Start/Q" /etc/hosts && curl https://raw.hellogithub.com/hosts >> /etc/hosts'
+EOF
+
+# Create systemd timer
+sudo tee /etc/systemd/system/github520.timer <<EOF
+[Unit]
+Description=Run github520.service every hour
+
+[Timer]
+OnCalendar=hourly
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+EOF
+
+# Enable and start systemd services
+sudo systemctl daemon-reload
+sudo systemctl enable github520.timer
+sudo systemctl start github520.timer
