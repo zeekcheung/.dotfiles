@@ -1,4 +1,5 @@
 ast-firmware
+google-chrome
 hyprshade
 mkinitcpio-firmware
 qqmusic-appimage

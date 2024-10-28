@@ -12,7 +12,6 @@ bluez-obex
 bluez-utils
 bottom
 chafa
-chromium
 clang
 cliphist
 cmake
