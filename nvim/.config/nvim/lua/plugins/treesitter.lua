@@ -6,8 +6,17 @@ return {
         "cpp",
         "css",
         "desktop",
-        -- "ini",
+        "ini",
         "xresources",
+      },
+    },
+  },
+
+  {
+    "folke/ts-comments.nvim",
+    opts = {
+      lang = {
+        ini = { "# %s", "; %s" },
       },
     },
   },
