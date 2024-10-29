@@ -61,13 +61,13 @@
     }
   },
   "cpu": {
-    "interval": 10,
+    "interval": 3,
     "format": "   {}% ",
     "max-length": 10,
     "on-click": "footclient -e btm"
   },
   "memory": {
-    "interval": 30,
+    "interval": 3,
     "format": "   {used:0.1f}G ",
     "on-click": "footclient -e btm"
   },
