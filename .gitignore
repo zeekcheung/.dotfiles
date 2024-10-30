@@ -3,3 +3,9 @@
 **/.cache/**
 **/fcitx5/conf/cached_layouts
 **/.zcompdump
+**/completions/_*
+**/completions/*.fish
+!**/completions/_dot
+!**/completions/_note
+!**/completions/dot.fish
+!**/completions/note.fish

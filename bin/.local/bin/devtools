@@ -37,6 +37,37 @@ index = "https://rsproxy.cn/crates.io-index"
 git-fetch-with-cli = true
 EOF
 
+# Generate shell completions
+bash_completion_dir="$HOME/.bash_completion.d"
+zsh_completion_dir="$HOME/.zsh/completions"
+fish_completion_dir="$HOME/.config/fish/completions"
+
+mkdir -vp "$bash_completion_dir" "$zsh_completion_dir" "$fish_completion_dir" 2>/dev/null
+
+git lfs completion bash >"$bash_completion_dir/git-lfs"
+git lfs completion zsh >"$zsh_completion_dir/_git-lfs"
+git lfs completion fish >"$fish_completion_dir/git-lfs.fish"
+
+gh completion -s bash >"$bash_completion_dir/gh"
+gh completion -s zsh >"$zsh_completion_dir/_gh"
+gh completion -s fish >"$fish_completion_dir/gh.fish"
+
+pnpm completion bash >"$bash_completion_dir/pnpm"
+pnpm completion zsh >"$zsh_completion_dir/_pnpm"
+pnpm completion fish >"$fish_completion_dir/pnpm.fish"
+
+rustup completions bash >"$bash_completion_dir/rustup"
+rustup completions zsh >"$zsh_completion_dir/_rustup"
+rustup completions fish >"$fish_completion_dir/rustup.fish"
+
+rustup completions bash cargo >"$bash_completion_dir/cargo"
+rustup completions zsh cargo >"$zsh_completion_dir/_cargo"
+
+register-python-argcomplete --shell bash pipx >"$bash_completion_dir/pipx"
+register-python-argcomplete --shell zsh pipx >"$zsh_completion_dir/_pipx"
+register-python-argcomplete --shell fish pipx >"$fish_completion_dir/pipx.fish"
+
+# Install language servers, formatters, and linters
 pnpm i -g bash-language-server
 pnpm i -g vscode-langservers-extracted
 pnpm i -g yaml-language-server
