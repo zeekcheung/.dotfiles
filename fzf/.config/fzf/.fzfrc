@@ -10,6 +10,8 @@ export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
   --height=100% \
   --preview='fzf-preview {}' \
   --preview-window='right,50%,border-left,<50(down,50%,border-up)' \
+  --color=bg:-1 \
+  --color=gutter:-1 \
   "
 
 export FZF_CTRL_T_OPTS="\
