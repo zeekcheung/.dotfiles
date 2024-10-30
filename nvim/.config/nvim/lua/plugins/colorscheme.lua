@@ -1,3 +1,25 @@
+vim.api.nvim_create_autocmd("ColorScheme", {
+  pattern = "*",
+  callback = function()
+    ---@param name string — Highlight group name
+    ---@param val vim.api.keyset.highlight — Highlight definition map
+    local function set_hl(name, val)
+      vim.api.nvim_set_hl(0, name, val)
+    end
+
+    set_hl("NormalFloat", { bg = "NONE" })
+    set_hl("FloatBorder", { fg = "#3b4261", bg = "NONE" })
+    set_hl("WinSeparator", { link = "FloatBorder" })
+    set_hl("FzfLuaNormal", { bg = "NONE" })
+    set_hl("FzfLuaFzfNormal", { bg = "NONE" })
+    set_hl("FzfLuaBorder", { link = "FloatBorder" })
+    set_hl("FzfLuaTitle", { bg = "NONE" })
+    set_hl("FzfLuaPreviewTitle", { link = "FzfLuaTitle" })
+    set_hl("FzfLuaFilePath", { bg = "NONE" })
+    set_hl("FzfLuaFilePart", { bg = "NONE" })
+  end,
+})
+
 return {
   {
     "LazyVim/LazyVim",
@@ -17,18 +39,6 @@ return {
         sidebars = "normal",
         floats = "normal",
       },
-      on_highlights = function(hl)
-        hl.NormalFloat = { bg = "NONE" }
-        hl.FloatBorder = { fg = "#3b4261", bg = "NONE" }
-        hl.WinSeparator = { link = "FloatBorder" }
-        hl.FzfLuaNormal = { bg = "NONE" }
-        hl.FzfLuaFzfNormal = { bg = "NONE" }
-        hl.FzfLuaBorder = { link = "FloatBorder" }
-        hl.FzfLuaTitle = { bg = "NONE" }
-        hl.FzfLuaPreviewTitle = { link = "FzfLuaTitle" }
-        hl.FzfLuaFilePath = { bg = "NONE" }
-        hl.FzfLuaFilePart = { bg = "NONE" }
-      end,
     },
   },
 }
