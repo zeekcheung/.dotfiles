@@ -65,6 +65,7 @@ intel-media-driver
 intel-ucode
 inter-font
 iwd
+jq
 kitty
 lazygit
 lib32-mesa
