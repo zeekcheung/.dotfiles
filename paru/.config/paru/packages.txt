@@ -38,6 +38,7 @@ firefox
 fish
 flatpak
 foot
+foot-terminfo
 fuse2
 fzf
 git
