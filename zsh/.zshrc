@@ -42,7 +42,7 @@ setopt INTERACTIVE_COMMENTS
 
 # Zsh Completions `man zshcompsys`
 fpath+=(/usr/share/zsh/site-functions)
-fpath+=("$HOME/.config/zsh/completions")
+fpath+=("$HOME/.zsh/completions")
 
 zmodload zsh/complist
 autoload -Uz compinit
