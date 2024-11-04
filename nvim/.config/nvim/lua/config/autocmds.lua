@@ -41,3 +41,13 @@ vim.api.nvim_create_autocmd({ "InsertEnter" }, {
     end
   end,
 })
+
+vim.api.nvim_create_autocmd("FileType", {
+  desc = "Enable folding for markdown files",
+  group = augroup("markdown-fold"),
+  pattern = "markdown",
+  callback = function()
+    vim.opt_local.foldmethod = "expr"
+    vim.opt_local.foldexpr = "v:lua.require'lazyvim.util'.ui.foldexpr()"
+  end,
+})
