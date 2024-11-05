@@ -52,6 +52,7 @@
       "space space": "file_finder::Toggle",
       "space ,": "tab_switcher::Toggle",
       "space /": "buffer_search::Deploy",
+      "space d": "editor::GoToDiagnostic",
       "space q w": "pane::CloseActiveItem",
       "space c a": "editor::ToggleCodeActions",
       "space c d": "editor::GoToDiagnostic",
