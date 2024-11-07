@@ -1,3 +1,8 @@
+# Start Hyprland on tty1
+if [[ "$(tty)" == "/dev/tty1" ]]; then
+  exec Hyprland
+fi
+
 # XDG
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"

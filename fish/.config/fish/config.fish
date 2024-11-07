@@ -3,6 +3,13 @@ if not status is-interactive
     return 0
 end
 
+if status is-login
+    # Start Hyprland on tty1
+    if test "$(tty)" = /dev/tty1
+        exec Hyprland
+    end
+end
+
 # Alias
 alias ls "eza --color=always --sort=Name --group-directories-first"
 alias la "ls -a"
