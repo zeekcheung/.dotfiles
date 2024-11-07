@@ -35,7 +35,7 @@ fcitx5-qt
 fcitx5-rime
 fd
 ffmpegthumbnailer
-firefox
+firefox-developer-edition
 fish
 flatpak
 foot

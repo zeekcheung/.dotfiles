@@ -25,11 +25,14 @@ for package in $packages; do
 done
 
 # Make symlinks for firefox profile
-target_dir=$(find ~/.mozilla/firefox -maxdepth 1 -mindepth 1 -name "*.default-release")
 source_dir=$DOT_DIR/firefox/.mozilla/firefox/profile/
-mkdir -p "$target_dir"/chrome
+target_dir=$(find ~/.mozilla/firefox -maxdepth 1 -mindepth 1 -name "*.default-release")
+developer_target_dir=$(find ~/.mozilla/firefox -maxdepth 1 -mindepth 1 -name "*.dev-edition-default")
+mkdir -p "$target_dir"/chrome "$developer_target_dir"/chrome
 ln -sf "$source_dir"/user.js "$target_dir"/user.js
 ln -sf "$source_dir"/chrome/userChrome.css "$target_dir"/chrome/userChrome.css
+ln -sf "$source_dir"/user.js "$developer_target_dir"/user.js
+ln -sf "$source_dir"/chrome/userChrome.css "$developer_target_dir"/chrome/userChrome.css
 
 git clean -fd
 popd >/dev/null
