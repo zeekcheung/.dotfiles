@@ -1,4 +1,6 @@
 adobe-source-han-serif-cn-fonts
+adobe-source-sans-fonts
+adobe-source-serif-fonts
 alacritty
 alsa-firmware
 archlinux-xdg-menu
@@ -74,6 +76,7 @@ lib32-nvidia-utils
 lib32-vulkan-intel
 libheif
 libpulse
+libreoffice-fresh
 libva-intel-driver
 libva-mesa-driver
 libva-nvidia-driver
@@ -135,6 +138,10 @@ stow
 swww
 tmux
 tokei
+ttf-caladea
+ttf-carlito
+ttf-dejavu
+ttf-linux-libertine-g
 unarchiver
 unrar
 v2raya
