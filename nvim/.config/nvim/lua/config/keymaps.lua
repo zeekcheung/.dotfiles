@@ -38,28 +38,3 @@ map({ "n", "v", "x" }, "<leader>qw", "<cmd>exit<cr>", { desc = "Quit current win
 
 -- Lsp
 map("n", "<leader>d", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
-
--- stylua: ignore start
-local smart_resize = require("util.resize").smart_resize
-map("n", "<C-Up>", function() smart_resize("up") end, { desc = "Resize window up" })
-map("n", "<C-Down>", function() smart_resize("down") end, { desc = "Resize window down" })
-map("n", "<C-Left>", function() smart_resize("left") end, { desc = "Resize window left" })
-map("n", "<C-Right>", function() smart_resize("right") end, { desc = "Resize window right" })
--- stylua: ignore end
-
--- stylua: ignore start
-local open_terminal = require("util.terminal").open_terminal
-map("t", "<esc><esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
-map("n", "<leader>th", function() open_terminal({ win_opts = { win_config = { split = "below" } } }) end, { desc = "Open terminal horizontally" })
-map("n", "<leader>tv", function() open_terminal({ win_opts = { win_config = { split = "right" } } }) end, { desc = "Open terminal vertically" })
-map("n", "<leader>tf", function() open_terminal({ win_opts = { win_config = { relative = "editor" } } }) end, { desc = "Open terminal floating" })
-
-vim.api.nvim_create_autocmd("TermEnter", {
-  desc = "Set terminal keymaps",
-  group = vim.api.nvim_create_augroup("term-keymaps", { clear = true }),
-  callback = function()
-    map("n", "|", function() open_terminal({ win_opts = { win_config = { split = "below" } } }) end, { desc = "Open terminal horizontally", buffer = 0 })
-    map("n", "\\", function() open_terminal({ win_opts = { win_config = { split = "right" } } }) end, { desc = "Open terminal vertically", buffer = 0 })
-  end
-})
--- stylua: ignore end

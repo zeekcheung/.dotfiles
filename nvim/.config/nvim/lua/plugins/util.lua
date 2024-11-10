@@ -1,23 +1,5 @@
 return {
   {
-    "christoomey/vim-tmux-navigator",
-    cmd = {
-      "TmuxNavigateLeft",
-      "TmuxNavigateDown",
-      "TmuxNavigateUp",
-      "TmuxNavigateRight",
-      "TmuxNavigatePrevious",
-    },
-    keys = {
-      { "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
-      { "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
-      { "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
-      { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
-      { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
-    },
-  },
-
-  {
     "markdown-preview.nvim",
     enabled = false,
   },
@@ -34,6 +16,19 @@ return {
         height = 0.85,
         border = "rounded",
       },
+      terminal = {
+        win = {
+          wo = {
+            winbar = "",
+          },
+        },
+      },
+    },
+    -- stylua: ignore
+    keys = {
+      { "<leader>th", function() Snacks.terminal(nil, { win = { position = "bottom", height = 0.4 } }) end, desc = "Open terminal horizontally" },
+      { "<leader>tv", function() Snacks.terminal(nil, { win = { position = "right", width = 0.4 } }) end, desc = "Open terminal vertically" },
+      { "<leader>tf", function() Snacks.terminal(nil, { win = { position = "float" } }) end, desc = "Open terminal floating" },
     },
   },
 
@@ -41,5 +36,20 @@ return {
     "karb94/neoscroll.nvim",
     event = "LazyFile",
     opts = {},
+  },
+
+  {
+    "mrjones2014/smart-splits.nvim",
+    event = "VeryLazy",
+    keys = {
+      { "<C-Up>", "<cmd>SmartResizeUp<cr>", desc = "Resize window up" },
+      { "<C-Down>", "<cmd>SmartResizeDown<cr>", desc = "Resize window down" },
+      { "<C-Left>", "<cmd>SmartResizeLeft<cr>", desc = "Resize window left" },
+      { "<C-Right>", "<cmd>SmartResizeRight<cr>", desc = "Resize window right" },
+      { "<C-k>", "<cmd>SmartCursorMoveUp<cr>", desc = "Move cursor up" },
+      { "<C-j>", "<cmd>SmartCursorMoveDown<cr>", desc = "Move cursor down" },
+      { "<C-h>", "<cmd>SmartCursorMoveLeft<cr>", desc = "Move cursor left" },
+      { "<C-l>", "<cmd>SmartCursorMoveRight<cr>", desc = "Move cursor right" },
+    },
   },
 }
