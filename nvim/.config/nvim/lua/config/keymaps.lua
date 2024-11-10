@@ -3,9 +3,6 @@
 -- Add any additional keymaps here
 
 local map = vim.keymap.set
-local del = vim.keymap.del
-
-del("t", "<C-l>")
 
 -- Better escape
 map("i", "jj", "<esc>", { desc = "Better Escape" })
@@ -52,7 +49,17 @@ map("n", "<C-Right>", function() smart_resize("right") end, { desc = "Resize win
 
 -- stylua: ignore start
 local open_terminal = require("util.terminal").open_terminal
+map("t", "<esc><esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 map("n", "<leader>th", function() open_terminal({ win_opts = { win_config = { split = "below" } } }) end, { desc = "Open terminal horizontally" })
 map("n", "<leader>tv", function() open_terminal({ win_opts = { win_config = { split = "right" } } }) end, { desc = "Open terminal vertically" })
 map("n", "<leader>tf", function() open_terminal({ win_opts = { win_config = { relative = "editor" } } }) end, { desc = "Open terminal floating" })
+
+vim.api.nvim_create_autocmd("TermEnter", {
+  desc = "Set terminal keymaps",
+  group = vim.api.nvim_create_augroup("term-keymaps", { clear = true }),
+  callback = function()
+    map("n", "|", function() open_terminal({ win_opts = { win_config = { split = "below" } } }) end, { desc = "Open terminal horizontally", buffer = 0 })
+    map("n", "\\", function() open_terminal({ win_opts = { win_config = { split = "right" } } }) end, { desc = "Open terminal vertically", buffer = 0 })
+  end
+})
 -- stylua: ignore end

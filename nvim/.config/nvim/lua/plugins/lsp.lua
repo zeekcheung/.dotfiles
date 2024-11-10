@@ -13,8 +13,10 @@ return {
     init = function()
       -- To instead override globally
       local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+      ---@diagnostic disable-next-line: duplicate-set-field
       function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
         opts = opts or {}
+        ---@diagnostic disable-next-line: inject-field
         opts.border = opts.border or "rounded"
         return orig_util_open_floating_preview(contents, syntax, opts, ...)
       end

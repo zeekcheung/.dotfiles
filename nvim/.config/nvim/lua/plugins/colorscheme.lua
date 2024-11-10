@@ -13,7 +13,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     set_hl("FzfLuaNormal", { bg = "NONE" })
     set_hl("FzfLuaFzfNormal", { bg = "NONE" })
     set_hl("FzfLuaBorder", { link = "FloatBorder" })
-    set_hl("FzfLuaTitle", { bg = "NONE" })
+    -- set_hl("FzfLuaTitle", { bg = "NONE" })
     set_hl("FzfLuaPreviewTitle", { link = "FzfLuaTitle" })
     set_hl("FzfLuaFilePath", { bg = "NONE" })
     set_hl("FzfLuaFilePart", { bg = "NONE" })

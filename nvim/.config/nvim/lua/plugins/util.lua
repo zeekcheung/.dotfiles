@@ -21,4 +21,25 @@ return {
     "markdown-preview.nvim",
     enabled = false,
   },
+
+  {
+    "folke/snacks.nvim",
+    opts = {
+      notifier = {
+        top_down = false,
+      },
+      win = {
+        backdrop = 100,
+        width = 0.85,
+        height = 0.85,
+        border = "rounded",
+      },
+    },
+  },
+
+  {
+    "karb94/neoscroll.nvim",
+    event = "LazyFile",
+    opts = {},
+  },
 }

@@ -1,12 +1,5 @@
 return {
   {
-    "rcarriga/nvim-notify",
-    opts = {
-      top_down = false,
-    },
-  },
-
-  {
     "akinsho/bufferline.nvim",
     opts = {
       options = {
@@ -66,7 +59,7 @@ return {
          ╚══════╝╚═╝  ╚═╝╚══════╝   ╚═╝     ╚═══╝  ╚═╝╚═╝     ╚═╝           
       ]]
 
-      logo = string.rep("\n", 2) .. logo .. "\n"
+      logo = string.rep("\n", 2) .. logo .. ""
 
       opts.config.header = vim.split(logo, "\n")
     end,
@@ -118,10 +111,5 @@ return {
         arch = { glyph = "󰣇", hl = "MiniIconsAzure" },
       },
     },
-  },
-
-  {
-    "karb94/neoscroll.nvim",
-    opts = {},
   },
 }
