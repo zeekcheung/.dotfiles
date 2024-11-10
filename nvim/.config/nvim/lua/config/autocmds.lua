@@ -6,6 +6,26 @@ local function augroup(name)
   return vim.api.nvim_create_augroup(name, { clear = true })
 end
 
+vim.api.nvim_create_autocmd("FileType", {
+  desc = "4-space indentation for some filetypes",
+  group = augroup("4-space-indent"),
+  pattern = { "fish", "hyprlang", "rasi" },
+  callback = function()
+    vim.opt_local.tabstop = 4
+    vim.opt_local.shiftwidth = 4
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  desc = "Enable folding for markdown files",
+  group = augroup("markdown-fold"),
+  pattern = "markdown",
+  callback = function()
+    vim.opt_local.foldmethod = "expr"
+    vim.opt_local.foldexpr = "v:lua.require'lazyvim.util'.ui.foldexpr()"
+  end,
+})
+
 local fcitx5_rime_group = augroup("fcitx5-rime")
 
 ---@type boolean If previous state of fcitx5-rime is chinese mode
@@ -39,15 +59,5 @@ vim.api.nvim_create_autocmd({ "InsertEnter" }, {
       -- Change back to chinese mode
       vim.fn.system("busctl call --user org.fcitx.Fcitx5 /rime org.fcitx.Fcitx.Rime1 SetAsciiMode b 0")
     end
-  end,
-})
-
-vim.api.nvim_create_autocmd("FileType", {
-  desc = "Enable folding for markdown files",
-  group = augroup("markdown-fold"),
-  pattern = "markdown",
-  callback = function()
-    vim.opt_local.foldmethod = "expr"
-    vim.opt_local.foldexpr = "v:lua.require'lazyvim.util'.ui.foldexpr()"
   end,
 })
