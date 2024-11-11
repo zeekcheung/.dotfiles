@@ -11,8 +11,8 @@ return {
   {
     "folke/noice.nvim",
     keys = {
-      { "<c-f>", false },
-      { "<c-b>", false },
+      { "<c-f>", mode = { "i", "n", "s" }, false },
+      { "<c-b>", mode = { "i", "n", "s" }, false },
     },
     opts = {
       presets = {
