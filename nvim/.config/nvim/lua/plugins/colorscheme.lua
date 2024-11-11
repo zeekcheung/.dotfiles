@@ -17,6 +17,10 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     set_hl("FzfLuaPreviewTitle", { link = "FzfLuaTitle" })
     set_hl("FzfLuaFilePath", { bg = "NONE" })
     set_hl("FzfLuaFilePart", { bg = "NONE" })
+    set_hl("BlinkCmpMenu", { link = "NormalFloat" })
+    set_hl("BlinkCmpMenuBorder", { link = "FloatBorder" })
+    set_hl("BlinkCmpDocBorder", { link = "FloatBorder" })
+    set_hl("BlinkCmpSignatureHelpBorder", { link = "FloatBorder" })
   end,
 })
 
