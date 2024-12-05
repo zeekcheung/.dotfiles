@@ -2,15 +2,19 @@ return {
   {
     "saghen/blink.cmp",
     opts = {
-      windows = {
-        autocomplete = {
+      completion = {
+        menu = {
           border = "rounded",
         },
         documentation = {
-          border = "rounded",
+          window = {
+            border = "rounded",
+          },
         },
-        ghost_text = {
-          enabled = false,
+        signature = {
+          window = {
+            border = "rounded",
+          },
         },
       },
     },

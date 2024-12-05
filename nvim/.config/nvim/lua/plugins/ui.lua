@@ -95,6 +95,8 @@ return {
         [".vscode"] = { glyph = "󰉋", hl = "MiniIconsYellow" },
         git = { glyph = "󰉋", hl = "MiniIconsOrange" },
         src = { glyph = "󰴉", hl = "MiniIconsGreen" },
+        build = { glyph = "󱧼", hl = "MiniIconsGreen" },
+        dist = { glyph = "󱧼", hl = "MiniIconsGreen" },
       },
       extension = {
         conf = { glyph = "󰒓", hl = "MiniIconsGrey" },
