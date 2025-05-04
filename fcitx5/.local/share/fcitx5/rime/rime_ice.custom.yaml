@@ -21,24 +21,64 @@ patch:
   app_options:
     alacritty:
       ascii_mode: true
+      vim_mode: true
     foot:
       ascii_mode: true
+      vim_mode: true
     footclient:
       ascii_mode: true
+      vim_mode: true
     kitty:
       ascii_mode: true
+      vim_mode: true
     wezterm-gui:
       ascii_mode: true
+      vim_mode: true
     obsidian:
       ascii_mode: true
+      vim_mode: true
     code:
       ascii_mode: true
+      vim_mode: true
     zed-editor:
       ascii_mode: true
+      vim_mode: true
     firefox:
       ascii_mode: true
+      vim_mode: true
     chromium:
       ascii_mode: true
+      vim_mode: true
+    windowsterminal:
+      ascii_mode: true
+      vim_mode: true
+    cmd.exe:
+      ascii_mode: true
+      vim_mode: true
+    powershell.exe:
+      ascii_mode: true
+      vim_mode: true
+    pwsh.exe:
+      ascii_mode: true
+      vim_mode: true
+    code.exe:
+      ascii_mode: true
+      vim_mode: true
+    devenv.exe:
+      ascii_mode: true
+      vim_mode: true
+    rider64.exe:
+      ascii_mode: true
+      vim_mode: true
+    obsidian.exe:
+      ascii_mode: true
+      vim_mode: true
+    msedge.exe:
+      ascii_mode: true
+      vim_mode: true
+    firefox.exe:
+      ascii_mode: true
+      vim_mode: true
 
   # 拼写设定
   speller:

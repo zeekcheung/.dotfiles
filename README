@@ -24,5 +24,9 @@ git lfs install
 git lfs pull
 
 # Setup the system
-./arch
+./arch # Arch
+
+./arch-wsl # Arch WSL
+
+./windows.ps1 # Windows
 ```
