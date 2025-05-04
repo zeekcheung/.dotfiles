@@ -29,6 +29,7 @@ if vim.fn.has("win32") then
   opt.shellxquote = ""
 
   vim.g.termcmd = string.format("%s.exe -NoLogo", vim.api.nvim_get_option_value("shell", {}))
+  vim.g.python3_host_prog = vim.fn.expand("~/AppData/Local/Programs/Python/Python313/python.exe")
 end
 
 if vim.g.neovide then
