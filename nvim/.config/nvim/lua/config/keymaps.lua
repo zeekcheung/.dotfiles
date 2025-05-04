@@ -30,11 +30,17 @@ map("n", "<leader>bo", "<cmd>silent! %bd|e#|bd#<cr>", { desc = "Delete other buf
 
 -- Tabs
 map("n", "<leader><tab>n", "<cmd>tabnext<cr>", { desc = "Next Tab" })
-map("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
 map("n", "<leader><tab>p", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
+map("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
 
 -- Quit
 map({ "n", "v", "x" }, "<leader>qw", "<cmd>exit<cr>", { desc = "Quit current window" })
 
 -- Lsp
-map("n", "<leader>d", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
+-- map("n", "<leader>d", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
+
+-- Comment
+map("n", "<c-/>", ":norm gcc<CR>", { desc = "Toggle comment", silent = true })
+map("v", "<c-/>", "gc", { desc = "Toggle comment", remap = true })
+map("n", "<c-_>", ":norm gcc<CR>", { desc = "Toggle comment", silent = true })
+map("v", "<c-_>", "gc", { desc = "Toggle comment", remap = true })
