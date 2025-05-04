@@ -2,62 +2,35 @@
 -- Default autocmds that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
 -- Add any additional autocmds here
 
-local function augroup(name)
-  return vim.api.nvim_create_augroup(name, { clear = true })
-end
+LazyVim.on_very_lazy(function()
+  vim.filetype.add({
+    filename = {
+      ["Settings.XamlStyler"] = "json",
+    },
+    pattern = {
+      [".+%.[a]xaml"] = "xml",
+    },
+  })
+end)
 
 vim.api.nvim_create_autocmd("FileType", {
   desc = "4-space indentation for some filetypes",
-  group = augroup("4-space-indent"),
-  pattern = { "fish", "hyprlang", "rasi" },
+  group = vim.api.nvim_create_augroup("4-space-indent", { clear = true }),
+  pattern = { "c", "cpp", "cs", "go", "rust", "python", "fish", "hyprlang", "rasi" },
   callback = function()
     vim.opt_local.tabstop = 4
+    vim.opt_local.softtabstop = 4
     vim.opt_local.shiftwidth = 4
   end,
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-  desc = "Enable folding for markdown files",
-  group = augroup("markdown-fold"),
+  desc = "Markdown related options",
+  group = vim.api.nvim_create_augroup("markdown-fold", { clear = true }),
   pattern = "markdown",
   callback = function()
     vim.opt_local.foldmethod = "expr"
     vim.opt_local.foldexpr = "v:lua.require'lazyvim.util'.ui.foldexpr()"
-  end,
-})
-
-local fcitx5_rime_group = augroup("fcitx5-rime")
-
----@type boolean If previous state of fcitx5-rime is chinese mode
-vim.g.rime_prev_chinese = false
-
-vim.api.nvim_create_autocmd({ "InsertLeave" }, {
-  desc = "automatically change to english mode of fcitx5-rime",
-  group = fcitx5_rime_group,
-  callback = function()
-    local rime_is_ascii_mode = vim.fn.system(
-      "busctl call --user org.fcitx.Fcitx5 /rime org.fcitx.Fcitx.Rime1 IsAsciiMode"
-    ) == "b true\n"
-
-    if not rime_is_ascii_mode then
-      -- Change back to english mode
-      vim.fn.system("busctl call --user org.fcitx.Fcitx5 /rime org.fcitx.Fcitx.Rime1 SetAsciiMode b 1")
-      -- Remember the chinese mode
-      vim.g.rime_prev_chinese = true
-    else
-      -- Remember the english mode
-      vim.g.rime_prev_chinese = false
-    end
-  end,
-})
-
-vim.api.nvim_create_autocmd({ "InsertEnter" }, {
-  desc = "automatically change back to chinese mode of fcitx5-rime",
-  group = fcitx5_rime_group,
-  callback = function()
-    if vim.g.rime_prev_chinese then
-      -- Change back to chinese mode
-      vim.fn.system("busctl call --user org.fcitx.Fcitx5 /rime org.fcitx.Fcitx.Rime1 SetAsciiMode b 0")
-    end
+    vim.opt_local.commentstring = "<!-- %s -->"
   end,
 })
