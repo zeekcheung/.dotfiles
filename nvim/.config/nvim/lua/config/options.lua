@@ -17,7 +17,6 @@ opt.foldtext = "foldtext()"
 opt.winborder = "rounded"
 
 vim.g.backdrop = 100
-
 if vim.fn.has("win32") then
   opt.shell = vim.fn.executable("pwsh") == 1 and "pwsh" or "powershell"
   opt.shellcmdflag =
