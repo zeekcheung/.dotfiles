@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+set -e
+
+# Setup pacman options
+PACMAN_CONF="/etc/pacman.conf"
+sudo sed -i 's/#Color/Color/g' $PACMAN_CONF
+
+# Setup pacman mirrors
+sudo tee "/etc/pacman.d/mirrorlist" <<EOF
+Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/\$repo/os/\$arch
+Server = https://mirrors.ustc.edu.cn/archlinux/\$repo/os/\$arch
+EOF
+
+# Install Arch Linux CN
+sudo tee -a $PACMAN_CONF <<EOF
+[archlinuxcn]
+Server = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/\$arch
+EOF
+sudo pacman-key --lsign-key "farseerfc@archlinux.org"
+sudo pacman -Sy archlinuxcn-keyring
+
+# Install AUR helpers
+sudo pacman -Sy paru
+
+# Install packages
+PACKAGES_DIR="$HOME"/.dotfiles/arch-wsl/paru/.config/paru
+paru -Syyu --needed - <"$PACKAGES_DIR"/wsl.packages.txt
+paru -Syyu --needed - <"$PACKAGES_DIR"/wsl.aur-packages.txt
+
+# Nvidia drivers
+sudo sed -i '/^MODULES=/ s/"/ nvidia nvidia_modeset nvidia_uvm nvidia_drm "/' /etc/mkinitcpio.conf
+echo "options nvidia_drm modeset=1 fbdev=1" | sudo tee /etc/modprobe.d/nvidia.conf >/dev/null
+sudo mkinitcpio -P
+sudo systemctl enable nvidia-suspend.service
+sudo systemctl enable nvidia-hibernate.service
+sudo systemctl enable nvidia-resume.service
+
+BIN_DIR="$HOME/.dotfiles/common/bin/.local/bin"
+
+# Stow packages
+bash "$BIN_DIR/stow-packages"
+
+# Setup devtools
+bash "$BIN_DIR/devtools"
+
+#Setup wsl
+sudo cp "$HOME/.dotfiles/wsl/wsl.conf" "/etc/wsl.conf"

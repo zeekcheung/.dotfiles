@@ -1,0 +1,206 @@
+{
+  "$help": "https://aka.ms/terminal-documentation",
+  "$schema": "https://aka.ms/terminal-profiles-schema",
+  "actions": [
+    {
+      "command": "closePane",
+      "id": "User.closePane"
+    }
+  ],
+  "alwaysShowNotificationIcon": false,
+  "centerOnLaunch": true,
+  "confirmCloseAllTabs": false,
+  "copyFormatting": "none",
+  "copyOnSelect": true,
+  "defaultInputScope": "alphanumericHalfWidth",
+  "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+  "disableAnimations": true,
+  "initialCols": 80,
+  "initialPosition": ",",
+  "initialRows": 20,
+  "keybindings": [
+    {
+      "id": "Terminal.DuplicatePaneAuto",
+      "keys": "alt+shift+d"
+    },
+    {
+      "id": "Terminal.DuplicatePaneRight",
+      "keys": "ctrl+\\"
+    },
+    {
+      "id": "Terminal.MoveFocusDown",
+      "keys": "ctrl+shift+j"
+    },
+    {
+      "id": "User.closePane",
+      "keys": "ctrl+shift+x"
+    },
+    {
+      "id": null,
+      "keys": "alt+shift+minus"
+    },
+    {
+      "id": null,
+      "keys": "enter"
+    },
+    {
+      "id": null,
+      "keys": "alt+shift+plus"
+    },
+    {
+      "id": "Terminal.DuplicatePaneDown",
+      "keys": "ctrl+shift+\\"
+    },
+    {
+      "id": null,
+      "keys": "alt+down"
+    },
+    {
+      "id": "Terminal.MoveFocusLeft",
+      "keys": "ctrl+shift+h"
+    },
+    {
+      "id": null,
+      "keys": "alt+left"
+    },
+    {
+      "id": "Terminal.MoveFocusRight",
+      "keys": "ctrl+shift+l"
+    },
+    {
+      "id": null,
+      "keys": "alt+right"
+    },
+    {
+      "id": "Terminal.MoveFocusUp",
+      "keys": "ctrl+shift+k"
+    },
+    {
+      "id": null,
+      "keys": "alt+up"
+    },
+    {
+      "id": "Terminal.ResizePaneDown",
+      "keys": "ctrl+shift+down"
+    },
+    {
+      "id": null,
+      "keys": "alt+shift+down"
+    },
+    {
+      "id": "Terminal.ResizePaneLeft",
+      "keys": "ctrl+shift+left"
+    },
+    {
+      "id": null,
+      "keys": "alt+shift+left"
+    },
+    {
+      "id": "Terminal.ResizePaneRight",
+      "keys": "ctrl+shift+right"
+    },
+    {
+      "id": null,
+      "keys": "alt+shift+right"
+    },
+    {
+      "id": "Terminal.ResizePaneUp",
+      "keys": "ctrl+shift+up"
+    },
+    {
+      "id": null,
+      "keys": "alt+shift+up"
+    }
+  ],
+  "newTabMenu": [
+    {
+      "type": "remainingProfiles"
+    }
+  ],
+  "profiles": {
+    "defaults": {
+      "adjustIndistinguishableColors": "never",
+      "antialiasingMode": "cleartype",
+      "bellStyle": "none",
+      "colorScheme": "Tokyo Night Moon",
+      "cursorShape": "filledBox",
+      "font": {
+        "builtinGlyphs": true,
+        "face": "Maple Mono NF, Cascadia Mono",
+        "size": 16
+      },
+      "intenseTextStyle": "bright",
+      "padding": "0",
+      "scrollbarState": "hidden",
+      "useAcrylic": true
+    },
+    "list": [
+      {
+        "commandline": "pwsh.exe -nologo",
+        "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+        "hidden": false,
+        "name": "pwsh.exe",
+        "source": "Windows.Terminal.PowershellCore"
+      },
+      {
+        "guid": "{8074b8cf-d171-5ac8-a71f-dfe529e2b526}",
+        "hidden": false,
+        "name": "archlinux",
+        "source": "Microsoft.WSL"
+      },
+      {
+        "commandline": "cmd.exe /k",
+        "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+        "hidden": false,
+        "name": "cmd.exe"
+      },
+      {
+        "commandline": "powershell.exe -nologo",
+        "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+        "hidden": false,
+        "name": "powershell.exe"
+      }
+    ]
+  },
+  "schemes": [
+    {
+      "background": "#222436",
+      "black": "#1B1D2B",
+      "blue": "#82AAFF",
+      "brightBlack": "#444A73",
+      "brightBlue": "#82AAFF",
+      "brightCyan": "#86E1FC",
+      "brightGreen": "#C3E88D",
+      "brightPurple": "#FCA7EA",
+      "brightRed": "#FF757F",
+      "brightWhite": "#C8D3F5",
+      "brightYellow": "#FFC777",
+      "cursorColor": "#C8D3F5",
+      "cyan": "#86E1FC",
+      "foreground": "#C8D3F5",
+      "green": "#C3E88D",
+      "name": "Tokyo Night Moon",
+      "purple": "#C099FF",
+      "red": "#FF757F",
+      "selectionBackground": "#2D3F76",
+      "white": "#828BB8",
+      "yellow": "#FFC777"
+    }
+  ],
+  "theme": "wezterm",
+  "themes": [
+    {
+      "name": "wezterm",
+      "tab": {
+        "background": "#1B1032FF",
+        "iconStyle": "default",
+        "showCloseButton": "always",
+        "unfocusedBackground": "#2B2042FF"
+      },
+      "tabRow": {
+        "background": "#2B2042FF",
+        "unfocusedBackground": "#2B2042FF"
+      }
+    }
+  ]
+}

@@ -10,12 +10,16 @@ My personal dotfiles.
 
 ```bash
 # Clone the repo with ssh
-git clone git@github.com:zeekcheung/.dotfiles ~/.dotfiles
+git clone git@github.com:zeekcheung/.dotfiles $HOME/.dotfiles
 # Or clone the repo with https
-git clone https://github.com/zeekcheung/.dotfiles ~/.dotfiles
+git clone https://github.com/zeekcheung/.dotfiles $HOME/.dotfiles
 
-cd ~/.dotfiles
+cd $HOME/.dotfiles
 
 # Setup the system
-./arch
+./arch # Arch
+
+./arch-wsl # Arch WSL
+
+./windows.ps1 # Windows
 ```
