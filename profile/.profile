@@ -29,6 +29,7 @@ export RUSTUP_UPDATE_ROOT="https://rsproxy.cn/rustup"
 export PNPM_HOME="$HOME/.pnpm"
 export DENO_INSTALL_ROOT="$HOME/.deno/bin"
 export PIPX_BIN_DIR="$HOME/.pipx/bin"
+export FNM_PATH="$XDG_DATA_HOME/fnm"
 
 # Path
 add_path() {
