@@ -106,3 +106,4 @@ bindkey -M visual S add-surround
 eval "$(fzf --zsh)"
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
+eval "$(fnm env --use-on-cd --shell zsh)"

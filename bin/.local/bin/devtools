@@ -37,6 +37,10 @@ index = "https://rsproxy.cn/crates.io-index"
 git-fetch-with-cli = true
 EOF
 
+# fnm
+curl -fsSL -o /tmp/fnm-linux.zip https://gh-proxy.com/github.com/Schniz/fnm/releases/latest/download/fnm-linux.zip
+sudo unzip -d /usr/local/bin /tmp/fnm-linux.zip
+
 # Generate shell completions
 bash_completion_dir="$HOME/.bash_completion.d"
 zsh_completion_dir="$HOME/.zsh/completions"
@@ -89,3 +93,7 @@ go install golang.org/x/tools/cmd/goimports@latest
 
 rustup component add rust-src
 rustup component add rust-analyzer
+
+fnm completions --shell bash >>"$bash_completion_dir/fnm"
+fnm completions --shell zsh >>"$zsh_completion_dir/_fnm"
+fnm completions --shell fish >>"$fish_completion_dir/fnm.fish"
