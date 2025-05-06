@@ -1,10 +1,3 @@
--- Check if a language server is running
----@param filter vim.lsp.get_clients.Filter Server name
-local function lsp_is_running(filter)
-  local attached_servers = vim.lsp.get_clients(filter)
-  return #attached_servers > 0
-end
-
 -- Set my highlight group
 vim.api.nvim_create_autocmd("ColorScheme", {
   desc = "Set my highlight group",
@@ -289,40 +282,7 @@ return {
         docker_compose_language_service = { mason = false },
       })
 
-      opts.setup = vim.tbl_deep_extend("force", opts.setup, {
-        jsonls = function(server, _opts)
-          _opts.on_attach = function(client, bufnr)
-            -- Disable lsp formatting when biome is running
-            if lsp_is_running({ bufnr = bufnr, name = "biome" }) then
-              client.server_capabilities.documentFormattingProvider = false
-            end
-          end
-        end,
-        cssls = function(server, _opts)
-          _opts.on_attach = function(client, bufnr)
-            -- Disable lsp formatting when biome is running
-            if lsp_is_running({ bufnr = bufnr, name = "biome" }) then
-              client.server_capabilities.documentFormattingProvider = false
-            end
-          end
-        end,
-        vtsls = function(server, _opts)
-          _opts.on_attach = function(client, bufnr)
-            -- Disable lsp formatting when biome is running
-            if lsp_is_running({ bufnr = bufnr, name = "biome" }) then
-              client.server_capabilities.documentFormattingProvider = false
-            end
-          end
-        end,
-        eslint = function(server, _opts)
-          _opts.on_attach = function(client, bufnr)
-            -- Disable eslint when biome is running
-            if lsp_is_running({ bufnr = bufnr, name = "biome" }) then
-              client.stop()
-            end
-          end
-        end,
-      })
+      opts.setup = vim.tbl_deep_extend("force", opts.setup, {})
     end,
   },
 
