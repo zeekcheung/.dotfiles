@@ -28,6 +28,7 @@ $SymLinks = @{
   # rime
   "$Dotfiles\fcitx5\.local\share\fcitx5\rime\default.custom.yaml" = "$APPDATA\Rime\default.custom.yaml"
   "$Dotfiles\fcitx5\.local\share\fcitx5\rime\rime_ice.custom.yaml" = "$APPDATA\Rime\rime_ice.custom.yaml"
+  "$Dotfiles\fcitx5\.local\share\fcitx5\rime\weasel.custom.yaml" = "$APPDATA\Rime\weasel.custom.yaml"
 }
 
 # winget packages
@@ -73,10 +74,10 @@ $Packages = @(
 )
 
 # Install packages
-Write-Host "Installing packages..."
-foreach ($Package in $Packages) {
-  winget install --id $Package
-}
+# Write-Host "Installing packages..."
+# foreach ($Package in $Packages) {
+#   winget install --id $Package
+# }
 
 # Refresh Path
 $Env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path", "User")

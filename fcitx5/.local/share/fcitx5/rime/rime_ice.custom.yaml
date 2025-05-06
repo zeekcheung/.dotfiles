@@ -49,36 +49,6 @@ patch:
     chromium:
       ascii_mode: true
       vim_mode: true
-    windowsterminal:
-      ascii_mode: true
-      vim_mode: true
-    cmd.exe:
-      ascii_mode: true
-      vim_mode: true
-    powershell.exe:
-      ascii_mode: true
-      vim_mode: true
-    pwsh.exe:
-      ascii_mode: true
-      vim_mode: true
-    code.exe:
-      ascii_mode: true
-      vim_mode: true
-    devenv.exe:
-      ascii_mode: true
-      vim_mode: true
-    rider64.exe:
-      ascii_mode: true
-      vim_mode: true
-    obsidian.exe:
-      ascii_mode: true
-      vim_mode: true
-    msedge.exe:
-      ascii_mode: true
-      vim_mode: true
-    firefox.exe:
-      ascii_mode: true
-      vim_mode: true
 
   # 拼写设定
   speller:
