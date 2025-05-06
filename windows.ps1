@@ -8,6 +8,10 @@ $SymLinks = @{
   "$Dotfiles\ssh\.ssh\config"                                        = "$env:USERPROFILE\.ssh\config"
   # git
   "$Dotfiles\git\.gitconfig"                                         = "$env:USERPROFILE\.gitconfig"
+  # rime
+  "$Dotfiles\rime\.local\share\fcitx5\rime\default.custom.yaml"      = "$env:APPDATA\Rime\default.custom.yaml"
+  "$Dotfiles\rime\.local\share\fcitx5\rime\rime_ice.custom.yaml"     = "$env:APPDATA\Rime\rime_ice.custom.yaml"
+  "$Dotfiles\rime\.local\share\fcitx5\rime\weasel.custom.yaml"       = "$env:APPDATA\Rime\weasel.custom.yaml"
   # wezterm
   "$Dotfiles\wezterm\.config\wezterm\wezterm.lua"                    = "$HOME\.config\wezterm\wezterm.lua"
   # windows terminal
