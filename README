@@ -11,9 +11,9 @@ My personal dotfiles.
 
 ```bash
 # Clone the repo with ssh
-git clone git@github.com:zeekcheung/.dotfiles ~/.dotfiles
+git clone --filter=blob:none git@github.com:zeekcheung/.dotfiles ~/.dotfiles
 # Or clone the repo with https
-git clone https://github.com/zeekcheung/.dotfiles ~/.dotfiles
+git clone --filter=blob:none https://github.com/zeekcheung/.dotfiles ~/.dotfiles
 
 cd ~/.dotfiles
 
