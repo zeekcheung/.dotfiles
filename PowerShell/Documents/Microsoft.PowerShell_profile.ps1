@@ -110,22 +110,38 @@ function Remove-DefaultAlias {
 }
 
 Remove-DefaultAlias ls
-function ls { eza --git --group-directories-first }
-function la { eza -a --git --group-directories-first }
-function ll { eza -l --git --group-directories-first }
-function l { eza -al --git --group-directories-first }
+function ls { eza --color=always --sort=Name --group-directories-first $args }
+function la { ls -a }
+function ll { ls -l }
+function l { ls -la }
+function tree { eza --color=always --tree $args }
+
+Remove-DefaultAlias cat
+function cat { bat -p $args }
+
+function f { fzf $args }
 
 Remove-DefaultAlias gc
 Remove-DefaultAlias gp
 function ga { git add $args }
 function gb { git branch $args }
-function gc { git commit -m $args }
+function gc { git commit $args }
+function gcm { git commit -m $args }
+function gca { git commit --amend --no-edit $args }
 function gco { git checkout $args }
 function gd { git diff $args }
-function gs { git stash $args }
-function gp { git pull; git push }
-function gt { git status }
+function gl { git log $args }
+function gf { git fetch $args }
+function gpl { git pull $args }
+function gps { git push $args }
+function gpsf { git push --force $args }
+function gr { git rebase $args }
+function grc { git rebase --continue $args }
+function gri { git rebase --interactive $args }
+function gst { git status }
 Set-Alias gg lazygit
+
+function diff { nvim -d $args }
 
 function Get-GitBranch {
   # Check if the current directory is a Git repository
