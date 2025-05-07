@@ -1,10 +1,14 @@
 [user]
-	email = zeekcheung@gmail.com
+	email = zeekcheung@outlook.com
 	name = zeekcheung
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
-[url "https://gh.zeekcheung.asia/https://github.com"]
-	insteadOf = https://github.com
+; [url "https://gh.zeekcheung.asia/https://github.com"]
+; 	insteadOf = https://github.com
+; [url "https://gh-proxy.com/github.com"]
+; 	insteadOf = https://github.com
+[pull]
+	ff = only
