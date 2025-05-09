@@ -8,9 +8,9 @@ $SymLinks = @{
   # git
   "$Dotfiles\git\.gitconfig"                                        = "$Env:USERPROFILE\.gitconfig"
   # rime
-  "$Dotfiles\fcitx5\.local\share\fcitx5\rime\default.custom.yaml"   = "$Env:APPDATA\Rime\default.custom.yaml"
-  "$Dotfiles\fcitx5\.local\share\fcitx5\rime\weasel.custom.yaml"    = "$Env:APPDATA\Rime\weasel.custom.yaml"
-  "$Dotfiles\fcitx5\.local\share\fcitx5\rime\rime_ice.custom.yaml"  = "$Env:APPDATA\Rime\rime_ice.custom.yaml"
+  "$Dotfiles\rime\.local\share\fcitx5\rime\default.custom.yaml"   = "$Env:APPDATA\Rime\default.custom.yaml"
+  "$Dotfiles\rime\.local\share\fcitx5\rime\weasel.custom.yaml"    = "$Env:APPDATA\Rime\weasel.custom.yaml"
+  "$Dotfiles\rime\.local\share\fcitx5\rime\rime_ice.custom.yaml"  = "$Env:APPDATA\Rime\rime_ice.custom.yaml"
   # windows terminal
   "$Dotfiles\WindowsTerminal\settings.json"                         = "$Env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
   # powershell
