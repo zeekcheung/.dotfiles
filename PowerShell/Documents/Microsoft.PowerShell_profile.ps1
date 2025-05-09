@@ -19,7 +19,7 @@ $Global:Pictures = [Environment]::GetFolderPath("MyPictures")
 $Global:Videos = [Environment]::GetFolderPath("MyVideos")
 
 # Environment variables
-$Env:EDITOR = "nvim"
+$Env:EDITOR = @("nvim", "vim", "code", "notepad") | ForEach-Object { if (Get-Command $_ -ErrorAction SilentlyContinue) { $_ } } | Select-Object -First 1
 
 $Env:FZF_DEFAULT_OPTS = "
   --ansi
@@ -160,44 +160,7 @@ function Get-GitBranch {
   return ""
 }
 
-# custom prompt
-$firstPrompt = $true
-function prompt {
-  $user = $Env:USERNAME
-  $dir = Get-Location
-  $gitBranch = Get-GitBranch
-
-  # Define colors
-  $userColor = "Yellow"
-  $dirColor = "Cyan"
-  $branchColor = "Magenta"
-  $promptSymbolColor = "Green"
-  $textColor = "White"
-
-  # Add a newline before the prompt for subsequent prompts
-  if ($firstPrompt) {
-    $global:firstPrompt = $false
-  }
-  else {
-    Write-Host ""
-  }
-
-  # Format prompt components with colors
-  Write-Host "$user " -NoNewLine  -ForegroundColor $userColor
-  Write-Host "in " -NoNewLine -ForegroundColor $textColor
-  if ($gitBranch -ne '') {
-    Write-Host "$dir" -NoNewLine -ForegroundColor $dirColor
-    Write-Host "$gitBranch" -ForegroundColor $branchColor
-  }
-  else {
-    Write-Host "$dir" -ForegroundColor $dirColor
-  }
-  Write-Host '❯' -NoNewLine -ForegroundColor $promptSymbolColor
-
-  return " "
-}
-
-# Invoke-Expression (&starship init powershell)
+Invoke-Expression (&starship init powershell)
 
 Invoke-Expression (& { (zoxide init powershell | Out-String) })
 Remove-Alias -Name cd -Scope Global -Force

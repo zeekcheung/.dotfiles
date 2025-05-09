@@ -1,34 +1,30 @@
 # Setup script for Windows
 
-$APPDATA = $Env:APPDATA
-$LOCALAPPDATA = $Env:LOCALAPPDATA
-$APPDATA = $Env:APPDATA
-$LOCALAPPDATA = $Env:LOCALAPPDATA
-$USERPROFILE = $Env:USERPROFILE
-
 $Dotfiles = "$HOME\.dotfiles"
 $Documents = [Environment]::GetFolderPath("MyDocuments")
 
 # Symbolic link list: Target => Destination
 $SymLinks = @{
   # git
-  "$Dotfiles\git\.gitconfig" = "$USERPROFILE\.gitconfig"
-  # clangd
-  "$Dotfiles\clangd\.config\clangd\windows.config.yaml" = "$LOCALAPPDATA\clangd\config.yaml"
+  "$Dotfiles\git\.gitconfig"                                        = "$Env:USERPROFILE\.gitconfig"
+  # rime
+  "$Dotfiles\fcitx5\.local\share\fcitx5\rime\default.custom.yaml"   = "$Env:APPDATA\Rime\default.custom.yaml"
+  "$Dotfiles\fcitx5\.local\share\fcitx5\rime\weasel.custom.yaml"    = "$Env:APPDATA\Rime\weasel.custom.yaml"
+  "$Dotfiles\fcitx5\.local\share\fcitx5\rime\rime_ice.custom.yaml"  = "$Env:APPDATA\Rime\rime_ice.custom.yaml"
+  # windows terminal
+  "$Dotfiles\WindowsTerminal\settings.json"                         = "$Env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
   # powershell
   "$Dotfiles\PowerShell\Documents\Microsoft.PowerShell_profile.ps1" = "$Documents\PowerShell\Microsoft.PowerShell_profile.ps1"
-  # windows terminal
-  "$Dotfiles\WindowsTerminal\settings.json" = "$LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
-  # neovim
-  "$Dotfiles\nvim\.config\nvim" = "$LOCALAPPDATA\nvim"
+  # starship
+  "$Dotfiles\starship\.config\starship.toml"                        = "$HOME\.config\starship.toml"
   # lazygit
-  "$Dotfiles\lazygit\.config\lazygit\config.yml" = "$LOCALAPPDATA\lazygit\config.yml"
+  "$Dotfiles\lazygit\.config\lazygit\config.yml"                    = "$Env:LOCALAPPDATA\lazygit\config.yml"
   # fd
-  "$Dotfiles\fd\.config\fd\ignore" = "$APPDATA\fd\ignore"
-  # rime
-  "$Dotfiles\fcitx5\.local\share\fcitx5\rime\default.custom.yaml" = "$APPDATA\Rime\default.custom.yaml"
-  "$Dotfiles\fcitx5\.local\share\fcitx5\rime\rime_ice.custom.yaml" = "$APPDATA\Rime\rime_ice.custom.yaml"
-  "$Dotfiles\fcitx5\.local\share\fcitx5\rime\weasel.custom.yaml" = "$APPDATA\Rime\weasel.custom.yaml"
+  "$Dotfiles\fd\.config\fd\ignore"                                  = "$Env:APPDATA\fd\ignore"
+  # neovim
+  "$Dotfiles\nvim\.config\nvim"                                     = "$Env:LOCALAPPDATA\nvim"
+  # clangd
+  "$Dotfiles\clangd\.config\clangd\windows.config.yaml"             = "$Env:LOCALAPPDATA\clangd\config.yaml"
 }
 
 # winget packages
@@ -37,11 +33,10 @@ $Packages = @(
   "Tencent.QQMusic"
   "Tencent.WeChat.Universal"
   "Daum.PotPlayer"
-  "Bandisoft.Bandizip"
   "voidtools.Everything"
-  "XPDLS1XBTXVPP4"
-  "Kingsoft.WPSOffice"
-  # "Microsoft.Office"
+  "XPDLS1XBTXVPP4" # Wise Registry Cleaner
+  # "Kingsoft.WPSOffice"
+  "Microsoft.Office"
   "Microsoft.OneDrive"
   "Microsoft.PowerToys"
   "Microsoft.WindowsTerminal"
@@ -51,12 +46,13 @@ $Packages = @(
   "Neovim.Neovim"
   "ajeetdsouza.zoxide"
   "Schniz.fnm"
-  "Python.Python.3.13"
-  "AutoHotkey.AutoHotkey"
+  # "Python.Python.3.13"
   "PremiumSoft.NavicatPremium"
+)
 
-  # packages from github
-  "2dust.v2rayN"
+# packages from github
+$GithubPackages=@(
+  # "2dust.v2rayN"
   "Logitech.Options"
   "Notepad++.Notepad++"
   "Rime.Weasel"
@@ -65,6 +61,7 @@ $Packages = @(
   "Syncthing.Syncthing"
   "Microsoft.PowerShell"
   "Microsoft.WSL"
+  "Starship.Starship"
   "eza-community.eza"
   "junegunn.fzf"
   "sharkdp.fd"
@@ -74,10 +71,15 @@ $Packages = @(
 )
 
 # Install packages
-# Write-Host "Installing packages..."
-# foreach ($Package in $Packages) {
-#   winget install --id $Package
-# }
+Write-Host "Installing packages..."
+foreach ($Package in $Packages) {
+  winget install --id $Package
+}
+
+# Install packages from github
+foreach ($Package in $GithubPackages) {
+  winget install --id $Package --proxy http://127.0.0.1:10808
+}
 
 # Refresh Path
 $Env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path", "User")
