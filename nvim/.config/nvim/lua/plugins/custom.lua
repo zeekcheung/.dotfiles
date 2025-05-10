@@ -216,8 +216,8 @@ return {
       win = {
         width = 0.85,
         height = 0.85,
-        border = "rounded",
-        backdrop = 100,
+        border = vim.api.nvim_get_option_value("winborder", {}),
+        backdrop = vim.g.backdrop,
       },
       terminal = {
         win = {
@@ -353,8 +353,8 @@ return {
         download_url_template = "https://gh-proxy.com/github.com/%s/releases/download/%s/%s",
       }
       opts.ui = {
-        border = "rounded",
-        backdrop = 100,
+        border = vim.api.nvim_get_option_value("winborder", {}),
+        backdrop = vim.g.backdrop,
         icons = {
           package_pending = " ",
           package_installed = "󰄳 ",
