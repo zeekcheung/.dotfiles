@@ -1,0 +1,16 @@
+frame = "full"
+
+[font]
+size = 16
+hinting = "full"
+edging = "antialias"
+
+[[font.normal]]
+family = "Maple Mono NF"
+style = "Normal"
+
+[box-drawing]
+mode = "native"
+
+[box-drawing.sizes]
+default = [1, 2]
