@@ -194,10 +194,11 @@ return {
       },
       notifier = { top_down = false },
       win = {
-        backdrop = 100,
         width = 0.85,
         height = 0.85,
-        border = "rounded",
+        ---@diagnostic disable-next-line: undefined-field
+        border = vim.opt.winborder._value,
+        backdrop = vim.g.backdrop,
       },
       terminal = {
         win = {
@@ -333,6 +334,9 @@ return {
         download_url_template = "https://github.com/%s/releases/download/%s/%s",
       }
       opts.ui = {
+        ---@diagnostic disable-next-line: undefined-field
+        border = vim.opt.winborder._value,
+        backdrop = vim.g.backdrop,
         icons = {
           package_pending = " ",
           package_installed = "󰄳 ",

@@ -16,8 +16,8 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   ui = {
-    border = "rounded",
-    backdrop = 100,
+    border = vim.g.neovide and "none" or "rounded",
+    backdrop = vim.g.neovide and 60 or 100,
   },
   spec = {
     -- add LazyVim and import its plugins

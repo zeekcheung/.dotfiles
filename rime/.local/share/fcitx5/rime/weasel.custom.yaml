@@ -39,6 +39,9 @@ patch:
     nvim-qt.exe:
       ascii_mode: true
       vim_mode: true
+    neovide.exe:
+      ascii_mode: true
+      vim_mode: true
     obsidian.exe:
       ascii_mode: true
       vim_mode: true
