@@ -6,6 +6,8 @@ $Dotfiles = "$HOME\.dotfiles"
 $SymLinks = @{
   # git
   "$Dotfiles\git\.gitconfig"                                         = "$env:USERPROFILE\.gitconfig"
+  # wezterm
+  "$Dotfiles\wezterm\.config\wezterm\wezterm.lua"                    = "$HOME\.config\wezterm\wezterm.lua"
   # windows terminal
   "$Dotfiles\wt\settings.json"                                       = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
   # starship
@@ -49,6 +51,7 @@ $GithubPackages = @(
   "Obsidian.Obsidian"
   "Syncthing.Syncthing"
   # "Microsoft.WSL"
+  "wez.wezterm"
   "Starship.Starship"
   "eza-community.eza"
   "junegunn.fzf"
