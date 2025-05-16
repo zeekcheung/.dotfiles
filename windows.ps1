@@ -67,6 +67,7 @@ $GithubPackages = @(
   # "Microsoft.WSL"
   "Microsoft.PowerShell"
   "Nushell.Nushell"
+  "rsteube.Carapace"
   "wez.wezterm"
   "Starship.Starship"
   "eza-community.eza"
