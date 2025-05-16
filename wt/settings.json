@@ -1,7 +1,7 @@
 {
     "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
-    "actions": 
+    "actions":
     [
         {
             "command": "closePane",
@@ -18,7 +18,7 @@
     "initialCols": 80,
     "initialPosition": ",",
     "initialRows": 20,
-    "keybindings": 
+    "keybindings":
     [
         {
             "id": "Terminal.DuplicatePaneAuto",
@@ -113,22 +113,22 @@
             "keys": "alt+shift+up"
         }
     ],
-    "newTabMenu": 
+    "newTabMenu":
     [
         {
             "type": "remainingProfiles"
         }
     ],
-    "profiles": 
+    "profiles":
     {
-        "defaults": 
+        "defaults":
         {
             "adjustIndistinguishableColors": "never",
             "antialiasingMode": "cleartype",
             "bellStyle": "none",
             "colorScheme": "Tokyo Night Moon",
             "cursorShape": "filledBox",
-            "font": 
+            "font":
             {
                 "builtinGlyphs": true,
                 "face": "Maple Mono NF, Cascadia Mono",
@@ -139,7 +139,7 @@
             "scrollbarState": "hidden",
             "useAcrylic": true
         },
-        "list": 
+        "list":
         [
             {
                 "commandline": "pwsh.exe -nologo",
@@ -306,6 +306,14 @@
         "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
         "hidden": false,
         "name": "powershell.exe"
+      },
+      {
+        "commandline": "nu.exe",
+        "guid": "{64e1dfc5-09cd-4978-809d-d02c37d33004}",
+        "hidden": false,
+        "icon": null,
+        "name": "nu.exe",
+        "startingDirectory": "%USERPROFILE%"
       }
     ]
   },
