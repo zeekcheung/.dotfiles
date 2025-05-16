@@ -383,6 +383,25 @@ return {
         gopls = { mason = false },
         dockerls = { mason = false },
         docker_compose_language_service = { mason = false },
+        powershell_es = {
+          mason = false,
+          enabled = vim.fn.executable("pwsh") == 1 or vim.fn.executable("powershell") == 1,
+          settings = {
+            codeFormatting = {
+              addWhitespaceAroundPipe = true,
+              autoCorrectAliases = false,
+              avoidSemicolonsAsLineTerminators = false,
+              openBraceOnSameLine = false,
+              newLineAfterOpenBrace = false,
+              newLineAfterCloseBrace = false,
+              whitespaceAroundOperator = true,
+              whitespaceAfterSeparator = true,
+              whitespaceBetweenParameters = true,
+              ignoreOneLineBlock = false,
+              alignPropertyValuePairs = true,
+            },
+          },
+        },
       })
 
       opts.setup = vim.tbl_deep_extend("force", opts.setup, {})
