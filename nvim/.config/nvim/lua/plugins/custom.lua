@@ -303,6 +303,7 @@ return {
           mason = false,
           enabled = vim.fn.executable("pwsh") == 1 or vim.fn.executable("powershell") == 1,
         },
+        nushell = { mason = false, enabled = vim.fn.executable("nu") == 1 },
       })
 
       opts.setup = vim.tbl_deep_extend("force", opts.setup, {})

@@ -1,0 +1,147 @@
+# Find a detailed list of available settings using:
+# config nu --doc | nu-highlight | less -R
+
+# Nushell
+$env.config.show_banner = false
+$env.config.rm.always_trash = true
+$env.config.history.isolation = false
+$env.config.use_kitty_protocol = true
+$env.config.shell_integration.osc2 = true
+$env.config.shell_integration.osc7 = true
+$env.config.shell_integration.osc8 = true
+$env.config.shell_integration.osc133 = true
+$env.config.shell_integration.osc633 = true
+$env.config.bracketed_paste = true
+$env.config.error_style = "fancy"
+$env.config.table.mode = "default"
+$env.config.filesize.unit = "metric"
+$env.config.cursor_shape.vi_normal = "block"
+$env.config.cursor_shape.vi_insert = "block"
+$env.config.color_config.shape_garbage = { fg: "red" bg: "default" attr: b }
+
+# Default editor
+for $editor in ["nvim" "vim" "vi" "code" "notepad++" "notepad" "nano"] {
+  if (((which $editor) | length) > 0) {
+    $env.config.buffer_editor = $editor
+    break
+  }
+}
+
+# Keybindings
+$env.config.edit_mode = "vi"
+$env.config.keybindings ++= [
+  {
+    name: accept_suggestion
+    modifier: control
+    keycode: char_f
+    mode: [emacs vi_insert vi_normal]
+    event: {send: HistoryHintComplete}
+  },
+  {
+    name: fzf_history
+    modifier: control
+    keycode: char_r
+    mode: [emacs vi_insert vi_normal]
+    event: [
+      {
+        send: ExecuteHostCommand
+        cmd: "
+          let result = history | get command | str replace --all (char newline) ' ' | to text
+            | fzf --preview 'echo {}' --preview-window wrap;
+          commandline edit --append $result
+          commandline set-cursor --end
+        "
+      }
+    ]
+  },
+  {
+    name: fzf_files
+    modifier: control
+    keycode: char_t
+    mode: [emacs vi_insert vi_normal]
+    event: [
+      {
+        send: ExecuteHostCommand
+        cmd: "
+          let fzf_ctrl_t_command = \$\"($env.FZF_CTRL_T_COMMAND) | fzf ($env.FZF_CTRL_T_OPTS)\";
+          let result = nu -l -i -c $fzf_ctrl_t_command
+          commandline edit --append $result
+          commandline set-cursor --end
+        "
+      }
+    ]
+  },
+  {
+    name: fzf_dirs
+    modifier: alt
+    keycode: char_c
+    mode: [emacs vi_insert vi_normal]
+    event: [
+      {
+        send: ExecuteHostCommand
+        cmd: "
+          let fzf_alt_c_command = \$\"($env.FZF_ALT_C_COMMAND) | fzf ($env.FZF_ALT_C_OPTS)\";
+          let result = nu -c $fzf_alt_c_command;
+          cd $result;
+        "
+      }
+    ]
+  }
+]
+
+# Starship prompt
+$env.STARSHIP_SHELL = "nu"
+
+def create_left_prompt [] {
+    starship prompt --cmd-duration $env.CMD_DURATION_MS $'--status=($env.LAST_EXIT_CODE)'
+}
+
+# Use nushell functions to define your right and left prompt
+$env.PROMPT_COMMAND = { || create_left_prompt }
+$env.PROMPT_COMMAND_RIGHT = ""
+
+# The prompt indicators are environmental variables that represent
+# the state of the prompt
+$env.PROMPT_INDICATOR = ""
+$env.PROMPT_INDICATOR_VI_INSERT = ""
+$env.PROMPT_INDICATOR_VI_NORMAL = ""
+$env.PROMPT_MULTILINE_INDICATOR = ""
+
+# Aliases
+alias la = ls -a
+alias ll = ls -l
+alias l = ls -a -l
+alias se = sudoedit
+alias cat = bat -p
+alias grep = grep --color=always
+alias f = fzf
+alias fetch = fastfetch
+alias zed = zededitor
+
+alias gg = lazygit
+alias ga = git add
+alias gb = git branch
+alias gc = git commit
+alias gcm = git commit - m
+alias gca = git commit --amend --no-edit
+alias gco = git checkout
+alias gd = git diff
+alias gl = git log
+alias gf = git fetch
+alias gpl = git pull
+alias gps = git push
+alias gpsf = git push --force
+alias gr = git rebase
+alias grc = git rebase --continue
+alias gri = git rebase --interactive
+alias gst = git status
+
+alias vi = nvim
+alias diff = nvim -d
+
+# zoxide
+source "~/.zoxide.nu"
+
+# Load platform specific config
+const os_name = $nu.os-info.name
+source $"./($os_name)/config.nu"

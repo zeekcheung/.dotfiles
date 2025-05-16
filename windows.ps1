@@ -17,6 +17,11 @@ $SymLinks = @{
   "$Dotfiles\wt\settings.json"                                               = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
   # powershell
   "$Dotfiles\powershell\.config\powershell\Microsoft.PowerShell_profile.ps1" = "$Documents\PowerShell\Microsoft.PowerShell_profile.ps1"
+  # nushell
+  "$Dotfiles\nushell\.config\nushell\config.nu"                              = "$env:APPDATA\nushell\config.nu"
+  "$Dotfiles\nushell\.config\nushell\env.nu"                                 = "$env:APPDATA\nushell\env.nu"
+  "$Dotfiles\nushell\.config\nushell\windows\config.nu"                      = "$env:APPDATA\nushell\windows\config.nu"
+  "$Dotfiles\nushell\.config\nushell\windows\env.nu"                         = "$env:APPDATA\nushell\windows\env.nu"
   # starship
   "$Dotfiles\starship\.config\starship.toml"                                 = "$HOME\.config\starship.toml"
   # lazygit
@@ -54,6 +59,7 @@ $GithubPackages = @(
   "Obsidian.Obsidian"
   "Syncthing.Syncthing"
   "Microsoft.PowerShell"
+  "Nushell.Nushell"
   "Microsoft.WSL"
   "wez.wezterm"
   "Starship.Starship"
@@ -90,3 +96,4 @@ foreach ($Symlink in $SymLinks.GetEnumerator())
   Get-Item -Path $Destination -ErrorAction SilentlyContinue | Remove-Item -Force -Recurse -ErrorAction SilentlyContinue
   New-Item -ItemType SymbolicLink -Path $Destination -Target (Resolve-Path $Target) -Force | Out-Null
 }
+
