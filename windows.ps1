@@ -1,27 +1,30 @@
 # Setup script for Windows
 
 $Dotfiles = "$HOME\.dotfiles"
+$Documents = [Environment]::GetFolderPath("MyDocuments")
 
 # Symbolic link list: Target => Destination
 $SymLinks = @{
   # git
-  "$Dotfiles\git\.gitconfig"                                         = "$env:USERPROFILE\.gitconfig"
+  "$Dotfiles\git\.gitconfig"                                                 = "$env:USERPROFILE\.gitconfig"
   # rime
-  "$Dotfiles\rime\.local\share\fcitx5\rime\default.custom.yaml"      = "$env:APPDATA\Rime\default.custom.yaml"
-  "$Dotfiles\rime\.local\share\fcitx5\rime\rime_ice.custom.yaml"     = "$env:APPDATA\Rime\rime_ice.custom.yaml"
-  "$Dotfiles\rime\.local\share\fcitx5\rime\weasel.custom.yaml"       = "$env:APPDATA\Rime\weasel.custom.yaml"
+  "$Dotfiles\rime\.local\share\fcitx5\rime\default.custom.yaml"              = "$env:APPDATA\Rime\default.custom.yaml"
+  "$Dotfiles\rime\.local\share\fcitx5\rime\rime_ice.custom.yaml"             = "$env:APPDATA\Rime\rime_ice.custom.yaml"
+  "$Dotfiles\rime\.local\share\fcitx5\rime\weasel.custom.yaml"               = "$env:APPDATA\Rime\weasel.custom.yaml"
   # wezterm
-  "$Dotfiles\wezterm\.config\wezterm\wezterm.lua"                    = "$HOME\.config\wezterm\wezterm.lua"
+  "$Dotfiles\wezterm\.config\wezterm\wezterm.lua"                            = "$HOME\.config\wezterm\wezterm.lua"
   # windows terminal
-  "$Dotfiles\wt\settings.json"                                       = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
+  "$Dotfiles\wt\settings.json"                                               = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
+  # powershell
+  "$Dotfiles\powershell\.config\powershell\Microsoft.PowerShell_profile.ps1" = "$Documents\PowerShell\Microsoft.PowerShell_profile.ps1"
   # starship
-  "$Dotfiles\starship\.config\starship.toml"                         = "$HOME\.config\starship.toml"
+  "$Dotfiles\starship\.config\starship.toml"                                 = "$HOME\.config\starship.toml"
   # lazygit
-  "$Dotfiles\lazygit\.config\lazygit\config.yml"                     = "$env:LOCALAPPDATA\lazygit\config.yml"
+  "$Dotfiles\lazygit\.config\lazygit\config.yml"                             = "$env:LOCALAPPDATA\lazygit\config.yml"
   # fd
-  "$Dotfiles\fd\.config\fd\ignore"                                   = "$env:APPDATA\fd\ignore"
+  "$Dotfiles\fd\.config\fd\ignore"                                           = "$env:APPDATA\fd\ignore"
   # neovim
-  "$Dotfiles\nvim\.config\nvim"                                      = "$env:LOCALAPPDATA\nvim"
+  "$Dotfiles\nvim\.config\nvim"                                              = "$env:LOCALAPPDATA\nvim"
 }
 
 # winget packages
@@ -40,7 +43,7 @@ $Packages = @(
   "9NBLGGH5R558" # Microsoft To Do
   "Neovim.Neovim"
   "ajeetdsouza.zoxide"
- )
+)
 
 # packages from github
 $GithubPackages = @(
@@ -50,6 +53,7 @@ $GithubPackages = @(
   "Notepad++.Notepad++"
   "Obsidian.Obsidian"
   "Syncthing.Syncthing"
+  "Microsoft.PowerShell"
   "Microsoft.WSL"
   "wez.wezterm"
   "Starship.Starship"
@@ -62,7 +66,8 @@ $GithubPackages = @(
 
 # Install packages
 Write-Host "Installing packages..."
-foreach ($Package in $Packages) {
+foreach ($Package in $Packages)
+{
   winget install --id $Package
 }
 
@@ -77,7 +82,8 @@ $env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") + ";
 
 # Create Symbolic Links
 Write-Host "Creating Symbolic Links..."
-foreach ($Symlink in $SymLinks.GetEnumerator()) {
+foreach ($Symlink in $SymLinks.GetEnumerator())
+{
   $Target = $Symlink.Key
   $Destination = $Symlink.Value
 

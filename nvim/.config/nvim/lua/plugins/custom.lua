@@ -299,6 +299,10 @@ return {
         gopls = { mason = false },
         dockerls = { mason = false },
         docker_compose_language_service = { mason = false },
+        powershell_es = {
+          mason = false,
+          enabled = vim.fn.executable("pwsh") == 1 or vim.fn.executable("powershell") == 1,
+        },
       })
 
       opts.setup = vim.tbl_deep_extend("force", opts.setup, {})
