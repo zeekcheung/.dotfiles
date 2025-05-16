@@ -1,33 +1,36 @@
 # Setup script for Windows
 
 $Dotfiles = "$HOME\.dotfiles"
+$Documents = [Environment]::GetFolderPath("MyDocuments")
 
 # Symbolic link list: Target => Destination
 $SymLinks = @{
   # ssh
-  "$Dotfiles\ssh\.ssh\config"                                        = "$env:USERPROFILE\.ssh\config"
+  "$Dotfiles\ssh\.ssh\config"                                                = "$env:USERPROFILE\.ssh\config"
   # git
-  "$Dotfiles\git\.gitconfig"                                         = "$env:USERPROFILE\.gitconfig"
+  "$Dotfiles\git\.gitconfig"                                                 = "$env:USERPROFILE\.gitconfig"
   # rime
-  "$Dotfiles\rime\.local\share\fcitx5\rime\default.custom.yaml"      = "$env:APPDATA\Rime\default.custom.yaml"
-  "$Dotfiles\rime\.local\share\fcitx5\rime\rime_ice.custom.yaml"     = "$env:APPDATA\Rime\rime_ice.custom.yaml"
-  "$Dotfiles\rime\.local\share\fcitx5\rime\weasel.custom.yaml"       = "$env:APPDATA\Rime\weasel.custom.yaml"
+  "$Dotfiles\rime\.local\share\fcitx5\rime\default.custom.yaml"              = "$env:APPDATA\Rime\default.custom.yaml"
+  "$Dotfiles\rime\.local\share\fcitx5\rime\rime_ice.custom.yaml"             = "$env:APPDATA\Rime\rime_ice.custom.yaml"
+  "$Dotfiles\rime\.local\share\fcitx5\rime\weasel.custom.yaml"               = "$env:APPDATA\Rime\weasel.custom.yaml"
   # wezterm
-  "$Dotfiles\wezterm\.config\wezterm\wezterm.lua"                    = "$HOME\.config\wezterm\wezterm.lua"
+  "$Dotfiles\wezterm\.config\wezterm\wezterm.lua"                            = "$HOME\.config\wezterm\wezterm.lua"
   # windows terminal
-  "$Dotfiles\wt\settings.json"                                       = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
+  "$Dotfiles\wt\settings.json"                                               = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
+  # powershell
+  "$Dotfiles\powershell\.config\powershell\Microsoft.PowerShell_profile.ps1" = "$Documents\PowerShell\Microsoft.PowerShell_profile.ps1"
   # starship
-  "$Dotfiles\starship\.config\starship.toml"                         = "$HOME\.config\starship.toml"
+  "$Dotfiles\starship\.config\starship.toml"                                 = "$HOME\.config\starship.toml"
   # lazygit
-  "$Dotfiles\lazygit\.config\lazygit\config.yml"                     = "$env:LOCALAPPDATA\lazygit\config.yml"
+  "$Dotfiles\lazygit\.config\lazygit\config.yml"                             = "$env:LOCALAPPDATA\lazygit\config.yml"
   # fd
-  "$Dotfiles\fd\.config\fd\ignore"                                   = "$env:APPDATA\fd\ignore"
+  "$Dotfiles\fd\.config\fd\ignore"                                           = "$env:APPDATA\fd\ignore"
   # neovim
-  "$Dotfiles\nvim\.config\nvim"                                      = "$env:LOCALAPPDATA\nvim"
+  "$Dotfiles\nvim\.config\nvim"                                              = "$env:LOCALAPPDATA\nvim"
   # neovide
-  "$Dotfiles\neovide\.config\neovide\config.toml"                    = "$env:APPDATA\neovide\config.toml"
+  "$Dotfiles\neovide\.config\neovide\config.toml"                            = "$env:APPDATA\neovide\config.toml"
   # wsl
-  "$Dotfiles\wsl\.wslconfig"                                         = "$env:USERPROFILE\.wslconfig"
+  "$Dotfiles\wsl\.wslconfig"                                                 = "$env:USERPROFILE\.wslconfig"
 }
 
 # winget packages
@@ -57,6 +60,7 @@ $GithubPackages = @(
   "Obsidian.Obsidian"
   "Syncthing.Syncthing"
   # "Microsoft.WSL"
+  "Microsoft.PowerShell"
   "wez.wezterm"
   "Starship.Starship"
   "eza-community.eza"
