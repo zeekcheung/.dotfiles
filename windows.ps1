@@ -60,6 +60,7 @@ $GithubPackages = @(
   "Syncthing.Syncthing"
   "Microsoft.PowerShell"
   "Nushell.Nushell"
+  "rsteube.Carapace"
   "Microsoft.WSL"
   "wez.wezterm"
   "Starship.Starship"
