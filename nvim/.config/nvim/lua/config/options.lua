@@ -20,16 +20,29 @@ opt.foldtext = "foldtext()"
 -- vim.g.backdrop = 100
 
 if vim.fn.has("win32") then
-  opt.shell = vim.fn.executable("pwsh") == 1 and "pwsh" or "powershell"
-  opt.shellcmdflag =
-    "-NoLogo -NoProfile -NonInteractive -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new();$PSDefaultParameterValues['Out-File:Encoding']='utf8';"
-  opt.shellredir = "2>&1 | %{ '$_' } | Out-File %s; exit $LastExitCode"
-  opt.shellpipe = "2>&1 | %{ '$_' } | Tee-Object %s; exit $LastExitCode"
-  opt.shellquote = ""
-  opt.shellxquote = ""
-
-  vim.g.termcmd = string.format("%s.exe -NoLogo", vim.api.nvim_get_option_value("shell", {}))
   vim.g.python3_host_prog = vim.fn.expand("~/AppData/Local/Programs/Python/Python313/python.exe")
+
+  if vim.fn.executable("nu") then
+    opt.shell = "nu"
+    opt.shelltemp = false
+    opt.shellredir = "out+err> %s"
+    opt.shellcmdflag = "--stdin --no-newline -c"
+    opt.shellxescape = ""
+    opt.shellxquote = ""
+    opt.shellquote = ""
+
+    vim.g.termcmd = "nu.exe"
+  else
+    opt.shell = vim.fn.executable("pwsh") == 1 and "pwsh" or "powershell"
+    opt.shellcmdflag =
+      "-NoLogo -NoProfile -NonInteractive -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new();$PSDefaultParameterValues['Out-File:Encoding']='utf8';"
+    opt.shellredir = "2>&1 | %{ '$_' } | Out-File %s; exit $LastExitCode"
+    opt.shellpipe = "2>&1 | %{ '$_' } | Tee-Object %s; exit $LastExitCode"
+    opt.shellquote = ""
+    opt.shellxquote = ""
+
+    vim.g.termcmd = string.format("%s.exe -NoLogo", vim.api.nvim_get_option_value("shell", {}))
+  end
 end
 
 if vim.g.neovide then
