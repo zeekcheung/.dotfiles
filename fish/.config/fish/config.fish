@@ -64,9 +64,9 @@ set dconf_settings "$HOME/.config/dconf/settings.ini"
 alias dconf-backup "dconf dump / >$dconf_settings"
 alias dconf-restore "dconf load / < $dconf_settings"
 
-function add_newline --description "Add new line before prompt" --on-event fish_postexec
-    echo
-end
+# function add_newline --description "Add new line before prompt" --on-event fish_postexec
+#     echo
+# end
 
 # Tools
 fzf --fish | source

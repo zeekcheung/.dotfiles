@@ -96,11 +96,11 @@ bindkey -M vicmd ys add-surround
 bindkey -M visual S add-surround
 
 # Add new line before prompt
-precmd() {
-  precmd() {
-    echo
-  }
-}
+# precmd() {
+#   precmd() {
+#     echo
+#   }
+# }
 
 # Tools
 eval "$(fzf --zsh)"
