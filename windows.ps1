@@ -36,6 +36,10 @@ $SymLinks = @{
   "$Dotfiles\neovide\.config\neovide\config.toml"                            = "$env:APPDATA\neovide\config.toml"
   # wsl
   "$Dotfiles\wsl\.wslconfig"                                                 = "$env:USERPROFILE\.wslconfig"
+  # komorebi
+  "$Dotfiles\komorebi\komorebi.json"                                         = "$env:USERPROFILE\komorebi.json"
+  "$Dotfiles\komorebi\komorebi.bar.json"                                     = "$env:USERPROFILE\komorebi.bar.json"
+  "$Dotfiles\komorebi\.config\whkdrc"                                        = "$env:USERPROFILE\.config\whkdrc"
 }
 
 # winget packages
@@ -76,6 +80,8 @@ $GithubPackages = @(
   "sharkdp.bat"
   "JesseDuffield.lazygit"
   "SQLite.SQLite"
+  "LGUG2Z.komorebi"
+  "LGUG2Z.whkd"
 )
 
 # Install packages
