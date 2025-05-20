@@ -40,6 +40,8 @@ $SymLinks = @{
   "$Dotfiles\komorebi\komorebi.json"                                         = "$env:USERPROFILE\komorebi.json"
   "$Dotfiles\komorebi\komorebi.bar.json"                                     = "$env:USERPROFILE\komorebi.bar.json"
   "$Dotfiles\komorebi\.config\whkdrc"                                        = "$env:USERPROFILE\.config\whkdrc"
+  # ideavim
+  "$Dotfiles\ideavim\.ideavimrc"                                             = "$env:USERPROFILE\.ideavimrc"
 }
 
 # winget packages
