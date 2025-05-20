@@ -11,7 +11,7 @@ if [ ! -d "$DOT_DIR" ]; then
   exit 1
 fi
 
-excluded=(".git" ".vscode" "firefox" "windows.config.yaml" "wt" "wsl" "powershell")
+excluded=(".git" ".vscode" "firefox" "windows.config.yaml" "wt" "wsl" "powershell" "komorebi")
 excluded_args=()
 for name in "${excluded[@]}"; do
   excluded_args+=("-not" "-name" "$name")
