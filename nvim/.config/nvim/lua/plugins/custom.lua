@@ -1,3 +1,6 @@
+-- Path of the vault directory
+local obsidian_vault_path = vim.fn.expand("~") .. "/OneDrive/Obsidian"
+
 -- Set my highlight group
 vim.api.nvim_create_autocmd("ColorScheme", {
   desc = "Set my highlight group",
@@ -552,6 +555,59 @@ return {
             end,
           })
         end,
+      },
+    },
+  },
+
+  {
+    "obsidian-nvim/obsidian.nvim",
+    version = "*",
+    cmd = "Obsidian",
+    ft = "markdown",
+    -- Only load obsidian.nvim for markdown files in vault
+    -- event = {
+    --   "BufReadPre " .. obsidian_vault_path .. "/**/*.md",
+    --   "BufNewFile " .. obsidian_vault_path .. "/**/*.md",
+    -- },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "saghen/blink.cmp",
+      "folke/snacks.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "MeanderingProgrammer/render-markdown.nvim",
+    },
+    opts = {
+      workspaces = {
+        {
+          name = "Obsidian",
+          path = obsidian_vault_path,
+        },
+      },
+      notes_subdr = "02-Notes",
+      daily_notes = {
+        folder = "daily",
+        date_format = "%Y-%m-%d",
+        template = "journal-template.md",
+        default_tags = {},
+        workdays_only = false,
+      },
+      completion = {
+        blink = true,
+        min_chars = 1,
+      },
+      new_notes_location = "current_dir",
+      preferred_link_style = "wiki",
+      disable_frontmatter = false,
+      templates = {
+        folder = "templates",
+        date_format = "%Y-%m-%d",
+        time_format = "%H:%M",
+      },
+      picker = {
+        name = "snacks.pick",
+      },
+      statusline = {
+        enabled = true,
       },
     },
   },
