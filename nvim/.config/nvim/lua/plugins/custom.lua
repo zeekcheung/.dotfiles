@@ -293,6 +293,9 @@ return {
               ".Xresources",
             },
           },
+          projects = {
+            projects = { vim.fn.expand("~/OneDrive/Obsidian") },
+          },
         },
       },
       notifier = { top_down = false },
@@ -610,6 +613,57 @@ return {
             end,
           })
         end,
+      },
+    },
+  },
+
+  {
+    "obsidian-nvim/obsidian.nvim",
+    version = "*",
+    cmd = "Obsidian",
+    ft = "markdown",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "saghen/blink.cmp",
+      "folke/snacks.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "MeanderingProgrammer/render-markdown.nvim",
+    },
+    opts = {
+      workspaces = {
+        {
+          name = "Obsidian",
+          path = "~/OneDrive/Obsidian",
+        },
+      },
+      notes_subdr = "02-Notes",
+      daily_notes = {
+        folder = "daily",
+        date_format = "%Y-%m-%d",
+        template = "journal-template.md",
+        default_tags = {},
+        workdays_only = false,
+      },
+      completion = {
+        blink = true,
+        min_chars = 1,
+      },
+      new_notes_location = "current_dir",
+      preferred_link_style = "wiki",
+      disable_frontmatter = false,
+      templates = {
+        folder = "templates",
+        date_format = "%Y-%m-%d",
+        time_format = "%H:%M",
+      },
+      picker = {
+        name = "snacks.pick",
+      },
+      attachments = {
+        img_folder = "attachments",
+      },
+      statusline = {
+        enabled = true,
       },
     },
   },
