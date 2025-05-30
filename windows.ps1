@@ -2,6 +2,7 @@
 
 $Dotfiles = "$HOME\.dotfiles"
 $Documents = [Environment]::GetFolderPath("MyDocuments")
+$Startup = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup"
 
 # Symbolic link list: Target => Destination
 $SymLinks = @{
@@ -38,6 +39,8 @@ $SymLinks = @{
   "$Dotfiles\komorebi\komorebi.json"                                         = "$env:USERPROFILE\komorebi.json"
   "$Dotfiles\komorebi\komorebi.bar.json"                                     = "$env:USERPROFILE\komorebi.bar.json"
   "$Dotfiles\komorebi\.config\whkdrc"                                        = "$env:USERPROFILE\.config\whkdrc"
+  # AutoHotkey
+  # "$Dotfiles\autohotkey\better-escape.ahk"                                   = "$Startup\better-escape.ahk"
   # ideavim
   "$Dotfiles\ideavim\.ideavimrc"                                             = "$env:USERPROFILE\.ideavimrc"
 }
@@ -82,6 +85,7 @@ $GithubPackages = @(
   "SQLite.SQLite"
   "LGUG2Z.komorebi"
   "LGUG2Z.whkd"
+  "AutoHotkey.AutoHotkey"
 )
 
 # Install packages
