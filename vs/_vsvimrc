@@ -1,0 +1,176 @@
+let mapleader=" "
+let maplocalleader="\\"
+
+set number
+set relativenumber
+set cursorline
+set virtualedit=onemore
+set timeoutlen=250
+set scrolloff=4
+set clipboard=unnamed
+set autoindent
+set shiftwidth=4
+set expandtab
+set smartcase
+set ignorecase
+set magic
+set hlsearch
+set incsearch
+set vsvim_useeditorindent
+set vsvim_hidemarks=<>[]^.'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
+
+" Better Escape
+inoremap jj <Esc>
+
+" Better Indent
+vnoremap < <gv
+vnoremap > >gv
+
+" Better Paste
+nnoremap p "+p
+vnoremap p pgvy
+
+" Format Document
+nnoremap <leader>cf :vsc Edit.FormatDocument<CR>
+" TODO: Format Selection
+vnoremap <leader>cf :vsc Edit.FormatSelection<CR>
+
+" TODO: Quit All
+
+" Quit Current Window
+nmap <leader>qw :vsc Window.Close<CR>
+
+" Split Window Horizontal
+nnoremap <leader>- :vsc Window.SplitWindowHorizontally<CR>
+nnoremap | :vsc Window.SplitWindowHorizontally<CR>
+" Split Window Vertically
+nnoremap <leader>| :vsc Window.SplitWindowVertically<CR>
+nnoremap \\ :vsc Window.SplitWindowVertically<CR>
+
+" Delete Current Window
+nmap <leader>wd :vsc Window.Close<CR>
+
+" TODO: Toggle Maximize Editor
+
+" Window Navigation
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-l> <C-w>l
+
+" TODO: New File
+
+" Next Buffer
+nmap <tab> :bn<CR>
+" Previous Buffer
+nmap <S-tab> :bp<CR>
+" Next Buffer
+nmap ]b :bn<CR>
+" Previous Buffer
+nmap [b :bp<CR>
+" TODO: Switch to Other Buffer
+nmap <leader>bb <C-^>
+nmap <leader>` <C-^>
+" Delete Buffer
+nmap <leader>bd :bd<CR>
+" TODO: Delete Buffers to the left
+" TODO: Delete Buffers to the right
+" TODO: Toggle pin
+
+" TODO: New Tab
+" TODO: Close Tab
+" TODO: Next Tab
+" TODO: Previous Tab
+" TODO: First Tab
+" TODO: Last Tab
+
+" Escape and Clear hlsearch
+nmap <esc> :nohlsearch<CR>
+nmap <leader>ur :nohlsearch<CR>
+
+" Move Down
+nmap <A-j> <Action>(MoveLineDown)
+vmap <A-j> <Action>(MoveLineDown)
+imap <A-j> <Esc><Action>(MoveLineDown)i
+
+" Move Up
+nmap <A-k> <Action>(MoveLineUp)
+vmap <A-k> <Action>(MoveLineUp)
+imap <A-k> <Esc><Action>(MoveLineUp)i
+
+
+" Switch to Other Buffer
+nnoremap <leader>bb <C-^>
+" Switch to Other Buffer (alternative)
+nnoremap <leader>` <C-^>
+" Delete Buffer
+nnoremap <leader>bd :bd<CR>
+" Delete Other Buffers
+nnoremap <leader>bo :vsc Window.CloseAllButPinned<CR>
+
+nnoremap <leader>bf :bfirst<CR>
+nnoremap <leader>bl :blast<CR>
+
+
+" Add Comment Below
+nmap gco o<c-o>gcc
+" Add Comment Above
+nmap gcO O<c-o>gcc
+
+" plugins
+nnoremap <leader>l :vsc ManageExtensions<CR>
+
+
+" commenting
+nnoremap gcc :vsc Edit.ToggleLineComment<CR>
+vnoremap gc :vsc Edit.ToggleBlockComment<CR>
+
+
+" TODO: quickfix
+
+" diagnostics
+nnoremap ]d :vsc View:NextError<CR>
+nnoremap [d :vsc View:PreviousError<CR>
+
+" toggle
+nnoremap <leader>uw :vsc Edit.ToggleWordWrap<CR>
+nnoremap <leader>us :vsc Edit.ToggleSpellChecker<CR>
+nnoremap <leader>ud :vsc View.ErrorList<CR>
+nnoremap <leader>gg :vsc View.GitWindow<CR>
+
+
+" terminal
+nnoremap <leader>th :vsc View.Terminal<CR>
+
+" TODO: LSP
+
+" replace
+
+nnoremap <leader>qq :qa<CR>
+nnoremap <leader>qw :exit<CR>
+nnoremap <leader>d :K<CR>
+nnoremap <leader><tab><tab> :tabnew<CR>
+nnoremap <leader><tab>d :tabclose<CR>
+nnoremap <leader><tab>n :tabn<CR>
+nnoremap <leader><tab>p :tabp<CR>
+nnoremap <leader><tab>f :tabfirst<CR>
+nnoremap <leader><tab>l :tablast<CR>
+nnoremap <leader>e :vsc View.SolutionExplorer<CR>
+nnoremap <leader>ca :editor.action.quickFix<CR>
+nnoremap <leader>rn :editor.action.rename<CR>
+nnoremap <leader>cf :workbench.action.formatDocument<CR>
+nnoremap <leader>ff :workbench.action.quickOpen<CR>
+nnoremap <leader>fr :workbench.action.openRecent<CR>
+nnoremap <leader>fn :notifications.showList<CR>
+nnoremap <leader>sk :workbench.action.openGLobalKeybindings<CR>
+nnoremap <leader>ss :workbench.action.gotoSymbol<CR>
+nnoremap <leader>sS :workbench.action.showAllSymbols<CR
+nnoremap <leader>sS :workbench.action.showAllSymbols<CR>
+nnoremap <leader>sg :actions.find<CR>
+nnoremap <leader>sG :workbench.action.findInFiles<CR>
+nnoremap <leader>uC :vsc Project.Theme<CR>
+nnoremap <leader>ud :vsc View.ErrorList<CR>
+nnoremap <leader>uw :vsc Edit.ToggleWordWrap<CR>
+nnoremap <leader>cs :vsc View.DocumentView<CR>
+nnoremap <leader>gg :vsc View.GitWindow<CR>
+
