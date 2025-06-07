@@ -42,6 +42,8 @@ $SymLinks = @{
   "$Dotfiles\komorebi\.config\whkdrc"                                        = "$env:USERPROFILE\.config\whkdrc"
   # ideavim
   "$Dotfiles\ideavim\.ideavimrc"                                             = "$env:USERPROFILE\.ideavimrc"
+  # visual studio
+  "$Dotfiles\vs\_vsvimrc"                                                    = "$HOME\_vsvimrc"
 }
 
 # winget packages
