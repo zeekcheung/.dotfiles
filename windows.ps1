@@ -44,6 +44,8 @@ $SymLinks = @{
   "$Dotfiles\ideavim\.ideavimrc"                                             = "$env:USERPROFILE\.ideavimrc"
   # visual studio
   "$Dotfiles\vs\_vsvimrc"                                                    = "$HOME\_vsvimrc"
+  # mactype
+  "$Dotfiles\mactype\lcd-subpixel.ini"                                       = "$env:PROGRAMFILES\Mactype\ini\lcd-subpixel.ini"
 }
 
 # winget packages
@@ -92,13 +94,13 @@ $GithubPackages = @(
 Write-Host "Installing packages..."
 foreach ($Package in $Packages)
 {
-  winget install --id $Package
+  # winget install --id $Package
 }
 
 # Install packages from github
 foreach ($Package in $GithubPackages)
 {
-  winget install --id $Package --proxy http://127.0.0.1:10808
+  # winget install --id $Package --proxy http://127.0.0.1:10808
 }
 
 # Refresh Path
