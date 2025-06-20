@@ -17,6 +17,8 @@ opt.spelllang = "en_us,cjk"
 opt.foldtext = "foldtext()"
 -- opt.winborder = "rounded"
 
+vim.g.vim_dadbod_completion_lowercase_keywords = 0
+
 -- vim.g.backdrop = 100
 
 if vim.fn.has("win32") then
