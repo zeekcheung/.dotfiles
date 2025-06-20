@@ -203,7 +203,7 @@ return {
   },
 
   {
-    "echasnovski/mini.icons",
+    "nvim-mini/mini.icons",
     opts = {
       directory = {
         [".vscode"] = { glyph = "󰉋", hl = "MiniIconsYellow" },
@@ -234,6 +234,11 @@ return {
     ---@type snacks.Config
     opts = {
       picker = {
+        db = {
+          sqlite3_path = vim.fn.has("win32") == 1
+              and "~/AppData/Local/Microsoft/WinGet/Packages/SQLite.SQLite_Microsoft.Winget.Source_8wekyb3d8bbwe/sqlite3.exe"
+            or nil,
+        },
         -- default layout
         layout = {
           --- Use the default layout or vertical if the window is too narrow
@@ -343,6 +348,7 @@ return {
         -- "ini",
         -- "xresources",
         -- "powershell",
+        -- "tmux",
       },
     },
   },
@@ -600,7 +606,11 @@ return {
 
   {
     "luozhiya/fittencode.nvim",
-    opts = {},
+    opts = {
+      delay_completion = {
+        delaytime = 250,
+      },
+    },
     specs = {
       {
         "nvim-lualine/lualine.nvim",
