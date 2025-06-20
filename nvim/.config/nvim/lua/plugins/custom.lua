@@ -600,7 +600,11 @@ return {
 
   {
     "luozhiya/fittencode.nvim",
-    opts = {},
+    opts = {
+      delay_completion = {
+        delaytime = 250,
+      },
+    },
     specs = {
       {
         "nvim-lualine/lualine.nvim",
