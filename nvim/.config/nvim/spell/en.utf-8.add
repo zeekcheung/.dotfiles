@@ -69,3 +69,10 @@ Lua
 Modebus
 TCP/IP
 NeoVim
+Modbus
+PLC
+UDP
+CRC
+ModbusRTU
+Multithreading
+MQTT
