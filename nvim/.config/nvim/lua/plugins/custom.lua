@@ -203,7 +203,7 @@ return {
   },
 
   {
-    "echasnovski/mini.icons",
+    "nvim-mini/mini.icons",
     opts = {
       directory = {
         [".vscode"] = { glyph = "󰉋", hl = "MiniIconsYellow" },
@@ -234,6 +234,11 @@ return {
     ---@type snacks.Config
     opts = {
       picker = {
+        db = {
+          sqlite3_path = vim.fn.has("win32") == 1
+              and "~/AppData/Local/Microsoft/WinGet/Packages/SQLite.SQLite_Microsoft.Winget.Source_8wekyb3d8bbwe/sqlite3.exe"
+            or nil,
+        },
         -- default layout
         layout = {
           --- Use the default layout or vertical if the window is too narrow
@@ -343,6 +348,7 @@ return {
         -- "ini",
         -- "xresources",
         -- "powershell",
+        -- "tmux",
       },
     },
   },
@@ -359,16 +365,16 @@ return {
 
   {
     "neovim/nvim-lspconfig",
-    opts = function(_, opts)
-      -- LSP keymaps
-      local keys = require("lazyvim.plugins.lsp.keymaps").get()
-      keys[#keys + 1] = { "<F2>", vim.lsp.buf.rename }
-
-      opts.diagnostics = vim.tbl_deep_extend("force", opts.diagnostics, {
+    opts = {
+      diagnostics = {
         float = { border = "rounded" },
-      })
-
-      opts.servers = vim.tbl_deep_extend("force", opts.servers, {
+      },
+      servers = {
+        ["*"] = {
+          keys = {
+            { "<F2>", vim.lsp.buf.rename },
+          },
+        },
         lua_ls = { mason = true },
         bashls = { mason = false, filetypes = { "sh", "zsh" } },
         jsonls = { mason = false },
@@ -415,10 +421,9 @@ return {
           },
         },
         nushell = { mason = false, enabled = vim.fn.executable("nu") == 1 },
-      })
-
-      opts.setup = vim.tbl_deep_extend("force", opts.setup, {})
-    end,
+      },
+    },
+    setup = {},
   },
 
   {
@@ -600,7 +605,11 @@ return {
 
   {
     "luozhiya/fittencode.nvim",
-    opts = {},
+    opts = {
+      delay_completion = {
+        delaytime = 250,
+      },
+    },
     specs = {
       {
         "nvim-lualine/lualine.nvim",
@@ -650,7 +659,9 @@ return {
       },
       new_notes_location = "current_dir",
       preferred_link_style = "wiki",
-      disable_frontmatter = false,
+      frontmatter = {
+        enabled = true,
+      },
       templates = {
         folder = "templates",
         date_format = "%Y-%m-%d",
@@ -660,11 +671,12 @@ return {
         name = "snacks.pick",
       },
       attachments = {
-        img_folder = "attachments",
+        folder = "attachments",
       },
-      statusline = {
-        enabled = true,
+      footer = {
+        enabled = false,
       },
+      legacy_commands = false,
     },
   },
 }
