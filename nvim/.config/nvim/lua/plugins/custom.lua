@@ -203,7 +203,7 @@ return {
   },
 
   {
-    "echasnovski/mini.icons",
+    "nvim-mini/mini.icons",
     opts = {
       directory = {
         [".vscode"] = { glyph = "󰉋", hl = "MiniIconsYellow" },
@@ -600,7 +600,11 @@ return {
 
   {
     "luozhiya/fittencode.nvim",
-    opts = {},
+    opts = {
+      delay_completion = {
+        delaytime = 250,
+      },
+    },
     specs = {
       {
         "nvim-lualine/lualine.nvim",
