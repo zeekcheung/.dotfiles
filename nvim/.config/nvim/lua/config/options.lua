@@ -5,6 +5,7 @@
 local opt = vim.opt
 local map = vim.keymap.set
 
+opt.background = "light"
 opt.backup = false
 opt.swapfile = false
 opt.helpheight = 10
@@ -14,8 +15,10 @@ opt.pumblend = 0
 opt.pumheight = 10
 opt.list = false
 opt.spelllang = "en_us,cjk"
-opt.foldtext = "foldtext()"
+-- opt.foldtext = "foldtext()"
 -- opt.winborder = "rounded"
+
+vim.g.vim_dadbod_completion_lowercase_keywords = 0
 
 -- vim.g.backdrop = 100
 
