@@ -29,8 +29,9 @@ vim.api.nvim_create_autocmd("FileType", {
   group = vim.api.nvim_create_augroup("markdown-fold", { clear = true }),
   pattern = "markdown",
   callback = function()
+    vim.opt_local.wrap = false
     vim.opt_local.foldmethod = "expr"
-    vim.opt_local.foldexpr = "v:lua.require'lazyvim.util'.ui.foldexpr()"
+    vim.opt_local.foldexpr = "v:lua.require'lazyvim.util'.treesitter.foldexpr()"
     vim.opt_local.commentstring = "<!-- %s -->"
   end,
 })
