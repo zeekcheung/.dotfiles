@@ -1,190 +1,42 @@
 {
-    "$help": "https://aka.ms/terminal-documentation",
-    "$schema": "https://aka.ms/terminal-profiles-schema",
-    "actions":
-    [
-        {
-            "command": "closePane",
-            "id": "User.closePane"
-        }
-    ],
-    "alwaysShowNotificationIcon": false,
-    "centerOnLaunch": true,
-    "copyFormatting": "none",
-    "copyOnSelect": true,
-    "defaultInputScope": "alphanumericHalfWidth",
-    "defaultProfile": "{64e1dfc5-09cd-4978-809d-d02c37d33004}",
-    "disableAnimations": true,
-    "initialCols": 80,
-    "initialPosition": ",",
-    "initialRows": 20,
-    "keybindings":
-    [
-        {
-            "id": "Terminal.DuplicatePaneAuto",
-            "keys": "alt+shift+d"
-        },
-        {
-            "id": "Terminal.DuplicatePaneRight",
-            "keys": "ctrl+\\"
-        },
-        {
-            "id": "Terminal.MoveFocusDown",
-            "keys": "ctrl+shift+j"
-        },
-        {
-            "id": "User.closePane",
-            "keys": "ctrl+shift+x"
-        },
-        {
-            "id": null,
-            "keys": "alt+shift+minus"
-        },
-        {
-            "id": null,
-            "keys": "enter"
-        },
-        {
-            "id": null,
-            "keys": "alt+shift+plus"
-        },
-        {
-            "id": "Terminal.DuplicatePaneDown",
-            "keys": "ctrl+shift+\\"
-        },
-        {
-            "id": null,
-            "keys": "alt+down"
-        },
-        {
-            "id": "Terminal.MoveFocusLeft",
-            "keys": "ctrl+shift+h"
-        },
-        {
-            "id": null,
-            "keys": "alt+left"
-        },
-        {
-            "id": "Terminal.MoveFocusRight",
-            "keys": "ctrl+shift+l"
-        },
-        {
-            "id": null,
-            "keys": "alt+right"
-        },
-        {
-            "id": "Terminal.MoveFocusUp",
-            "keys": "ctrl+shift+k"
-        },
-        {
-            "id": null,
-            "keys": "alt+up"
-        },
-        {
-            "id": "Terminal.ResizePaneDown",
-            "keys": "ctrl+shift+down"
-        },
-        {
-            "id": null,
-            "keys": "alt+shift+down"
-        },
-        {
-            "id": "Terminal.ResizePaneLeft",
-            "keys": "ctrl+shift+left"
-        },
-        {
-            "id": null,
-            "keys": "alt+shift+left"
-        },
-        {
-            "id": "Terminal.ResizePaneRight",
-            "keys": "ctrl+shift+right"
-        },
-        {
-            "id": null,
-            "keys": "alt+shift+right"
-        },
-        {
-            "id": "Terminal.ResizePaneUp",
-            "keys": "ctrl+shift+up"
-        },
-        {
-            "id": null,
-            "keys": "alt+shift+up"
-        }
-    ],
-    "newTabMenu":
-    [
-        {
-            "type": "remainingProfiles"
-        }
-    ],
-    "profiles":
+  "$help": "https://aka.ms/terminal-documentation",
+  "$schema": "https://aka.ms/terminal-profiles-schema",
+  "actions": [
     {
-        "defaults":
-        {
-            "adjustIndistinguishableColors": "never",
-            "antialiasingMode": "cleartype",
-            "bellStyle": "none",
-            "colorScheme": "Tokyo Night Moon",
-            "cursorShape": "filledBox",
-            "font":
-            {
-                "builtinGlyphs": true,
-                "face": "Maple Mono NF, Cascadia Mono",
-                "size": 16
-            },
-            "intenseTextStyle": "bright",
-            "padding": "0",
-            "scrollbarState": "hidden",
-            "useAcrylic": true
-        },
-        "list":
-        [
-            {
-                "commandline": "pwsh.exe -nologo",
-                "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
-                "hidden": false,
-                "name": "pwsh.exe",
-                "source": "Windows.Terminal.PowershellCore"
-            },
-            {
-                "commandline": "cmd.exe /k",
-                "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
-                "hidden": false,
-                "name": "cmd.exe"
-            },
-            {
-                "commandline": "powershell.exe -nologo",
-                "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
-                "hidden": false,
-                "name": "powershell.exe"
-            },
-            {
-                "commandline": "nu.exe",
-                "guid": "{64e1dfc5-09cd-4978-809d-d02c37d33004}",
-                "hidden": false,
-                "icon": null,
-                "name": "nu.exe",
-                "startingDirectory": "%USERPROFILE%"
-            }
-        ]
+      "command": "closePane",
+      "id": "User.closePane"
+    }
+  ],
+  "alwaysShowNotificationIcon": false,
+  "centerOnLaunch": true,
+  "copyFormatting": "none",
+  "copyOnSelect": true,
+  "defaultInputScope": "alphanumericHalfWidth",
+  "defaultProfile": "{64e1dfc5-09cd-4978-809d-d02c37d33004}",
+  "disableAnimations": true,
+  "initialCols": 80,
+  "initialPosition": ",",
+  "initialRows": 20,
+  "keybindings": [
+    {
+      "id": "Terminal.MoveFocusDown",
+      "keys": "ctrl+shift+j"
     },
     {
       "id": "Terminal.DuplicatePaneRight",
       "keys": "ctrl+\\"
     },
     {
-      "id": "Terminal.MoveFocusDown",
-      "keys": "ctrl+shift+j"
-    },
-    {
-      "id": "User.closePane",
-      "keys": "ctrl+shift+x"
+      "id": "Terminal.DuplicatePaneAuto",
+      "keys": "alt+shift+d"
     },
     {
       "id": null,
       "keys": "alt+shift+minus"
+    },
+    {
+      "id": "User.closePane",
+      "keys": "ctrl+shift+x"
     },
     {
       "id": null,
@@ -269,7 +121,7 @@
       "adjustIndistinguishableColors": "never",
       "antialiasingMode": "cleartype",
       "bellStyle": "none",
-      "colorScheme": "Tokyo Night Moon",
+      "colorScheme": "Catppuccin Latte",
       "cursorShape": "filledBox",
       "font": {
         "builtinGlyphs": true,
@@ -288,12 +140,6 @@
         "hidden": false,
         "name": "pwsh.exe",
         "source": "Windows.Terminal.PowershellCore"
-      },
-      {
-        "guid": "{8074b8cf-d171-5ac8-a71f-dfe529e2b526}",
-        "hidden": false,
-        "name": "archlinux",
-        "source": "Microsoft.WSL"
       },
       {
         "commandline": "cmd.exe /k",
@@ -340,9 +186,55 @@
       "selectionBackground": "#2D3F76",
       "white": "#828BB8",
       "yellow": "#FFC777"
+    },
+    {
+      "name": "rose-pine-dawn",
+      "cursorColor": "#9893a5",
+      "selectionBackground": "#eee9e6",
+      "background": "#faf4ed",
+      "foreground": "#575279",
+      "black": "#f2e9de",
+      "blue": "#56949f",
+      "cyan": "#d7827e",
+      "green": "#286983",
+      "purple": "#907aa9",
+      "red": "#b4637a",
+      "white": "#575279",
+      "yellow": "#ea9d34",
+      "brightBlack": "#6e6a86",
+      "brightBlue": "#56949f",
+      "brightCyan": "#d7827e",
+      "brightGreen": "#286983",
+      "brightPurple": "#907aa9",
+      "brightRed": "#b4637a",
+      "brightWhite": "#575279",
+      "brightYellow": "#ea9d34"
+    },
+    {
+      "name": "Catppuccin Latte",
+      "cursorColor": "#DC8A78",
+      "selectionBackground": "#ACB0BE",
+      "background": "#EFF1F5",
+      "foreground": "#4C4F69",
+      "black": "#5C5F77",
+      "red": "#D20F39",
+      "green": "#40A02B",
+      "yellow": "#DF8E1D",
+      "blue": "#1E66F5",
+      "purple": "#EA76CB",
+      "cyan": "#179299",
+      "white": "#ACB0BE",
+      "brightBlack": "#ACB0BE",
+      "brightRed": "#D20F39",
+      "brightGreen": "#40A02B",
+      "brightYellow": "#DF8E1D",
+      "brightBlue": "#1E66F5",
+      "brightPurple": "#EA76CB",
+      "brightCyan": "#179299",
+      "brightWhite": "#BCC0CC"
     }
   ],
-  "theme": "wezterm",
+  "theme": "Catppuccin Latte",
   "themes": [
     {
       "name": "wezterm",
@@ -356,6 +248,38 @@
         "background": "#2B2042FF",
         "unfocusedBackground": "#2B2042FF"
       }
+    },
+    {
+      "name": "rose-pine-dawn",
+      "tab": {
+        "background": "#FAF4EDFF",
+        "showCloseButton": "always",
+        "unfocusedBackground": null
+      },
+      "tabRow": {
+        "background": "#F2E9E1FF",
+        "unfocusedBackground": "#797593FF"
+      },
+      "window": {
+        "applicationTheme": "light",
+        "useMica": false
+      }
+    },
+    {
+      "name": "Catppuccin Latte",
+      "tab": {
+        "background": "#EFF1F5FF",
+        "showCloseButton": "always",
+        "unfocusedBackground": null
+      },
+      "tabRow": {
+        "background": "#E6E9EFFF",
+        "unfocusedBackground": "#DCE0E8FF"
+      },
+      "window": {
+        "applicationTheme": "light"
+      }
     }
-  ]
+  ],
+  "warning.confirmCloseAllTabs": false
 }
