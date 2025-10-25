@@ -9,12 +9,10 @@
   {
     "bindings": {
       "ctrl-c": "menu::Cancel",
-      "tab": "menu::SelectNext",
-      "shift-tab": "menu::SelectPrev",
-      "ctrl-h": ["workspace::ActivatePaneInDirection", "Left"],
-      "ctrl-l": ["workspace::ActivatePaneInDirection", "Right"],
-      "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"],
-      "ctrl-j": ["workspace::ActivatePaneInDirection", "Down"]
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-l": "workspace::ActivatePaneRight",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-j": "workspace::ActivatePaneDown"
     }
   },
   {
@@ -39,15 +37,10 @@
       "\\": "pane::SplitRight",
       "|": "pane::SplitDown",
       "tab": "pane::ActivateNextItem",
-      "shift-tab": "pane::ActivatePrevItem",
+      "shift-tab": "pane::ActivatePreviousItem",
       "shift-y": ["workspace::SendKeystrokes", "y $"],
       "] h": "editor::GoToHunk",
-      "[ h": "editor::GoToPrevHunk",
-      "] d": "editor::GoToDiagnostic",
-      "[ d": "editor::GoToPrevDiagnostic",
-      "g d": "editor::GoToDefinition",
-      "g D": "editor::GoToDeclaration",
-      "g I": "editor::GoToImplementation",
+      "[ h": "editor::GoToPreviousHunk",
       "g r": "editor::FindAllReferences",
       "space space": "file_finder::Toggle",
       "space ,": "tab_switcher::Toggle",
@@ -59,7 +52,6 @@
       "space c f": "editor::Format",
       "space c r": "editor::Rename",
       "space c s": "project_symbols::Toggle",
-      "space c l": "debug::OpenLanguageServerLogs",
       "space s g": "buffer_search::Deploy",
       "space s G": "workspace::NewSearch",
       "space s r": ["buffer_search::Deploy", { "replace_enabled": true }],
@@ -71,12 +63,12 @@
       "space u L": "editor::ToggleRelativeLineNumbers",
       "space u w": "editor::ToggleSoftWrap",
       "space b n": "pane::ActivateNextItem",
-      "space b p": "pane::ActivatePrevItem",
+      "space b p": "pane::ActivatePreviousItem",
       "space b P": "pane::TogglePinTab",
       "space b d": "pane::CloseActiveItem",
-      "space b o": "pane::CloseInactiveItems",
+      "space b o": "pane::CloseOtherItems",
       "space tab n": "pane::ActivateNextItem",
-      "space tab p": "pane::ActivatePrevItem",
+      "space tab p": "pane::ActivatePreviousItem",
       "space tab P": "pane::TogglePinTab"
     }
   },
@@ -107,10 +99,10 @@
     }
   },
   {
-    "context": "Editor && vim_mode == insert && inline_completion",
+    "context": "Editor && vim_mode == insert && edit_prediction",
     "bindings": {
-      "ctrl-f": "editor::AcceptInlineCompletion",
-      "alt-f": "editor::AcceptPartialInlineCompletion"
+      "ctrl-f": "editor::AcceptEditPrediction",
+      "alt-f": "editor::AcceptNextWordEditPrediction"
     }
   },
   {
@@ -131,11 +123,11 @@
     "context": "Terminal",
     "bindings": {
       "ctrl-`": "workspace::ToggleBottomDock",
-      "ctrl-l": "zed::NoAction",
+      "ctrl-l": null,
       "ctrl-shift-c": "workspace::NewTerminal",
       "ctrl-shift-x": "pane::CloseActiveItem",
       "ctrl-shift-n": "pane::ActivateNextItem",
-      "ctrl-shift-p": "pane::ActivatePrevItem",
+      "ctrl-shift-p": "pane::ActivatePreviousItem",
       "ctrl-shift-m": "workspace::ToggleZoom"
     }
   }

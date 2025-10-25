@@ -34,6 +34,9 @@ $SymLinks = @{
   "$Dotfiles\nvim\.config\nvim"                                              = "$env:LOCALAPPDATA\nvim"
   # neovide
   "$Dotfiles\neovide\.config\neovide\config.toml"                            = "$env:APPDATA\neovide\config.toml"
+  # zed
+  "$Dotfiles\zed\.config\zed\settings.json"                                  = "$env:APPDATA\Zed\settings.json"
+  "$Dotfiles\zed\.config\zed\keymap.json"                                    = "$env:APPDATA\Zed\keymap.json"
   # wsl
   "$Dotfiles\wsl\.wslconfig"                                                 = "$env:USERPROFILE\.wslconfig"
   # komorebi
@@ -61,6 +64,7 @@ $Packages = @(
   "Microsoft.PowerToys"
   "Microsoft.WindowsTerminal"
   "Microsoft.VisualStudioCode"
+  "ZedIndustries.Zed"
   "9NBLGGH5R558" # Microsoft To Do
   "Neovim.Neovim"
   "ajeetdsouza.zoxide"

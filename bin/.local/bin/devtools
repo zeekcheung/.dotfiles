@@ -73,9 +73,15 @@ register-python-argcomplete --shell fish pipx >"$fish_completion_dir/pipx.fish"
 
 # Install language servers, formatters, and linters
 pnpm i -g bash-language-server
-pnpm i -g vscode-langservers-extracted
-pnpm i -g yaml-language-server
-pnpm i -g @vtsls/language-server
+
+# NOTE: some language servers must be installed via npm for zed
+# pnpm i -g vscode-langservers-extracted
+# pnpm i -g yaml-language-server
+# pnpm i -g @vtsls/language-server
+npm i -g vscode-langservers-extracted
+npm i -g yaml-language-server
+npm i -g @vtsls/language-server
+
 pnpm i -g @biomejs/biome
 pnpm i -g dockerfile-language-server-nodejs
 pnpm i -g @microsoft/compose-language-service
