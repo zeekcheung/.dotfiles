@@ -7,63 +7,203 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
-  "assistant": {
-    "default_model": {
-      "provider": "zed.dev",
-      "model": "claude-3-5-sonnet-latest"
+  "use_smartcase_search": true,
+  "document_folding_ranges": "on",
+  "semantic_tokens": "combined",
+  "completion_detail_alignment": "right",
+  "sticky_scroll": {
+    "enabled": true,
+  },
+  "which_key": {
+    "enabled": true,
+  },
+  "text_rendering_mode": "platform_default",
+  "session": {
+    "trust_all_worktrees": true,
+  },
+  "edit_predictions": {
+    "provider": "supermaven",
+  },
+  "colorize_brackets": true,
+  "toolbar": {
+    "code_actions": true,
+    "agent_review": true,
+    "selections_menu": true,
+    "quick_actions": false,
+    "breadcrumbs": false,
+  },
+  "title_bar": {
+    "show_branch_name": true,
+    "show_project_items": true,
+    "show_sign_in": true,
+    "show_user_menu": true,
+    "show_user_picture": true,
+    "show_menus": false,
+    "show_branch_icon": true,
+    "show_onboarding_banner": false,
+  },
+  "collaboration_panel": {
+    "button": false,
+  },
+  "auto_update": true,
+  "calls": {
+    "mute_on_join": true,
+  },
+  "preview_tabs": {
+    "enable_keep_preview_on_code_navigation": true,
+    "enable_preview_from_file_finder": true,
+  },
+  "tabs": {
+    "file_icons": true,
+    "git_status": false,
+  },
+  "tab_bar": {
+    "show_nav_history_buttons": false,
+    "show": true,
+  },
+  "debugger": {
+    "button": true,
+  },
+  "search": {
+    "button": true,
+  },
+  "terminal": {
+    "shell": {
+      "with_arguments": {
+        "program": "nu.exe",
+        "args": [],
+      },
     },
-    "version": "2"
+    "working_directory": "current_project_directory",
+    "toolbar": {
+      "breadcrumbs": false,
+    },
+    "blinking": "on",
+    "copy_on_select": true,
+    "line_height": "standard",
   },
-  "ui_font_features": {
-    "calt": 0
+  "status_bar": {
+    "active_encoding_button": "enabled",
+    "cursor_position_button": true,
+    "active_language_button": true,
   },
+  "project_panel": {
+    "bold_folder_labels": false,
+    "entry_spacing": "comfortable",
+    "button": true,
+    "auto_fold_dirs": false,
+  },
+  "outline_panel": {
+    "dock": "right",
+  },
+  "diagnostics": {
+    "button": true,
+    "inline": {
+      "enabled": true,
+    },
+  },
+  "prettier": {
+    "allowed": true,
+  },
+  "inlay_hints": {
+    "enabled": true,
+  },
+  "indent_guides": {
+    "background_coloring": "disabled",
+    "coloring": "fixed",
+  },
+  "minimap": {
+    "show": "auto",
+  },
+  "gutter": {
+    "min_line_number_digits": 2,
+  },
+  "relative_line_numbers": "enabled",
+  "show_signature_help_after_edits": false,
+  "auto_signature_help": false,
   "vim_mode": true,
-  "ui_font_family": "Maple Mono NF",
+  "vim": {
+    "use_system_clipboard": "always",
+  },
+  "ui_font_family": ".SystemUIFont",
+  "icon_theme": {
+    "mode": "system",
+    "light": "Material Icon Theme",
+    "dark": "Material Icon Theme",
+  },
   "buffer_font_family": "Maple Mono NF",
-  "ui_font_size": 18,
-  "buffer_font_size": 18,
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false,
+  },
+  "ui_font_size": 20,
+  "buffer_font_size": 20,
+  "tab_size": 2,
   "theme": {
     "mode": "system",
     "light": "One Light",
-    "dark": "Andromeda"
+    "dark": "Tokyo Night Moon",
   },
-  "tabs": {
-    "file_icons": true
+  "languages": {
+    "C": {
+      "tab_size": 4,
+    },
+    "C++": {
+      "tab_size": 4,
+    },
+    "Go": {
+      "tab_size": 4,
+    },
+    "Python": {
+      "tab_size": 4,
+    },
+    "Rust": {
+      "tab_size": 4,
+    },
   },
-  "tab_bar": {
-    "show_nav_history_buttons": false
+  "lsp": {
+    "vtsls": {
+      "binary": {
+        "ignore_system_version": true,
+      },
+    },
+    "yaml-language-server": {
+      "binary": {
+        "ignore_system_version": true,
+      },
+    },
   },
-  "features": {
-    "inline_completion_provider": "supermaven"
+  "file_types": {
+    "HTML": ["*.hbs", "*.html", "*.handlebars", "*.mustache"],
+    "ini": [".shellcheckrc", ".sqlfluff", ".desktop", "dunstrc"],
+    "JSONC": [
+      ".prettierrc",
+      "*.cjson",
+      "keymap.json",
+      "settings.json",
+      "appsettings.json",
+      "appsettings.*.json",
+    ],
+    "PowerShell": ["*.ps1", "*.psd1", "*.psm1"],
+    "Shell Script": [
+      ".bashenv",
+      ".tmux.conf",
+      "**/.local/bin/*",
+      "**/.dotfiles/arch*",
+    ],
   },
-  "inlay_hints": {
-    "enabled": true
+  "auto_install_extensions": {
+    "csharp": true,
+    "fish": true,
+    "git-firefly": true,
+    "html": true,
+    "ini": true,
+    "lua": true,
+    "material-icon-theme": true,
+    "nu": true,
+    "powershell": true,
+    "sql": true,
+    "toml": true,
+    "xml": true,
   },
-  "project_panel": {
-    "auto_fold_dirs": false
-  },
-  "outline_panel": {
-    "dock": "right"
-  },
-  "preview_tabs": {
-    "enable_preview_from_file_finder": true,
-    "enable_preview_from_code_navigation": true
-  },
-  "telemetry": {
-    "diagSettingsEditornSettingsEditorostSettingsEditoriSettingsEditorcSettingsEditors": false,
-    "metrics": false
-  },
-  "terminal": {
-    "blinking": "on",
-    "copy_on_select": true,
-    "line_height": "standard"
-  },
-  "cursor_blink": false,
-  "relative_line_numbers": true,
-  "scroll_beyond_last_line": "off",
-  "vertical_scroll_margin": 0,
-  "vim": {
-    "use_system_clipboard": "always"
-  },
-  "tab_size": 2
 }
