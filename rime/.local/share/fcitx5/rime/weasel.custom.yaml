@@ -21,6 +21,7 @@ patch:
     "wezterm-gui.exe": { ascii_mode: true, vim_mode: true }
     windowsterminal.exe: { ascii_mode: true, vim_mode: true }
     wt.exe: { ascii_mode: true, vim_mode: true }
+    zed.exe: { ascii_mode: true, vim_mode: true }
   global_ascii: false
   preset_color_schemes:
     "4o-mast-dark":
