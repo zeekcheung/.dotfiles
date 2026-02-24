@@ -50,44 +50,42 @@ $SymLinks = @{
 
 # winget packages
 $Packages = @(
+  "Tencent.WeChat.Universal"
   "Tencent.QQ.NT"
   "Tencent.QQMusic"
-  "Tencent.WeChat.Universal"
   "Daum.PotPlayer"
-  "voidtools.Everything"
-  "XPDLS1XBTXVPP4"
-  "Microsoft.Office"
-  "Microsoft.OneDrive"
-  "Microsoft.PowerToys"
-  "Microsoft.WindowsTerminal"
-  "Microsoft.VisualStudioCode"
-  "9NBLGGH5R558" # Microsoft To Do
-  "Neovim.Neovim"
-  "ajeetdsouza.zoxide"
-)
-
-# packages from github
-$GithubPackages = @(
-  # packages from github
+  "ClashVergeRev.ClashVergeRev"
   # "2dust.v2rayN"
-  "Logitech.Options"
-  "Notepad++.Notepad++"
-  "Obsidian.Obsidian"
-  "Syncthing.Syncthing"
-  # "Microsoft.WSL"
+  "7zip.7zip"
+  "GnuWin32.Gzip"
+  "voidtools.Everything"
+  "9NBLGGH5R558" # Microsoft To Do
+  # "Obsidian.Obsidian"
+  # "Syncthing.Syncthing"
+  # "Logitech.Options"
+  # "XPDLS1XBTXVPP4" # Wise Registry Cleaner
+  "Microsoft.PowerToys"
+  "ZedIndustries.Zed"
+  "Neovim.Neovim"
+  "Rime.Weasel"
+  "Microsoft.WindowsTerminal"
   "Microsoft.PowerShell"
   "Nushell.Nushell"
   "rsteube.Carapace"
-  "wez.wezterm"
   "Starship.Starship"
+  "ajeetdsouza.zoxide"
   "eza-community.eza"
   "junegunn.fzf"
   "sharkdp.fd"
   "sharkdp.bat"
+  "BurntSushi.ripgrep.MSVC"
   "JesseDuffield.lazygit"
-  "SQLite.SQLite"
-  "LGUG2Z.komorebi"
-  "LGUG2Z.whkd"
+  "Schniz.fnm"
+  "Python.Python.3.13"
+  "GoLang.Go"
+  "zig.zig"
+  "BrechtSanders.WinLibs.POSIX.UCRT"
+  # "SQLite.SQLite"
 )
 
 # Install packages
@@ -95,12 +93,6 @@ Write-Host "Installing packages..."
 foreach ($Package in $Packages)
 {
   # winget install --id $Package
-}
-
-# Install packages from github
-foreach ($Package in $GithubPackages)
-{
-  # winget install --id $Package --proxy http://127.0.0.1:10808
 }
 
 # Refresh Path
@@ -116,4 +108,3 @@ foreach ($Symlink in $SymLinks.GetEnumerator())
   Get-Item -Path $Destination -ErrorAction SilentlyContinue | Remove-Item -Force -Recurse -ErrorAction SilentlyContinue
   New-Item -ItemType SymbolicLink -Path $Destination -Target (Resolve-Path $Target) -Force | Out-Null
 }
-
