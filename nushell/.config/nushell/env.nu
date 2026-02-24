@@ -19,6 +19,10 @@ $env.FZF_ALT_C_OPTS = "--preview 'eza --tree {}'"
 $env.FZF_CTRL_T_COMMAND = "fd --type file --hidden"
 $env.FZF_CTRL_T_OPTS = "--preview 'bat --color=always --theme=ansi --decorations=never {}'"
 
+# gcc/g++
+$env.CC = "gcc"
+$env.CXX = "g++"
+
 # rustup
 $env.RUSTUP_DIST_SERVER = "https://rsproxy.cn"
 $env.RUSTUP_UPDATE_ROOT = "https://rsproxy.cn/rustup"

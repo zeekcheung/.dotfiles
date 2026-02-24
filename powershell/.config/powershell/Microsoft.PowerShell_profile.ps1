@@ -1,7 +1,7 @@
 # Environment variables
 $env:EDITOR = @("nvim", "vim", "code", "notepad++", "notepad") |
-Where-Object { Get-Command $_ -ErrorAction SilentlyContinue } |
-Select-Object -First 1
+  Where-Object { Get-Command $_ -ErrorAction SilentlyContinue } |
+  Select-Object -First 1
 
 $env:FZF_DEFAULT_OPTS = @"
 --ansi
@@ -15,6 +15,9 @@ $env:FZF_DEFAULT_OPTS = @"
 --color=gutter:-1
 "@
 
+$env:CC = "gcc"
+$env:CXX = "g++"
+
 fnm env --use-on-cd --shell powershell | Out-String | Invoke-Expression
 
 $env:FNM_MULTISHELL_PATH = "$env:LOCALAPPDATA\fnm_multishells\17184_1745943454228"
@@ -27,7 +30,8 @@ $env:FNM_RESOLVE_ENGINES = "true"
 $env:FNM_ARCH = "x64"
 
 # Note: VSCode cannot resolve below settings
-if (-not $env:VSCODE_PID) {
+if (-not $env:VSCODE_PID)
+{
   $Host.UI.RawUI.WindowTitle = "pwsh.exe"
   Import-Module -Name Microsoft.WinGet.CommandNotFound
 }
@@ -45,27 +49,34 @@ Set-Alias reboot Restart-Computer
 Set-Alias shutdown top-Computer
 Set-Alias vi nvim
 
-function .. {
+function ..
+{
   Set-Location ..
 }
-function env {
+function env
+{
   Get-ChildItem -Path 'Env:'
 }
-function path {
+function path
+{
   $env:Path -split ';'
 }
-function cat {
+function cat
+{
   bat -p $args
 }
-function f {
+function f
+{
   fzf $args
 }
 
-function which($name) {
+function which($name)
+{
   Get-Command $name | Select-Object -ExpandProperty Definition
 }
 
-function ln {
+function ln
+{
   param(
     [Parameter(Mandatory = $true, Position = 0)]
     [ValidateNotNullOrEmpty()]
@@ -80,27 +91,34 @@ function ln {
   New-Item -ItemType SymbolicLink -Path $Destination -Target (Resolve-Path $Target) -Force | Out-Null
 }
 
-function Remove-DefaultAlias {
+function Remove-DefaultAlias
+{
   param ($name, $scope = 'Global')
-  if (Get-Alias $name -ErrorAction SilentlyContinue) {
+  if (Get-Alias $name -ErrorAction SilentlyContinue)
+  {
     Remove-Alias -Name $name -Scope $scope -Force
   }
 }
 
 Remove-DefaultAlias ls
-function ls {
+function ls
+{
   eza --color=always --sort=Name --group-directories-first $args
 }
-function la {
+function la
+{
   ls -a
 }
-function ll {
+function ll
+{
   ls -l
 }
-function l {
+function l
+{
   ls -la
 }
-function tree {
+function tree
+{
   eza --color=always --tree $args
 }
 
@@ -109,52 +127,68 @@ Remove-DefaultAlias cat
 Remove-DefaultAlias gc
 Remove-DefaultAlias gp
 Set-Alias gg lazygit
-function ga {
+function ga
+{
   git add $args
 }
-function gb {
+function gb
+{
   git branch $args
 }
-function gc {
+function gc
+{
   git commit $args
 }
-function gcm {
+function gcm
+{
   git commit -m $args
 }
-function gca {
+function gca
+{
   git commit --amend --no-edit $args
 }
-function gco {
+function gco
+{
   git checkout $args
 }
-function gd {
+function gd
+{
   git diff $args
 }
-function gl {
+function gl
+{
   git log $args
 }
-function gf {
+function gf
+{
   git fetch $args
 }
-function gpl {
+function gpl
+{
   git pull $args
 }
-function gps {
+function gps
+{
   git push $args
 }
-function gpsf {
+function gpsf
+{
   git push --force $args
 }
-function gr {
+function gr
+{
   git rebase $args
 }
-function grc {
+function grc
+{
   git rebase --continue $args
 }
-function gri {
+function gri
+{
   git rebase --interactive $args
 }
-function gst {
+function gst
+{
   git status
 }
 
