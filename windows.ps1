@@ -10,6 +10,7 @@ $SymLinks = @{
   # git
   "$Dotfiles\git\.gitconfig"                                                 = "$env:USERPROFILE\.gitconfig"
   # rime
+  "$Dotfiles\rime\.local\share\fcitx5\rime\custom_phrase.txt"                = "$env:APPDATA\Rime\custom_phrase.txt"
   "$Dotfiles\rime\.local\share\fcitx5\rime\default.custom.yaml"              = "$env:APPDATA\Rime\default.custom.yaml"
   "$Dotfiles\rime\.local\share\fcitx5\rime\rime_ice.custom.yaml"             = "$env:APPDATA\Rime\rime_ice.custom.yaml"
   "$Dotfiles\rime\.local\share\fcitx5\rime\weasel.custom.yaml"               = "$env:APPDATA\Rime\weasel.custom.yaml"

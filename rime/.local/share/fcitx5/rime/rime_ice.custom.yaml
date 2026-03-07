@@ -1,6 +1,8 @@
 # 添加了模糊音的自定义配置文件 rime_ice.custom.yaml
 # https://github.com/Mark24Code/rime-auto-deploy/issues/1
 patch:
+  translator/enable_user_dict: true
+
   switches:
     - name: ascii_mode
       states: [中, Ａ]
