@@ -71,6 +71,7 @@ $Packages = @(
   "Microsoft.PowerToys"
   "ZedIndustries.Zed"
   "Neovim.Neovim"
+  "tree-sitter.tree-sitter-cli"
   "Rime.Weasel"
   "Microsoft.WindowsTerminal"
   "Microsoft.PowerShell"
