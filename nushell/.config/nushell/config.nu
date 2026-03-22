@@ -95,8 +95,9 @@ $env.PROMPT_MULTILINE_INDICATOR = ""
 alias la = ls -a
 alias ll = ls -l
 alias l = ls -a -l
-alias cat = bat -p
 alias f = fzf
+alias cat = bat -p
+alias tree = eza --tree
 
 alias gg = lazygit
 alias ga = git add

@@ -1,3 +1,6 @@
+# shell
+$env.SHELL = "nu"
+
 # editor
 $env.EDITOR = ""
 for $editor in ["nvim" "vim" "vi" "code" "notepad++" "notepad" "nano"] {
