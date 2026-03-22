@@ -1,14 +1,16 @@
 [user]
 	email = zeekcheung@outlook.com
 	name = zeekcheung
+[core]
+	autocrlf = false
+[pull]
+	rebase = true
+[merge]
+	ff = only
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
-; [url "https://gh.zeekcheung.asia/https://github.com"]
-; 	insteadOf = https://github.com
 ; [url "https://gh-proxy.org/https://github.com"]
 ; 	insteadOf = https://github.com
-[pull]
-	ff = only
